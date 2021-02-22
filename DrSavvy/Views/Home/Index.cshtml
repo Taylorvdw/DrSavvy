@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2> Welcome <strong>@ViewBag.Name</strong> :)</h2>
+
+@section Scripts
+    {
+    <!--Scripts-->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript">
+
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript">
+
+    </script>
+    <script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js">
+
+    </script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+         setTimeout( function() 
+                    {
+                            Swal.fire({
+                            position: 'top',
+                            type: 'success',
+                            title: '<span style="color:gray">Welcome',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                     }, 2000)
+
+        });
+    </script>
+
+}

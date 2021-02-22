@@ -1,0 +1,89 @@
+﻿@model DrSavvy.Models.SupplierClass
+
+<div>
+
+    <form id="myForm">
+        @Html.HiddenFor(m => m.Supplier_ID)
+
+        @Html.TextBoxFor(model => model.SupplierName, new { @class = "form-control", @placeholder = "Company Name", required = "required" , @style ="border-radius:20px"})
+        @Html.ValidationMessageFor(model => model.SupplierName, "",new { @style = "color:red" })
+        @Html.TextAreaFor(model => model.SupplierAddress, new { @class = "form-control", @placeholder = "Address", required = "required", @style ="border-radius:20px"})
+        @Html.ValidationMessageFor(model => model.SupplierAddress, "",new { @style = "color:red" })
+        @Html.TextBoxFor(model => model.SupplierWorkNumber, new { @class = "form-control", @placeholder = "Company Number", required = "required" ,@style ="border-radius:20px"})
+        @Html.ValidationMessageFor(model => model.SupplierWorkNumber, "",new { @style = "color:red" })
+        @Html.TextBoxFor(model => model.SupplierContactPerson, new { @class = "form-control", @placeholder = "Contact Name", required = "required",@style ="border-radius:20px" })
+        @Html.ValidationMessageFor(model => model.SupplierContactPerson, "",new { @style = "color:red" })
+        @Html.TextBoxFor(model => model.SupplierCellNumber, new { @class = "form-control", @placeholder = "Contact Number", required = "required",@style ="border-radius:20px" })
+        @Html.ValidationMessageFor(model => model.SupplierCellNumber, "",new { @style = "color:red" })
+        @Html.TextBoxFor(model => model.SupplierEmail, new { @class = "form-control", @placeholder = "Contact Email", type = "email", required = "required",@style ="border-radius:20px" })
+        @Html.ValidationMessageFor(model => model.SupplierEmail, "",new { @style = "color:red" })
+
+        <br />
+
+
+
+        <button id="btnSubmit" type="submit" class="btn btn-success btn-block" style ="border-radius:20px">
+            @if (Model.Supplier_ID > 0)
+            {<span>Update</span> }
+            else
+            {<span>Save</span>}
+        </button>
+    </form>
+
+
+
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            debugger
+            var myformdata = $("#myForm").serialize();
+            var s1 = $("#SupplierName").val();
+            var s2 = $("#SupplierAddress").val();
+            var s3 = $("#SupplierWorkNumber").val();
+            var s4 = $("#SupplierContactPerson").val();
+            var s5 = $("#SupplierCellNumber").val();
+            var s6 = $("#SupplierEmail").val();
+           var filter = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+           
+   debugger
+
+        if (s1 == "" || s1 == undefined || s2 == "" || s2 == undefined || s3 == "" || s3 == undefined || s4 == "" || s4 == undefined || s5 == "" || s5 == undefined || s6 == "" || s6 == undefined || filter.test(s6) == false) {
+
+                
+            }
+            else {
+
+
+
+
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Inventory/SearchSupplier",
+                    data: myformdata,
+                    success: function () {
+                        $("#loaderDiv").hide();
+                        $("#myModal").modal("hide");
+                        window.location.href = "/Inventory/SearchSupplier";
+
+                    }
+
+                })
+
+
+
+
+            }
+        })
+
+    })
+
+
+</script>
+

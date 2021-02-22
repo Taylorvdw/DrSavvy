@@ -1,0 +1,77 @@
+﻿<form>
+    <table class="table-dark table table-hover" style="border-radius: 25px" id="tableId">
+        <thead>
+            <tr>
+                <th scope="col">Code</th>
+                <th scope="col"> Name</th>
+                <th scope="col">Ordered Quantity</th>
+                <th scope="col">Received Quantity</th>
+                <th scope="col">Product Cost Incl. VAT</th>
+
+
+            </tr>
+        </thead>
+        <tbody id="Row">
+            @if (ViewBag.Record != null)
+            {
+                foreach (var item in ViewBag.Record)
+                {
+                    <tr id="@item.OrderID" >
+                        <td>@item.ProductID</td>
+                        <td>@item.ProductName </td>
+                        <td>@item.Prod_Qty</td>
+                        <td><input type="number" class="form-control" required placeholder="Received Qty" style="background-color:black;border-radius:20px;color:white" /></td>
+                        <td><input type="number" class="form-control" required placeholder="Product Cost"  style="background-color:black;border-radius:20px;color:white" /></td>
+                    </tr>
+                }
+            }
+        </tbody >
+    </table>
+    <button id="btnSave" type="submit" class="btn btn-success btn-block" style="border-radius:20px">
+        <span>Capture Order Received</span>
+    </button>
+</form>
+
+<script>
+    $('#btnSave').click(() => {
+        var rowCount = $('#Row >tr').length;
+        let RQty = Array();
+        let cost = Array();
+        let ID = Array();
+        var i = 0;
+        var table = document.getElementById("tableId");
+        var row = table.rows[1];
+        var OrdID = row.id;
+        
+        while (i < rowCount) {
+            i++;
+            ID.push($("#Row > tr:nth-child(" + i + ")")[0].childNodes[1].innerHTML);
+            cost.push($("#Row > tr:nth-child(" + i + ")")[0].childNodes[9].children[0].value);
+            RQty.push($("#Row > tr:nth-child(" + i + ")")[0].childNodes[7].children[0].value);            
+            
+        }
+
+         $.ajax({
+                    url: "/Inventory/SaveRecOrder",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ "procid": ID, "procQuantity": RQty, "orderID": OrdID, "cost": cost}),
+                    success: function (status) {
+                        if (status=="true") {
+                            $('#AddingProcedure').hide();
+                        $('#ErrorProcedure').show();
+                        }
+                    },                 
+                    error: function ( thrownError) {
+                        
+                        
+                    }
+         })
+
+        
+
+        
+    });
+
+</script>

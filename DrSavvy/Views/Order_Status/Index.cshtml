@@ -1,0 +1,104 @@
+﻿@model IEnumerable<DrSavvy.Models.Order_Status>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrderStatus">New Order Status</button>
+<hr />
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend" style="color:dodgerblue;">
+        <span class="input-group-text" id="basic-text1" style="background-color:dodgerblue;">
+            <i class="fas fa-search text-white"
+               aria-hidden="true"></i>
+        </span>
+    </div>
+    <input type="text" class="form-control fa-search " placeholder="Search here..." aria-label="Recipient's username" aria-describedby="button-addon2" id="Search">
+</div>
+<br />
+
+<script src="~/Scripts/jquery-3.4.1.min.js">
+
+</script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+</script>
+
+<table class="table-active table table-hover" style="border-radius: 25px;" id="tblOrderStatus">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OS_Description)
+        </th>
+        </th>
+        <th scope="col">
+            Modify
+        </th>
+        <th scope="col">
+            Remove
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="Search">
+            <td>
+                @Html.DisplayFor(modelItem => item.OS_Description)
+            </td>
+            <td>
+                <button type="button" class="btn btn-warning" data-toggle="modal" onclick="DisplayModal('Edit/@item.OS_ID')">
+                    <i class="fas fa-user-edit fa-lg" data-toggle="modal" data-target="#ConEdit"></i>
+                    <span>
+                        <strong>Modify</strong>
+                    </span>
+                </button>
+
+            </td>
+            <td>
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" onclick="DisplayModal('Delete/@item.OS_ID')">
+                    <i class="far fa-trash-alt fa-lg"></i>
+                    <span>
+                        <strong>Delete</strong>
+                    </span>
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
+<iframe src="Create/" class="modal modal-lg" id="addOrderStatus" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35%">Your browser doesn't support iFrames.</iframe>
+<iframe class="modal modal-lg" id="editOrderStatus" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35%">Your browser doesn't support iFrames.</iframe>
+<iframe class="modal modal-lg" id="DeleteOrderStatus" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35%">Your browser doesn't support iFrames.</iframe>
+<script>
+    var call;
+    function DisplayModal(test) {
+        document.getElementById('editOrderStatus').src = test;
+        $("#editOrderStatus").modal("show");
+
+    }
+
+    function DisplayModal(test) {
+        document.getElementById('DeleteOrderStatus').src = test;
+        $("#DeleteOrderStatus").modal("show");
+
+    }
+</script>
+

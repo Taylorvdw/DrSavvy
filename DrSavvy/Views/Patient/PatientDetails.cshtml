@@ -1,0 +1,128 @@
+﻿@model DrSavvy.Models.Patient
+
+@{
+    ViewBag.Title = "Patient Details";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+
+<h2>Patient Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title.Title_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title.Title_Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientCell)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientCell)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientWorkNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientWorkNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientTelNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientTelNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientPoBox)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientPoBox)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientHomeAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientHomeAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientIDNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientIDNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientPassportNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientPassportNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicalAidNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicalAidNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Medical_Aid_Scheme.Scheme_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medical_Aid_Scheme.Scheme_Name)
+        </dd>
+    </dl>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-success" onclick="CloseIframe()" />
+            <button style="float:right" class="btn btn-danger" onclick="CloseIframe()">Discard</button>
+        </div>
+    </div>
+</div>
+<script>
+    function CloseIframe() {
+        setTimeout(function () { window.top.location.href = "/Patient/PatientsView" }, 1500)
+    }
+</script>
+

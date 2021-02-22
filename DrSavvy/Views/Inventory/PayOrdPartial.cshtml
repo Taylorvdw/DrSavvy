@@ -1,0 +1,121 @@
+﻿
+<button type="button" class="btn btn-outline-success" onclick="cash()" style="border-radius:20px">CASH</button>
+<button type="button" class="btn btn-outline-info" onclick="eft()" style="border-radius:20px">EFT</button>
+<br />
+<form id="ca">
+    <br />
+    <div id="cash" style="display:none">
+        <input type="number" class="form-control btn-outline-primary " id="cashAmount" placeholder="Amount Paid" required />
+        <input type="text" class="btn-outline-primary form-control" id="Inum" placeholder="Invoice Number" required/>
+        <input type="text" class="btn-outline-primary form-control" id="rnum" placeholder="Receipt Number" required/>
+        <br />
+        <button id="btnSubmit" type="submit" class="btn btn-success btn-block" onclick="Paycash()">
+            <span>Capture Payment</span>
+        </button>
+    </div>
+</form>
+<form id="ef">
+    <div id="eft" style="display:none">
+        <input type="number" class="form-control btn-outline-primary" id="eftAmount" placeholder="Amount Paid" required/>
+        <input type="text" class="btn-outline-primary form-control" id="tnum" placeholder="Transaction Number" required/>
+        <br />
+        <button id="btnSubmit" type="submit" class="btn btn-success btn-block" style="border-radius:20px" onclick="Payeft()">
+            <span>Capture Payment</span>
+        </button>
+    </div>
+
+
+</form>
+@if (ViewBag.Record != null)
+{
+    <input type="hidden" id="Ord" value="@ViewBag.Record" />
+}
+<script>
+    var type;
+    function Payeft() {
+        debugger
+        type = 1;
+        var amount = document.getElementById("eftAmount").val();
+        var Tnum = document.getElementById("tnum").value;
+        var Ord = document.getElementById("Ord").value;
+        if (amount == "" || Tnum == "" || Ord == "" || amount<1) {
+
+        }
+        else {
+            $.ajax({
+            url: "/Inventory/OrderPayment",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ "type": type, "amount": amount, "Tnum": Tnum, "ord": Ord }),
+                success: function (status) {
+                    debugger
+                if (status == "true") {
+                    $('#AddingProcedure').hide();
+                    $('#ErrorProcedure').show();
+                }
+            },
+            error: function (thrownError) {
+
+
+            }
+        })
+        }
+        
+    }
+    function Paycash() {
+        type = 2;
+        var amount = document.getElementById("cashAmount").value;
+        var Tnum = document.getElementById("rnum").value;
+        var Ord = document.getElementById("Ord").value;
+        var Inum = document.getElementById("Inum").value;
+        if (amount == "" || Tnum == "" || Ord == "" || Inum == "" || amount<1) {
+
+        }
+        else {
+            $.ajax({
+            url: "/Inventory/OrderPayment",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ "type": type, "amount": amount, "Tnum": Tnum, "ord": Ord, "Inum": Inum }),
+            success: function (status) {
+                if (status == "true") {
+                    $('#AddingProcedure').hide();
+                    $('#ErrorProcedure').show();
+                }
+            },
+            error: function (thrownError) {
+
+
+            }
+        });
+        }
+        
+
+    }
+    function cash() {
+        var x = document.getElementById("cash");
+        var y = document.getElementById("eft");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            y.style.display = "none";
+        } else {
+            x.style.display = "none";
+            y.style.display = "none";
+        }
+    }
+
+    function eft() {
+        var x = document.getElementById("eft");
+        var y = document.getElementById("cash");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            y.style.display = "none";
+        } else {
+            x.style.display = "none";
+            y.style.display = "none";
+        }
+    }
+</script>
+

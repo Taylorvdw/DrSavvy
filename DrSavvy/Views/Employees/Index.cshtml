@@ -1,0 +1,314 @@
+﻿@model IEnumerable<DrSavvy.Models.Employee>
+@{
+    ViewBag.Title = "Employees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<button type="button" style="border-radius:20px; background-color:#1a6490; color:white " class="btn btn-primary" data-toggle="modal" data-target="#myModalAdd">Add New Employee</button>
+<hr />
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend" style="color:dodgerblue;">
+        <span class="input-group-text" id="basic-text1" style="background-color:dodgerblue;">
+            <i class="fas fa-search text-white"
+               aria-hidden="true"></i>
+        </span>
+    </div>
+    <input type="text" class="form-control fa-search " style="background-color:rgba(255, 255, 255, 0.00); color:white ;" placeholder="Search here..." aria-label="Recipient's username" aria-describedby="button-addon2" id="Search">
+</div>
+<br />
+
+
+
+<table class="table table-striped table-dark" style="border-radius: 25px;" id="EmployeeTable">
+    <tr style="background-color:#499df5">
+
+        <th>
+            Name
+        </th>
+        <th>
+            Surname
+        </th>
+        <th>
+            I.D Number
+        </th>
+        <th>
+            Employee Role
+        </th>
+        <th scope="col">
+            Modify
+        </th>
+        <th scope="col">
+            Remove
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        string EmployeeID = item.EMP_ID.ToString();
+        string generatedURL = "Edit/" + EmployeeID;
+
+        <tr class="Search">
+            <td>
+                @Html.DisplayFor(modelItem => item.EMPName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMPSurname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Emp_IDNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee_Role.Emp_Role_Description)
+            </td>
+            <td>
+                <button class="btn" data-toggle="modal"><i id="btnIcon" style="color:forestgreen" class="fas fa-user-edit fa-lg" onclick="EditEmp(@item.EMP_ID)"></i></button>
+            </td>
+            <td>
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" onclick="DisplayModal('Delete/@item.EMP_ID')">
+                    <i class="far fa-trash-alt fa-lg"></i>
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
+<iframe class="modal modal-lg" id="DeleteEmployee" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35%">Your browser doesn't support iFrames.</iframe>
+
+
+<!--Modal for Adding New Employee Details -->
+<div id="myModalAdd" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:black;border-radius:15px">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Employee</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label> Name</label>
+                    <input type="text" id="txtName" class="form-control" placeholder="Enter Name" style="border-radius:20px" />
+                </div>
+
+                <div class="form-group">
+                    <label>Surname</label>
+                    <input type="text" id="txtSurname" class="form-control" placeholder="Enter Surname" style="border-radius:20px" />
+                </div>
+
+                <div class="form-group">
+                    <label>Cell No</label>
+                    <input type="text" id="txtCell" class="form-control" placeholder="Enter Cell" style="border-radius:20px" />
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="txtEmail" class="form-control" placeholder="Enter Email" style="border-radius:20px" />
+                </div>
+
+                <div class="form-group">
+                    <label>ID Number</label>
+                    <input type="text" id="txtID" class="form-control" placeholder="Enter ID" style="border-radius:20px" />
+                </div>
+
+
+                <div class="form-group">
+                    <label>Select Role</label>
+                    <select id="txtRole" class="form-control" style="border-radius:20px"></select>
+                </div>
+
+                <div>
+                    <button type="button" id="btnSaveEmployee" class="btn btn-success" style="border-radius:20px">Save </button>
+                    <button type="button" class="btn btn-dark pull-right" style="margin-left:320px;border-radius:20px" data-dismiss="modal" id="btnCloseAdd">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Employee -->
+<div id="mymodifyEmployee" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:black;border-radius:15px">
+            <div class="modal-header">
+                <h4 class="modal-title">Modify Employee</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label> Name</label>
+                    <input type="text" id="txtNameM" class="form-control" placeholder="Enter Name" style="border-radius:20px" />
+                </div>
+
+                <div class="form-group">
+                    <label>Surname</label>
+                    <input type="text" id="txtSurnameM" class="form-control" placeholder="Enter Surname" style="border-radius:20px" />
+                </div>
+
+                <div class="form-group">
+                    <label>Cell No</label>
+                    <input type="text" id="txtCellM" class="form-control" placeholder="Enter Cell" style="border-radius:20px" />
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="txtEmailM" class="form-control" placeholder="Enter Email" style="border-radius:20px" />
+                </div>
+
+                <div class="form-group">
+                    <label>ID Number</label>
+                    <input type="text" id="txtIDM" class="form-control" placeholder="Enter ID" style="border-radius:20px" />
+                </div>
+
+
+                <div class="form-group">
+                    <label>Select Role</label>
+                    <select id="txtRoleM" class="form-control" style="border-radius:20px"></select>
+                </div>
+
+                <div>
+                    <button type="button" id="btnmodifyEmployee" class="btn btn-success" style="border-radius:20px">Save </button>
+                    <button type="button" class="btn btn-dark pull-right" style="margin-left:320px;border-radius:20px" data-dismiss="modal" id="btnClosemodify">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function Contains(text_one, text_two) {
+                if (text_one.indexOf(text_two) != -1)
+                    return true;
+            }
+            $("#Search").keyup(function () {
+                var searchText = $("#Search").val().toLowerCase();
+                $(".Search").each(function () {
+                    if (!Contains($(this).text().toLowerCase(), searchText)) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                });
+            });
+            $.ajax({
+                type: "GET",
+                url: "/Employees/getRole",
+                data: "{}",
+                success: function (data) {
+                    var s;
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option style="border-radius:20px;background-color:black;color:white" value="' + data[i].Role + '">' + data[i].Role + '</option>';
+                    }
+                    $("#txtRole").html(s);
+                }
+            });
+            $('#btnSaveEmployee').click(function () {
+                //Validation
+                if ($('#txtName').val().trim() == "") {
+                    Swal.fire('<span style="color:dodgerblue"> Uh Oh!!', 'There`s No Name Entered', 'warning');
+                    return;
+                }
+                if ($('#txtSurname').val().trim() == "") {
+                    Swal.fire('<span style="color:dodgerblue">Uh Oh!!', 'There`s No Surname Entered', 'warning');
+                    return;
+                }
+                if ($('#txtCell').val().trim() == "") {
+                    Swal.fire('<span style="color:dodgerblue"> Uh Oh!!', 'There`s No Cell Number Entered', 'warning');
+                    return;
+                }
+                if ($('#txtEmail').val().trim() == "") {
+                    Swal.fire('<span style="color:dodgerblue"> Uh Oh!!', 'There`s No Email Entered', 'warning');
+                    return;
+                }
+                if ($('#txtID').val().trim() == "") {
+                    Swal.fire('<span style="color:dodgerblue"> Uh Oh!!', 'There`s No ID Entered', 'warning');
+                    return;
+                }
+                var Name = $('#txtName').val();
+                var Role = $('#txtRole option:selected').text();
+                var Surname = $('#txtSurname').val();
+                var Cell = $('#txtCell').val();
+                var Email = $('#txtEmail').val();
+                var ID = $('#txtID').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Employees/AddEmployee',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        "Name": Name,
+                        "Surname": Surname,
+                        "Role": Role,
+                        "Cell": Cell,
+                        "Email": Email,
+                        "ID": ID
+                    }),
+                    success: function (data) {
+                        if (data.status) {
+                            setTimeout(function () {
+                                $('#txtName').val('');
+                                $('#txtSurname').val('');
+                                $('#txtCell').val('');
+                                $('#txtID').val('');
+                                $('#txtEmail').val('');
+                                location.reload();
+                            }, 3000);
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href><span style="color:dodgerblue">Why do I have this issue?</a>'
+                        });
+                        $('#txtName').val('');
+                        $('#txtSurname').val('');
+                        $('#txtCell').val('');
+                        $('#txtEmail').val('');
+                    }
+                })
+            });
+        });
+        function EditEmp(Emp_ID) {
+            $.ajax({
+                url: '/Employees/FindEmployee',
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ "ID": Emp_ID }),
+                success: function (data)
+                {
+                    $(data, function () {
+                        $('#txtNameM').val(data.nAme);
+                        $('#SurNameM').val(data.SurnAme);
+                        $('#txtCellM').val(data.cEll);
+                        $('#txtEmailM').val(data.eMail);
+                        $('#txtIDM').val(data.iDnum);
+                        $('#txtRoleM').val(data.rOle);
+                    });
+                    $("#mymodifyEmployee").modal("show");
+                }
+            });
+        }
+
+    </script>
+    <script>
+        var call;
+        function DisplayModal(test) {
+            document.getElementById('editEmployee').src = test;
+            $("#editEmployee").modal("show");
+
+        }
+
+        function DisplayModal(test) {
+            document.getElementById('DeleteEmployee').src = test;
+            $("#DeleteEmployee").modal("show");
+
+        }
+    </script>
+}

@@ -1,0 +1,51 @@
+﻿@model DrSavvy.Models.Xray
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Xray</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Consultation.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Consultation.Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.PatientName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.PatientName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.XrayID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

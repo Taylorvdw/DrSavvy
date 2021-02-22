@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "NewRefferal";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+
+<nav class="navbar navbar-expand-lg navbar-light" style="border-radius:15px">
+    <div class="container-fluid">
+        <button type="submit" class="btn" style="color:white" onclick="window.close()">
+            <i class="fas fa-undo"></i>
+            <span>Back</span>
+        </button>
+        <div style="margin-left:-70px;color:#00709e;font-size:24px;font-weight:600;">
+            @ViewBag.Patient
+        </div>
+        <div>
+            <button class="btn btn-outline-primary" onclick="printContent('Referral');">Print</button>
+        </div>
+    </div>
+</nav>
+<div class="border-light" style="display:block;background-color:white;border-radius:20px;width:800px; margin-left:300px;" id="Referral">
+    <h1 style="margin-left:170px"><span style="color:black"><b>Dr Eddy McDonald</b></span><span style="color:black;font-size:20px"> (Inc/Ingelyf)</span></h1>
+    <p style="margin-left:260px;color:black">MB chB M Med(Pharm) FCFP (SA)<br /><span style="margin-left:80px">Pr:1518887</span><br /><span style="margin-left:80px">MP0151599</span></p>
+    <p style="color:black">
+        Suite 4A Faerie Glen Medical Centre<br />c/o Trevor Gething & Jacqueline Drive <span style="margin-left:330px">Tel:012 348 1185/6</span>
+        <br />Faerie Glen<span style="margin-left:500px">Res/Won: 012 361 2148</span><br /><span style="margin-left:590px">Fax/Faks: 012 348 4986</span>
+        <br />P.O Box/Posbus 915-1506<span style="margin-left:350px">Emerge/Nood 012 361 2148</span><br />Faerie Glen 0043<span style="margin-left:554px">08/09/2019</span>
+    </p>
+    <hr style="background-color:black" />
+    <p style="color:black">Patient Name/Pasient Naam : <span style="color:black;font-size:26px">@ViewBag.PatientName</span><span style="margin-left:150px">Date :</span><span style="color:black;font-size:26px;margin-left:10px">@ViewBag.Date</span> </p>
+    <p style="color:black">Patient ID Number : <span style="color:black;font-size:26px">@ViewBag.IDNumber</span><span style="margin-left:150px">Cell Number :</span><span style="color:black;font-size:26px;margin-left:10px">@ViewBag.Cell</span> </p>
+    <hr style="background-color:black" />
+    <p style="color:black">Medical Aid : <span style="color:black;font-size:26px">@ViewBag.MedicalAid</span><span style="margin-left:150px">Medical Aid No :</span><span style="color:black;font-size:26px;margin-left:10px">@ViewBag.MedicalAidNo</span> </p>
+    <p style="color:black">Work Number: <span style="color:black;font-size:26px">@ViewBag.WorkNo</span><span style="margin-left:150px">Email :</span><span style="color:black;font-size:26px;margin-left:10px">@ViewBag.Email</span> </p>
+    <hr style="background-color:black" />
+    <h3 style="margin-left:280px"><span style="color:#00709e">Reason For Referral</span></h3>
+    <textarea style="color:black;border:2px solid;border-radius:10px;margin-left:100px;width:600px">@ViewBag.Reason</textarea>
+    <h3 style="margin-left:280px"><span style="color:#00709e">Institute Details</span></h3>
+    <p style="color:black">Name: <span style="color:black;font-size:20px"> @ViewBag.Institue</span><span style="margin-left:50px">Person :</span><span style="color:black;font-size:20px;margin-left:10px">@ViewBag.InsPerson</span><span style="margin-left:50px">Contact :</span><span style="color:black;font-size:20px;margin-left:10px">@ViewBag.InsNumber</span> </p>
+    <br />
+    <br />
+    <hr style="width:300px;background-color:black"/>
+    <p style="color:Black;height:-20px;margin-left:250px">Signature</p>
+</div>
+@section Scripts{
+    <script>
+        function printContent(el) {
+            var restorepage = $('body').html();
+            var printcontent = $('#' + el).clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+        }
+    </script>
+}

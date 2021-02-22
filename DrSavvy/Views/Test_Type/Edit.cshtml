@@ -1,0 +1,55 @@
+﻿@model DrSavvy.Models.Test_Type
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Test_Type</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Test_Type_ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Test_Type_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Test_Type_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Test_Type_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Test_Type_Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Test_Type_Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Test_Type_Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" onclick="CloseIframe()" />
+            </div>
+        </div>
+    </div>
+    <script>
+        function CloseIframe() {
+            setTimeout(function () { window.top.location.href = "Test_Type/Index" }, 650)
+
+        }
+    </script>
+}
+
+<button class="btn btn-danger" onclick="CloseIframe()">Discard</button>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

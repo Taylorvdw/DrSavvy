@@ -1,0 +1,55 @@
+﻿@model DrSavvy.Models.Ailment
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Ailment</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ICD10, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ICD10, new { htmlAttributes = new { @class = "form-control", @style="border-radius:20px;color:white" } })
+                @Html.ValidationMessageFor(model => model.ICD10, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ailment_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ailment_Name, new { htmlAttributes = new { @class = "form-control" , @style="border-radius:20px;color:white"} })
+                @Html.ValidationMessageFor(model => model.Ailment_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" style="border-radius:20px" onclick="CloseIframe()" />
+            </div>
+        </div>
+    </div>
+    <script>
+        function CloseIframe() {
+            setTimeout(function () { window.top.location.href = "/Ailments/Index" }, 650)
+
+        }
+    </script>
+}
+
+
+<button class="btn btn-danger" onclick="CloseIframe()" style="border-radius:20px">Discard</button>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

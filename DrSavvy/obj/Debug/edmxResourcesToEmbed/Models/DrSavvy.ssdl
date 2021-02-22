@@ -1,0 +1,1480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DrSavvyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Access_Control">
+    <Key>
+      <PropertyRef Name="AccessID" />
+    </Key>
+    <Property Name="AccessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AC_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AC_Description" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ailments">
+    <Key>
+      <PropertyRef Name="Ailment_ID" />
+    </Key>
+    <Property Name="Ailment_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ICD10" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Ailment_Name" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Allergies">
+    <Key>
+      <PropertyRef Name="Allergy_ID" />
+    </Key>
+    <Property Name="Allergy_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Allergy_Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appointments">
+    <Key>
+      <PropertyRef Name="Appointment_ID" />
+    </Key>
+    <Property Name="Appointment_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppointmentDate" Type="datetime" Nullable="false" />
+    <Property Name="Patient_ID" Type="int" Nullable="false" />
+    <Property Name="Timeslot_ID" Type="int" Nullable="false" />
+    <Property Name="AppointmentDescription" Type="varchar(max)" />
+    <Property Name="ThemeColor" Type="varchar" MaxLength="50" />
+    <Property Name="IsFullDay" Type="bit" />
+    <Property Name="AppointmentStatus" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="AspNetRoles_Id" />
+      <PropertyRef Name="AspNetUsers_Id" />
+    </Key>
+    <Property Name="AspNetRoles_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="AspNetUsers_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Backlogs">
+    <Key>
+      <PropertyRef Name="BacklogID" />
+    </Key>
+    <Property Name="BacklogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Backlog_Description" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="OrderLineID" Type="int" />
+    <Property Name="BacklogQty" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Consultation_Ailment">
+    <Key>
+      <PropertyRef Name="Consultation_ID" />
+      <PropertyRef Name="Ailment_ID" />
+    </Key>
+    <Property Name="Consultation_ID" Type="int" Nullable="false" />
+    <Property Name="Ailment_ID" Type="int" Nullable="false" />
+    <Property Name="Notes" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Consultation_Procedure">
+    <Key>
+      <PropertyRef Name="Consultation_ProcedureID" />
+    </Key>
+    <Property Name="Consultation_ProcedureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Consultation_ID" Type="int" Nullable="false" />
+    <Property Name="Procedure_ID" Type="int" Nullable="false" />
+    <Property Name="ProcedureNotes" Type="varchar(max)" />
+    <Property Name="Appointment_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Consultations">
+    <Key>
+      <PropertyRef Name="Consultation_ID" />
+    </Key>
+    <Property Name="Consultation_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Comments" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Patient_ID" Type="int" />
+    <Property Name="Appointment_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="create_date" Type="datetime" Nullable="false" />
+    <Property Name="modify_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee_Role">
+    <Key>
+      <PropertyRef Name="EMP_Role_ID" />
+    </Key>
+    <Property Name="EMP_Role_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Emp_Role_Description" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="AccessID" Type="int" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="EMP_ID" />
+    </Key>
+    <Property Name="EMP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EMPName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EMPSurname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EMP_CellphoneNum" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="EMP_Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Emp_IDNum" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="EMP_Role_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Institute_Type">
+    <Key>
+      <PropertyRef Name="Institute_Type_ID" />
+    </Key>
+    <Property Name="Institute_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Institute_Type_Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Institutes">
+    <Key>
+      <PropertyRef Name="Institute_ID" />
+    </Key>
+    <Property Name="Institute_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Institute_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Institute_Type_ID" Type="int" Nullable="false" />
+    <Property Name="Institute_ContactPerson" Type="varchar" MaxLength="50" />
+    <Property Name="Instsitute_ContactNumber" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Medical_Aid_Claim">
+    <Key>
+      <PropertyRef Name="Medical_Aid_Claim_ID" />
+    </Key>
+    <Property Name="Medical_Aid_Claim_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Claim_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Claim_Date" Type="datetime" Nullable="false" />
+    <Property Name="Claim_Description" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Payment_ID" Type="int" />
+    <Property Name="Consultation_ID" Type="int" Nullable="false" />
+    <Property Name="ClaimStatus" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Medical_Aid_Company">
+    <Key>
+      <PropertyRef Name="Company_ID" />
+    </Key>
+    <Property Name="Company_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ContactPerson" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Contact_Number" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medical_Aid_Scheme">
+    <Key>
+      <PropertyRef Name="Scheme_ID" />
+    </Key>
+    <Property Name="Scheme_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Scheme_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Company_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medications">
+    <Key>
+      <PropertyRef Name="Medication_ID" />
+    </Key>
+    <Property Name="Medication_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mediction_Description" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MobileApps">
+    <Key>
+      <PropertyRef Name="MobileAppID" />
+    </Key>
+    <Property Name="MobileAppID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppointmentID" Type="int" Nullable="false" />
+    <Property Name="AppDate" Type="varchar(max)" />
+    <Property Name="StartTime" Type="varchar(max)" />
+    <Property Name="EndTime" Type="varchar(max)" />
+    <Property Name="PatientName" Type="varchar(max)" />
+    <Property Name="PatientSurname" Type="varchar(max)" />
+    <Property Name="AppDescr" Type="varchar(max)" />
+    <Property Name="StartDateTime" Type="varchar(max)" />
+    <Property Name="EndDateTime" Type="varchar(max)" />
+    <Property Name="FullName" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Order_Line">
+    <Key>
+      <PropertyRef Name="OrderLineID" />
+    </Key>
+    <Property Name="OrderLineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Prod_Qty" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="ReceivedQty" Type="decimal" Precision="10" Scale="0" />
+  </EntityType>
+  <EntityType Name="Order_Payment">
+    <Key>
+      <PropertyRef Name="Order_Payment_ID" />
+    </Key>
+    <Property Name="Order_Payment_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Order_Payment_Date" Type="datetime" Nullable="false" />
+    <Property Name="Order_Payment_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="Payment_Type_ID" Type="int" Nullable="false" />
+    <Property Name="ReceiptNumber" Type="varchar" MaxLength="20" />
+    <Property Name="TransactionNumber" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Order_Status">
+    <Key>
+      <PropertyRef Name="OS_ID" />
+    </Key>
+    <Property Name="OS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OS_Description" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Order_Cost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="OS_ID" Type="int" Nullable="false" />
+    <Property Name="Supplier_ID" Type="int" Nullable="false" />
+    <Property Name="Order_Date" Type="datetime" />
+    <Property Name="PaidStatus" Type="bit" />
+  </EntityType>
+  <EntityType Name="Patient_Allergy_List">
+    <Key>
+      <PropertyRef Name="PatientAllergyID" />
+    </Key>
+    <Property Name="PatientAllergyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Patient_ID" Type="int" Nullable="false" />
+    <Property Name="Allergy_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Patients">
+    <Key>
+      <PropertyRef Name="Patient_ID" />
+    </Key>
+    <Property Name="Patient_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PatientSurname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PatientCell" Type="varchar" MaxLength="15" />
+    <Property Name="PatientWorkNum" Type="varchar" MaxLength="15" />
+    <Property Name="PatientTelNum" Type="varchar" MaxLength="15" />
+    <Property Name="PatientEmail" Type="varchar" MaxLength="50" />
+    <Property Name="PatientPoBox" Type="varchar" MaxLength="255" />
+    <Property Name="PatientHomeAddress" Type="varchar" MaxLength="255" />
+    <Property Name="PatientIDNum" Type="varchar" MaxLength="13" />
+    <Property Name="PatientPassportNum" Type="varchar" MaxLength="9" />
+    <Property Name="MedicalAidNo" Type="varchar" MaxLength="30" />
+    <Property Name="DependentNo" Type="int" />
+    <Property Name="Scheme_ID" Type="int" />
+    <Property Name="Title_ID" Type="int" />
+    <Property Name="DOB" Type="datetime" />
+    <Property Name="Gender" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="Payment_Type">
+    <Key>
+      <PropertyRef Name="Payment_Type_ID" />
+    </Key>
+    <Property Name="Payment_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Payment_Type_Description" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="Payment_ID" />
+    </Key>
+    <Property Name="Payment_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Payment_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Consultation_ID" Type="int" Nullable="false" />
+    <Property Name="Payment_Type_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Prescription_Line">
+    <Key>
+      <PropertyRef Name="PrescriptionLineID" />
+    </Key>
+    <Property Name="PrescriptionLineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Perscription_Date" Type="datetime" />
+    <Property Name="Intake" Type="varchar" MaxLength="50" />
+    <Property Name="ValidUntil" Type="datetime" />
+    <Property Name="Consultation_ID" Type="int" Nullable="false" />
+    <Property Name="Medication_ID" Type="int" />
+    <Property Name="Patient_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Prices">
+    <Key>
+      <PropertyRef Name="PriceID" />
+    </Key>
+    <Property Name="PriceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Price_Figure" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Date_Initiated" Type="datetime" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Procedures">
+    <Key>
+      <PropertyRef Name="Procedure_ID" />
+    </Key>
+    <Property Name="Procedure_ID" Type="int" Nullable="false" />
+    <Property Name="Procedure_Description" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product_Procedure">
+    <Key>
+      <PropertyRef Name="ProductProcedureID" />
+    </Key>
+    <Property Name="ProductProcedureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Procedure_ID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product_Type">
+    <Key>
+      <PropertyRef Name="Product_Type_ID" />
+    </Key>
+    <Property Name="Product_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Type_Description" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Product_Qty" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="Product_Type_ID" Type="int" Nullable="false" />
+    <Property Name="Product_Disable" Type="bit" Nullable="false" />
+    <Property Name="Supplier_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Reconcilliations">
+    <Key>
+      <PropertyRef Name="ReconID" />
+    </Key>
+    <Property Name="ReconID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RealisedQty" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ReasonDescription" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Referral_Test">
+    <Key>
+      <PropertyRef Name="ReferralTestID" />
+    </Key>
+    <Property Name="ReferralTestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ref_ID" Type="int" Nullable="false" />
+    <Property Name="TestRemarks" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="TestID" Type="int" Nullable="false" />
+    <Property Name="Institute_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Referrals">
+    <Key>
+      <PropertyRef Name="Ref_ID" />
+    </Key>
+    <Property Name="Ref_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Comment" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Consultation_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sick_Note">
+    <Key>
+      <PropertyRef Name="SN__ID" />
+    </Key>
+    <Property Name="SN__ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SN__Description" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="DateGenerated" Type="datetime" Nullable="false" />
+    <Property Name="Consultation_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Stock_Take">
+    <Key>
+      <PropertyRef Name="StockTake_ID" />
+    </Key>
+    <Property Name="StockTake_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ST_Date" Type="datetime" Nullable="false" />
+    <Property Name="ST_Quantity" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stock_take_Line">
+    <Key>
+      <PropertyRef Name="Stock_Take_Line_ID" />
+    </Key>
+    <Property Name="Stock_Take_Line_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="StockTake_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="Supplier_ID" />
+    </Key>
+    <Property Name="Supplier_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SupplierEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SupplierAddress" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="SupplierContactPerson" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="SupplierCellNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="SupplierWorkNumber" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Test_Type">
+    <Key>
+      <PropertyRef Name="Test_Type_ID" />
+    </Key>
+    <Property Name="Test_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Test_Type_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Test_Type_Description" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tests">
+    <Key>
+      <PropertyRef Name="TestID" />
+    </Key>
+    <Property Name="TestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="TestDescription" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Test_Type_ID" Type="int" Nullable="false" />
+    <Property Name="test_Disable" Type="binary" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Timeslots">
+    <Key>
+      <PropertyRef Name="Timeslot_ID" />
+    </Key>
+    <Property Name="Timeslot_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartTime" Type="time" Precision="7" />
+    <Property Name="EndTime" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="Titles">
+    <Key>
+      <PropertyRef Name="Title_ID" />
+    </Key>
+    <Property Name="Title_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title_Description" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EMP_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Xrays">
+    <Key>
+      <PropertyRef Name="XrayID" />
+    </Key>
+    <Property Name="XrayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Patient_ID" Type="int" />
+    <Property Name="Consultation_ID" Type="int" />
+    <Property Name="Title" Type="varchar" MaxLength="250" />
+    <Property Name="ImagePath" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK__Appointme__Times__2DE6D218">
+    <End Role="Timeslots" Type="Self.Timeslots" Multiplicity="1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Timeslots">
+        <PropertyRef Name="Timeslot_ID" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="Timeslot_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Backlog__OrderID__339FAB6E">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="Backlogs" Type="Self.Backlogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Backlogs">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Consultat__Ailme__3864608B">
+    <End Role="Ailments" Type="Self.Ailments" Multiplicity="1" />
+    <End Role="Consultation_Ailment" Type="Self.Consultation_Ailment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ailments">
+        <PropertyRef Name="Ailment_ID" />
+      </Principal>
+      <Dependent Role="Consultation_Ailment">
+        <PropertyRef Name="Ailment_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Consultat__Appoi__3587F3E0">
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="0..1" />
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointments">
+        <PropertyRef Name="Appointment_ID" />
+      </Principal>
+      <Dependent Role="Consultations">
+        <PropertyRef Name="Appointment_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Consultat__Appoi__395884C4">
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="0..1" />
+    <End Role="Consultation_Procedure" Type="Self.Consultation_Procedure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointments">
+        <PropertyRef Name="Appointment_ID" />
+      </Principal>
+      <Dependent Role="Consultation_Procedure">
+        <PropertyRef Name="Appointment_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Consultat__Consu__37703C52">
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="1" />
+    <End Role="Consultation_Ailment" Type="Self.Consultation_Ailment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consultations">
+        <PropertyRef Name="Consultation_ID" />
+      </Principal>
+      <Dependent Role="Consultation_Ailment">
+        <PropertyRef Name="Consultation_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Consultat__Consu__3A4CA8FD">
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="1" />
+    <End Role="Consultation_Procedure" Type="Self.Consultation_Procedure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consultations">
+        <PropertyRef Name="Consultation_ID" />
+      </Principal>
+      <Dependent Role="Consultation_Procedure">
+        <PropertyRef Name="Consultation_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Consultat__Proce__3B40CD36">
+    <End Role="Procedures" Type="Self.Procedures" Multiplicity="1" />
+    <End Role="Consultation_Procedure" Type="Self.Consultation_Procedure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Procedures">
+        <PropertyRef Name="Procedure_ID" />
+      </Principal>
+      <Dependent Role="Consultation_Procedure">
+        <PropertyRef Name="Procedure_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee___Acces__3D2915A8">
+    <End Role="Access_Control" Type="Self.Access_Control" Multiplicity="0..1" />
+    <End Role="Employee_Role" Type="Self.Employee_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Access_Control">
+        <PropertyRef Name="AccessID" />
+      </Principal>
+      <Dependent Role="Employee_Role">
+        <PropertyRef Name="AccessID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__EMP_Ro__3C34F16F">
+    <End Role="Employee_Role" Type="Self.Employee_Role" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee_Role">
+        <PropertyRef Name="EMP_Role_ID" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="EMP_Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Institute__Insti__3E1D39E1">
+    <End Role="Institute_Type" Type="Self.Institute_Type" Multiplicity="1" />
+    <End Role="Institutes" Type="Self.Institutes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institute_Type">
+        <PropertyRef Name="Institute_Type_ID" />
+      </Principal>
+      <Dependent Role="Institutes">
+        <PropertyRef Name="Institute_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Medical_A__Compa__40F9A68C">
+    <End Role="Medical_Aid_Company" Type="Self.Medical_Aid_Company" Multiplicity="1" />
+    <End Role="Medical_Aid_Scheme" Type="Self.Medical_Aid_Scheme" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Aid_Company">
+        <PropertyRef Name="Company_ID" />
+      </Principal>
+      <Dependent Role="Medical_Aid_Scheme">
+        <PropertyRef Name="Company_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Medical_A__Consu__40058253">
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="1" />
+    <End Role="Medical_Aid_Claim" Type="Self.Medical_Aid_Claim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consultations">
+        <PropertyRef Name="Consultation_ID" />
+      </Principal>
+      <Dependent Role="Medical_Aid_Claim">
+        <PropertyRef Name="Consultation_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Medical_A__Payme__3F115E1A">
+    <End Role="Payments" Type="Self.Payments" Multiplicity="0..1" />
+    <End Role="Medical_Aid_Claim" Type="Self.Medical_Aid_Claim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payments">
+        <PropertyRef Name="Payment_ID" />
+      </Principal>
+      <Dependent Role="Medical_Aid_Claim">
+        <PropertyRef Name="Payment_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order__OS_ID__41EDCAC5">
+    <End Role="Order_Status" Type="Self.Order_Status" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_Status">
+        <PropertyRef Name="OS_ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="OS_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order__Supplier___42E1EEFE">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="Supplier_ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Supplier_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order_Lin__Order__43D61337">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="Order_Line" Type="Self.Order_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Order_Line">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order_Pay__Order__45BE5BA9">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="Order_Payment" Type="Self.Order_Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Order_Payment">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order_Pay__Payme__31B762FC">
+    <End Role="Payment_Type" Type="Self.Payment_Type" Multiplicity="1" />
+    <End Role="Order_Payment" Type="Self.Order_Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payment_Type">
+        <PropertyRef Name="Payment_Type_ID" />
+      </Principal>
+      <Dependent Role="Order_Payment">
+        <PropertyRef Name="Payment_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Patient__Depende__47A6A41B">
+    <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+    <End Role="Patients1" Type="Self.Patients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="Patient_ID" />
+      </Principal>
+      <Dependent Role="Patients1">
+        <PropertyRef Name="DependentNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Patient__Scheme___489AC854">
+    <End Role="Medical_Aid_Scheme" Type="Self.Medical_Aid_Scheme" Multiplicity="0..1" />
+    <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Aid_Scheme">
+        <PropertyRef Name="Scheme_ID" />
+      </Principal>
+      <Dependent Role="Patients">
+        <PropertyRef Name="Scheme_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Patient__Title_I__498EEC8D">
+    <End Role="Titles" Type="Self.Titles" Multiplicity="0..1" />
+    <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Titles">
+        <PropertyRef Name="Title_ID" />
+      </Principal>
+      <Dependent Role="Patients">
+        <PropertyRef Name="Title_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Patient_A__Aller__4B7734FF">
+    <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
+    <End Role="Patient_Allergy_List" Type="Self.Patient_Allergy_List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Allergies">
+        <PropertyRef Name="Allergy_ID" />
+      </Principal>
+      <Dependent Role="Patient_Allergy_List">
+        <PropertyRef Name="Allergy_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payment__Consult__4E53A1AA">
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consultations">
+        <PropertyRef Name="Consultation_ID" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="Consultation_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payment__Payment__4D5F7D71">
+    <End Role="Payment_Type" Type="Self.Payment_Type" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payment_Type">
+        <PropertyRef Name="Payment_Type_ID" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="Payment_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Prescript__Consu__503BEA1C">
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="1" />
+    <End Role="Prescription_Line" Type="Self.Prescription_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consultations">
+        <PropertyRef Name="Consultation_ID" />
+      </Principal>
+      <Dependent Role="Prescription_Line">
+        <PropertyRef Name="Consultation_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Prescript__Medic__4F47C5E3">
+    <End Role="Medications" Type="Self.Medications" Multiplicity="0..1" />
+    <End Role="Prescription_Line" Type="Self.Prescription_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medications">
+        <PropertyRef Name="Medication_ID" />
+      </Principal>
+      <Dependent Role="Prescription_Line">
+        <PropertyRef Name="Medication_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__Product__531856C7">
+    <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product_Type">
+        <PropertyRef Name="Product_Type_ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Product_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product_P__Proce__55009F39">
+    <End Role="Procedures" Type="Self.Procedures" Multiplicity="1" />
+    <End Role="Product_Procedure" Type="Self.Product_Procedure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Procedures">
+        <PropertyRef Name="Procedure_ID" />
+      </Principal>
+      <Dependent Role="Product_Procedure">
+        <PropertyRef Name="Procedure_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Referral___Ref_I__59C55456">
+    <End Role="Referrals" Type="Self.Referrals" Multiplicity="1" />
+    <End Role="Referral_Test" Type="Self.Referral_Test" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Referrals">
+        <PropertyRef Name="Ref_ID" />
+      </Principal>
+      <Dependent Role="Referral_Test">
+        <PropertyRef Name="Ref_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Referral___TestI__58D1301D">
+    <End Role="Tests" Type="Self.Tests" Multiplicity="1" />
+    <End Role="Referral_Test" Type="Self.Referral_Test" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tests">
+        <PropertyRef Name="TestID" />
+      </Principal>
+      <Dependent Role="Referral_Test">
+        <PropertyRef Name="TestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Referral__Consul__57DD0BE4">
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="1" />
+    <End Role="Referrals" Type="Self.Referrals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consultations">
+        <PropertyRef Name="Consultation_ID" />
+      </Principal>
+      <Dependent Role="Referrals">
+        <PropertyRef Name="Consultation_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sick_Note__Consu__5BAD9CC8">
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="0..1" />
+    <End Role="Sick_Note" Type="Self.Sick_Note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consultations">
+        <PropertyRef Name="Consultation_ID" />
+      </Principal>
+      <Dependent Role="Sick_Note">
+        <PropertyRef Name="Consultation_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock_tak__Produ__5CA1C101">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Stock_take_Line" Type="Self.Stock_take_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Stock_take_Line">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock_tak__Stock__5D95E53A">
+    <End Role="Stock_Take" Type="Self.Stock_Take" Multiplicity="1" />
+    <End Role="Stock_take_Line" Type="Self.Stock_take_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock_Take">
+        <PropertyRef Name="StockTake_ID" />
+      </Principal>
+      <Dependent Role="Stock_take_Line">
+        <PropertyRef Name="StockTake_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Test__Test_Type___5E8A0973">
+    <End Role="Test_Type" Type="Self.Test_Type" Multiplicity="1" />
+    <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Test_Type">
+        <PropertyRef Name="Test_Type_ID" />
+      </Principal>
+      <Dependent Role="Tests">
+        <PropertyRef Name="Test_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__EMP_ID__5F7E2DAC">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EMP_ID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="EMP_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Xrays__Consultat__607251E5">
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="0..1" />
+    <End Role="Xrays" Type="Self.Xrays" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consultations">
+        <PropertyRef Name="Consultation_ID" />
+      </Principal>
+      <Dependent Role="Xrays">
+        <PropertyRef Name="Consultation_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointment_Patient">
+    <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="Patient_ID" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="Patient_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetRole">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="AspNetRoles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="AspNetUsers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Backlog_Order_Line">
+    <End Role="Order_Line" Type="Self.Order_Line" Multiplicity="0..1" />
+    <End Role="Backlogs" Type="Self.Backlogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_Line">
+        <PropertyRef Name="OrderLineID" />
+      </Principal>
+      <Dependent Role="Backlogs">
+        <PropertyRef Name="OrderLineID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Consultation_Patient">
+    <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+    <End Role="Consultations" Type="Self.Consultations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="Patient_ID" />
+      </Principal>
+      <Dependent Role="Consultations">
+        <PropertyRef Name="Patient_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Line_Product">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Order_Line" Type="Self.Order_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Order_Line">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patient_Allergy_List_Patient">
+    <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+    <End Role="Patient_Allergy_List" Type="Self.Patient_Allergy_List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="Patient_ID" />
+      </Principal>
+      <Dependent Role="Patient_Allergy_List">
+        <PropertyRef Name="Patient_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patient_Patient">
+    <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+    <End Role="Patients1" Type="Self.Patients" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="Patient_ID" />
+      </Principal>
+      <Dependent Role="Patients1">
+        <PropertyRef Name="Patient_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prescription_Line_Patient">
+    <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+    <End Role="Prescription_Line" Type="Self.Prescription_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="Patient_ID" />
+      </Principal>
+      <Dependent Role="Prescription_Line">
+        <PropertyRef Name="Patient_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Price_Product">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Prices" Type="Self.Prices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Prices">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Procedure_Product">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Product_Procedure" Type="Self.Product_Procedure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Product_Procedure">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Supplier">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="Supplier_ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Supplier_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reconcilliation_Product">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Reconcilliations" Type="Self.Reconcilliations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Reconcilliations">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Referral_Test_Institute">
+    <End Role="Institutes" Type="Self.Institutes" Multiplicity="0..1" />
+    <End Role="Referral_Test" Type="Self.Referral_Test" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institutes">
+        <PropertyRef Name="Institute_ID" />
+      </Principal>
+      <Dependent Role="Referral_Test">
+        <PropertyRef Name="Institute_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Xrays_Patient">
+    <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+    <End Role="Xrays" Type="Self.Xrays" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patients">
+        <PropertyRef Name="Patient_ID" />
+      </Principal>
+      <Dependent Role="Xrays">
+        <PropertyRef Name="Patient_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="DrSavvyModelStoreContainer">
+    <EntitySet Name="Access_Control" EntityType="Self.Access_Control" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ailments" EntityType="Self.Ailments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Backlogs" EntityType="Self.Backlogs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Consultation_Ailment" EntityType="Self.Consultation_Ailment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Consultation_Procedure" EntityType="Self.Consultation_Procedure" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Consultations" EntityType="Self.Consultations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee_Role" EntityType="Self.Employee_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Institute_Type" EntityType="Self.Institute_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Institutes" EntityType="Self.Institutes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medical_Aid_Claim" EntityType="Self.Medical_Aid_Claim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medical_Aid_Company" EntityType="Self.Medical_Aid_Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medical_Aid_Scheme" EntityType="Self.Medical_Aid_Scheme" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medications" EntityType="Self.Medications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MobileApps" EntityType="Self.MobileApps" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_Line" EntityType="Self.Order_Line" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_Payment" EntityType="Self.Order_Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_Status" EntityType="Self.Order_Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient_Allergy_List" EntityType="Self.Patient_Allergy_List" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payment_Type" EntityType="Self.Payment_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prescription_Line" EntityType="Self.Prescription_Line" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prices" EntityType="Self.Prices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Procedures" EntityType="Self.Procedures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product_Procedure" EntityType="Self.Product_Procedure" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product_Type" EntityType="Self.Product_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reconcilliations" EntityType="Self.Reconcilliations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Referral_Test" EntityType="Self.Referral_Test" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Referrals" EntityType="Self.Referrals" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sick_Note" EntityType="Self.Sick_Note" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stock_Take" EntityType="Self.Stock_Take" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stock_take_Line" EntityType="Self.Stock_take_Line" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Test_Type" EntityType="Self.Test_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Timeslots" EntityType="Self.Timeslots" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Titles" EntityType="Self.Titles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Xrays" EntityType="Self.Xrays" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Appointme__Times__2DE6D218" Association="Self.FK__Appointme__Times__2DE6D218">
+      <End Role="Timeslots" EntitySet="Timeslots" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Backlog__OrderID__339FAB6E" Association="Self.FK__Backlog__OrderID__339FAB6E">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Backlogs" EntitySet="Backlogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Consultat__Ailme__3864608B" Association="Self.FK__Consultat__Ailme__3864608B">
+      <End Role="Ailments" EntitySet="Ailments" />
+      <End Role="Consultation_Ailment" EntitySet="Consultation_Ailment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Consultat__Appoi__3587F3E0" Association="Self.FK__Consultat__Appoi__3587F3E0">
+      <End Role="Appointments" EntitySet="Appointments" />
+      <End Role="Consultations" EntitySet="Consultations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Consultat__Appoi__395884C4" Association="Self.FK__Consultat__Appoi__395884C4">
+      <End Role="Appointments" EntitySet="Appointments" />
+      <End Role="Consultation_Procedure" EntitySet="Consultation_Procedure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Consultat__Consu__37703C52" Association="Self.FK__Consultat__Consu__37703C52">
+      <End Role="Consultations" EntitySet="Consultations" />
+      <End Role="Consultation_Ailment" EntitySet="Consultation_Ailment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Consultat__Consu__3A4CA8FD" Association="Self.FK__Consultat__Consu__3A4CA8FD">
+      <End Role="Consultations" EntitySet="Consultations" />
+      <End Role="Consultation_Procedure" EntitySet="Consultation_Procedure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Consultat__Proce__3B40CD36" Association="Self.FK__Consultat__Proce__3B40CD36">
+      <End Role="Procedures" EntitySet="Procedures" />
+      <End Role="Consultation_Procedure" EntitySet="Consultation_Procedure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee___Acces__3D2915A8" Association="Self.FK__Employee___Acces__3D2915A8">
+      <End Role="Access_Control" EntitySet="Access_Control" />
+      <End Role="Employee_Role" EntitySet="Employee_Role" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__EMP_Ro__3C34F16F" Association="Self.FK__Employee__EMP_Ro__3C34F16F">
+      <End Role="Employee_Role" EntitySet="Employee_Role" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Institute__Insti__3E1D39E1" Association="Self.FK__Institute__Insti__3E1D39E1">
+      <End Role="Institute_Type" EntitySet="Institute_Type" />
+      <End Role="Institutes" EntitySet="Institutes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Medical_A__Compa__40F9A68C" Association="Self.FK__Medical_A__Compa__40F9A68C">
+      <End Role="Medical_Aid_Company" EntitySet="Medical_Aid_Company" />
+      <End Role="Medical_Aid_Scheme" EntitySet="Medical_Aid_Scheme" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Medical_A__Consu__40058253" Association="Self.FK__Medical_A__Consu__40058253">
+      <End Role="Consultations" EntitySet="Consultations" />
+      <End Role="Medical_Aid_Claim" EntitySet="Medical_Aid_Claim" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Medical_A__Payme__3F115E1A" Association="Self.FK__Medical_A__Payme__3F115E1A">
+      <End Role="Payments" EntitySet="Payments" />
+      <End Role="Medical_Aid_Claim" EntitySet="Medical_Aid_Claim" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order__OS_ID__41EDCAC5" Association="Self.FK__Order__OS_ID__41EDCAC5">
+      <End Role="Order_Status" EntitySet="Order_Status" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order__Supplier___42E1EEFE" Association="Self.FK__Order__Supplier___42E1EEFE">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order_Lin__Order__43D61337" Association="Self.FK__Order_Lin__Order__43D61337">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Order_Line" EntitySet="Order_Line" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order_Pay__Order__45BE5BA9" Association="Self.FK__Order_Pay__Order__45BE5BA9">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Order_Payment" EntitySet="Order_Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order_Pay__Payme__31B762FC" Association="Self.FK__Order_Pay__Payme__31B762FC">
+      <End Role="Payment_Type" EntitySet="Payment_Type" />
+      <End Role="Order_Payment" EntitySet="Order_Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Patient__Depende__47A6A41B" Association="Self.FK__Patient__Depende__47A6A41B">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="Patients1" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Patient__Scheme___489AC854" Association="Self.FK__Patient__Scheme___489AC854">
+      <End Role="Medical_Aid_Scheme" EntitySet="Medical_Aid_Scheme" />
+      <End Role="Patients" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Patient__Title_I__498EEC8D" Association="Self.FK__Patient__Title_I__498EEC8D">
+      <End Role="Titles" EntitySet="Titles" />
+      <End Role="Patients" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Patient_A__Aller__4B7734FF" Association="Self.FK__Patient_A__Aller__4B7734FF">
+      <End Role="Allergies" EntitySet="Allergies" />
+      <End Role="Patient_Allergy_List" EntitySet="Patient_Allergy_List" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payment__Consult__4E53A1AA" Association="Self.FK__Payment__Consult__4E53A1AA">
+      <End Role="Consultations" EntitySet="Consultations" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payment__Payment__4D5F7D71" Association="Self.FK__Payment__Payment__4D5F7D71">
+      <End Role="Payment_Type" EntitySet="Payment_Type" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Prescript__Consu__503BEA1C" Association="Self.FK__Prescript__Consu__503BEA1C">
+      <End Role="Consultations" EntitySet="Consultations" />
+      <End Role="Prescription_Line" EntitySet="Prescription_Line" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Prescript__Medic__4F47C5E3" Association="Self.FK__Prescript__Medic__4F47C5E3">
+      <End Role="Medications" EntitySet="Medications" />
+      <End Role="Prescription_Line" EntitySet="Prescription_Line" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__Product__531856C7" Association="Self.FK__Product__Product__531856C7">
+      <End Role="Product_Type" EntitySet="Product_Type" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product_P__Proce__55009F39" Association="Self.FK__Product_P__Proce__55009F39">
+      <End Role="Procedures" EntitySet="Procedures" />
+      <End Role="Product_Procedure" EntitySet="Product_Procedure" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Referral___Ref_I__59C55456" Association="Self.FK__Referral___Ref_I__59C55456">
+      <End Role="Referrals" EntitySet="Referrals" />
+      <End Role="Referral_Test" EntitySet="Referral_Test" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Referral___TestI__58D1301D" Association="Self.FK__Referral___TestI__58D1301D">
+      <End Role="Tests" EntitySet="Tests" />
+      <End Role="Referral_Test" EntitySet="Referral_Test" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Referral__Consul__57DD0BE4" Association="Self.FK__Referral__Consul__57DD0BE4">
+      <End Role="Consultations" EntitySet="Consultations" />
+      <End Role="Referrals" EntitySet="Referrals" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sick_Note__Consu__5BAD9CC8" Association="Self.FK__Sick_Note__Consu__5BAD9CC8">
+      <End Role="Consultations" EntitySet="Consultations" />
+      <End Role="Sick_Note" EntitySet="Sick_Note" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock_tak__Produ__5CA1C101" Association="Self.FK__Stock_tak__Produ__5CA1C101">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Stock_take_Line" EntitySet="Stock_take_Line" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock_tak__Stock__5D95E53A" Association="Self.FK__Stock_tak__Stock__5D95E53A">
+      <End Role="Stock_Take" EntitySet="Stock_Take" />
+      <End Role="Stock_take_Line" EntitySet="Stock_take_Line" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Test__Test_Type___5E8A0973" Association="Self.FK__Test__Test_Type___5E8A0973">
+      <End Role="Test_Type" EntitySet="Test_Type" />
+      <End Role="Tests" EntitySet="Tests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__EMP_ID__5F7E2DAC" Association="Self.FK__User__EMP_ID__5F7E2DAC">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Xrays__Consultat__607251E5" Association="Self.FK__Xrays__Consultat__607251E5">
+      <End Role="Consultations" EntitySet="Consultations" />
+      <End Role="Xrays" EntitySet="Xrays" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointment_Patient" Association="Self.FK_Appointment_Patient">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetRole" Association="Self.FK_AspNetUserRoles_AspNetRole">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetUser" Association="Self.FK_AspNetUserRoles_AspNetUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Backlog_Order_Line" Association="Self.FK_Backlog_Order_Line">
+      <End Role="Order_Line" EntitySet="Order_Line" />
+      <End Role="Backlogs" EntitySet="Backlogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Consultation_Patient" Association="Self.FK_Consultation_Patient">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="Consultations" EntitySet="Consultations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Line_Product" Association="Self.FK_Order_Line_Product">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Order_Line" EntitySet="Order_Line" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patient_Allergy_List_Patient" Association="Self.FK_Patient_Allergy_List_Patient">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="Patient_Allergy_List" EntitySet="Patient_Allergy_List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patient_Patient" Association="Self.FK_Patient_Patient">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="Patients1" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prescription_Line_Patient" Association="Self.FK_Prescription_Line_Patient">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="Prescription_Line" EntitySet="Prescription_Line" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Price_Product" Association="Self.FK_Price_Product">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Prices" EntitySet="Prices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Procedure_Product" Association="Self.FK_Product_Procedure_Product">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Product_Procedure" EntitySet="Product_Procedure" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Supplier" Association="Self.FK_Product_Supplier">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reconcilliation_Product" Association="Self.FK_Reconcilliation_Product">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Reconcilliations" EntitySet="Reconcilliations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Referral_Test_Institute" Association="Self.FK_Referral_Test_Institute">
+      <End Role="Institutes" EntitySet="Institutes" />
+      <End Role="Referral_Test" EntitySet="Referral_Test" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Xrays_Patient" Association="Self.FK_Xrays_Patient">
+      <End Role="Patients" EntitySet="Patients" />
+      <End Role="Xrays" EntitySet="Xrays" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

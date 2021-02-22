@@ -1,0 +1,123 @@
+﻿    @model  DrSavvy.Models.SupplierClass
+@{
+    ViewBag.Title = "Suppliers";
+}
+
+
+
+
+
+
+<hr />
+
+<button type="button" class="btn " onclick="AddEditSupplier(0)" style="border-radius:20px;background-color:#1a6490;color:white">Add New Supplier</button>
+
+<hr />
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend" style="color:dodgerblue;">
+        <span class="input-group-text" id="basic-text1" style="background-color:dodgerblue;">
+            <i class="fas fa-search text-white"
+               aria-hidden="true"></i>
+        </span>
+    </div>
+    <input type="text" class="form-control" placeholder="Search here..." aria-label="Recipient's username" aria-describedby="button-addon2" id="Search" style="background-color:rgba(0,0,0,0.27);border-radius:15px">
+</div>
+<br />
+<div>
+    <table class="table-dark table-striped table table-hover" style="border-radius: 25px;">
+        <thead>
+            <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">Company Address</th>
+                <th scope="col">Company Number</th>
+                <th scope="col">Contact Name</th>
+                <th scope="col">Contact Number</th>
+                <th scope="col">Contact Email</th>
+                <th scope="col">Modify</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.ProdList != null)
+            {
+
+                foreach (var item in ViewBag.ProdList)
+                {
+                    <tr class="Search">
+                        <td>@item.SupplierName</td>
+                        <td>@item.SupplierAddress</td>
+                        <td>@item.SupplierWorkNumber</td>
+                        <td>@item.SupplierContactPerson</td>
+                        <td>@item.SupplierCellNumber</td>
+                        <td>@item.SupplierEmail</td>
+
+                        <td><a href="#" class="btn btn-success" onclick="AddEditSupplier(@item.Supplier_ID)"><i class="fas fa-user-edit fa-lg"></i> </a> </td>
+
+                    </tr>
+
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Add New Product TYpe -->
+<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color:black;border-radius:20px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Supplier Details</h5>
+
+            </div>
+            <div class="modal-body" id="AddProductBody">
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*hidden field for storing current employeeId*@
+<input type="hidden" id="hiddenProductTypeId" />
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+
+
+
+    var AddEditSupplier = function (SupplierId) {
+
+        var url = "/Inventory/AddEditSupplier?SupplierId=" + SupplierId;
+
+        $("#AddProductBody").load(url, function () {
+            $("#addProduct").modal("show");
+
+        })
+
+    }
+
+   
+
+</script>
+
+
+

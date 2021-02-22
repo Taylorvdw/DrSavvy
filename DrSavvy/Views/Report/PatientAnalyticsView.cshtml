@@ -1,0 +1,262 @@
+﻿@model IEnumerable<DrSavvy.Models.Order>
+@{
+    Layout = "";
+}
+    <head>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link href="~/Content/Invoice.css" rel="stylesheet" />
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="~/Scripts/chart/exporting.js"></script>
+        <script src="~/Scripts/chart/highcharts.js"></script>
+    </head>
+<!------ Include the above in your HEAD tag ---------->
+<div id="invoice" @*style="margin-left:20%; margin-right:20%"*@>
+    <div>
+        <h1 style="text-align:center" class="invoice-id">Patient Analytics</h1>
+    </div>
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <button id="printInvoice" onclick="window.print()" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+            <button onclick="window.location.href='@Url.Action("ExportnalyticsForm","Report")'" class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <table class="table-borderless !important" style="background-color:none !important;">
+                    <tr>
+                        <td>
+                            <div class="col">
+                                <a target="_blank" href="https://lobianijs.com">
+                                    <img height="200" class="card-img" src="~/Content/SAVVY.png" data-holder-rendered="true" />
+
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col company-details">
+                                <h2 class="name">
+                                    <a target="_blank" href="https://lobianijs.com">
+                                        DR MCE MC DONALD
+                                    </a>
+                                </h2>
+                                <div>Suite 4a Faerie Glen Medical Centre,<br /> Cnr Jacqueline & Atterbury Street,<br /> Pretoria, GP</div>
+                                <div>012 348 1185</div>
+                                <div>mce@drsavvy.co.za</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </header>
+            <main>
+
+                <hr />
+                <!-----------------------Analytical Data------------------------>
+                <div id="container" style="min-width:310px; height:400px; max-width:600px; margin:0 auto">
+
+                </div>
+                <div style="text-align:center; border:solid">
+                    <h1>@*@(ViewBag.Patailcount/ViewBag.totnumberpat)*@ 61.41%</h1><br />
+                    <p>of females between 1-15 are diagnosed with <strong>Paratyphoid fever A</strong> @ViewBag.Comment</p>
+                </div>
+                <hr />
+                <div id="container1" style="min-width:310px; height:400px; max-width:600px; margin:0 auto">
+
+                </div>
+                <div style="text-align:center;border:solid">
+                    <h1>@*@(ViewBag.Patailcount/ViewBag.totnumberpat)*@ 41.77%</h1><br />
+                    <p>of males between 45+ are diagnosed with <strong>Paratyphoid fever B</strong> @ViewBag.Comment</p><br />
+                </div>
+                <hr />
+                <div id="container2" style="min-width:310px; height:400px; max-width:600px; margin:0 auto">
+
+                </div>
+                <hr />
+                <div style="text-align:center;border:solid">
+                    <h1>@*@(ViewBag.Patailcount/ViewBag.totnumberpat)*@ 79.92%</h1><br />
+                    <p>of males between 36-44 are diagnosed with <strong>Paratyphoid fever C</strong> @ViewBag.Comment</p><br />
+                </div>
+                <div class="notices">
+                    <div>NOTICE:</div>
+                    <div class="notice"><strong>Please review form to ensure all details are correct</strong></div>
+                </div>
+            </main>
+            <footer>
+                Form was created on a computer and is valid without the signature and seal.
+            </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
+    </div>
+</div>
+<script>
+            Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Patients diagnosed with Paratyphoid fever A in MCE Mc Donold'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Description:',
+        colorByPoint: true,
+        data: [{
+            name: '1-15 Female',
+            y: 61.41,
+            sliced: true,
+            selected: true
+        }, {
+            name: '1-15 Males',
+            y: 11.84
+        }, {
+            name: '16-35 Females',
+            y: 10.85
+        }, {
+            name: '16-35 Males',
+            y: 4.67
+        }, {
+            name: '36-44 Females',
+            y: 4.18
+        }, {
+            name: '36 - 44 Males',
+            y: 1.64
+        }, {
+            name: '45+ Females',
+            y: 1.6
+        }, {
+            name: '45+ Males',
+            y: 3.81
+        }]
+    }]
+});
+
+                Highcharts.chart('container1', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Patients diagnosed with Paratyphoid fever B in MCE Mc Donold'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: '1-15 Female',
+            y: 11.74
+        }, {
+            name: '1-15 Males',
+            y: 13.47
+        }, {
+            name: '16-35 Females',
+            y: 9.36
+        }, {
+            name: '16-35 Males',
+            y: 3.19
+        }, {
+            name: '36-44 Females',
+            y: 2.69
+        }, {
+            name: '36-44 Males',
+            y: 11.45
+        }, {
+            name: '45+ Females',
+            y: 6.33
+        }, {
+            name: '45+ Males',
+            y: 41.77,
+            sliced: true,
+            selected: true
+        }]
+    }]
+                });
+                Highcharts.chart('container2', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Patients diagnosed with Paratyphoid fever C in MCE Mc Donold'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: '1-15 Female',
+            y: 6.61
+        }, {
+            name: '1-15 Males',
+            y: 3.92
+        }, {
+            name: '16-35 Females',
+            y: 4.36
+        }, {
+            name: '16-35 Males',
+            y: 2.78
+        }, {
+            name: '36-44 Females',
+            y: 1.83
+        }, {
+            name: '36-44 Males',
+            y: 72.92,
+            sliced: true,
+            selected: true
+        }, {
+            name: '45+ Females',
+            y: 6.33
+        }, {
+            name: '45+ Males',
+            y: 1.25
+        }]
+    }]
+});
+</script>

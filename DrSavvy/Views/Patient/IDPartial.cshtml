@@ -1,0 +1,12 @@
+﻿<option value="">--Select Patient ID Number--</option>
+@if (ViewBag.ProductList != null)
+{
+
+    foreach (var item in ViewBag.ProductList)
+    {
+
+        <option value="@item.Value">@item.Text </option>
+
+    }
+
+}

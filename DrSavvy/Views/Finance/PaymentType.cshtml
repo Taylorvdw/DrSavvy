@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "Payment Type";
+}
+
+<hr />
+
+<button type="button" class="btn" data-toggle="modal" data-target="#addProduct" style="background-color:#1a6490;color:white;border-radius:20px">Add New Payment Type</button>
+<hr  style="background-color:white"/>
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend" style="color:dodgerblue;">
+        <span class="input-group-text" id="basic-text1" style="background-color:dodgerblue;">
+            <i class="fas fa-search text-white"
+               aria-hidden="true"></i>
+        </span>
+    </div>
+    <input type="text" style="background-color:rgba(0,0,0,0.27);color:white;border-top-right-radius:20px;border-bottom-right-radius:20px" class="form-control" placeholder="Search here..." aria-label="Recipient's username" aria-describedby="button-addon2">
+</div>
+<br />
+<div>
+    <table class="table-dark table-striped table table-hover" style="border-radius: 25px;">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Payment Type</th>
+                <th scope="col">Modify</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Cash</td>
+                <td>
+                    <a><i class="fas fa-user-edit fa-lg"></i></a>
+                </td>
+
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Card</td>
+
+                <td>
+                    <a><i class="fas fa-user-edit fa-lg" data-toggle="modal" data-target="#Edit"></i></a>
+                </td>
+
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>EFT</td>
+
+                <td>
+                    <a><i class="fas fa-user-edit fa-lg" data-toggle="modal" data-target="#Edit"></i></a>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--Confirm Edit Modal-->
+
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:black">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Payment Type?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to edit this Payment Types details?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModProduct" data-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add New Payment TYpe -->
+<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color:black">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="color:white !important;">Add New Payment Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <label>Payment Type Name:</label>
+                    <input type="text" class="form-control" id="FirstName" placeholder="Name..">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Confirm"><i class="fas fa-plus"></i>Add</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-user-slash"></i>Discard</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Confirm New Payment  -->
+<div class="modal fade" id="Confirm" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Add New Payment Type</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+
+            <div class="modal-body">
+                Confirm to add Medical Aid Claim as a new Payment on the system?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary custom-close" data-toggle="modal" data-target="#Successful" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal New Payment Added successfully -->
+<div class="modal fade" id="Successful" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:#28a745">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Successfully Added</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>-->
+            </div>
+
+            <div class="modal-body">
+                Medical Aid have been successfully added to the system
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modify Payment Type -->
+<div class="modal fade" id="ModProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Payment Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <label>Payment Type Name:</label>
+                    <input type="text" class="form-control" id="FirstName" placeholder="Cash">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Confirm"><i class="fas fa-plus"></i>Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-user-slash"></i>Discard</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

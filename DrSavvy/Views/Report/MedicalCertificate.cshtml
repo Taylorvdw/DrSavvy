@@ -1,0 +1,49 @@
+@model IEnumerable<DrSavvy.ClassModels.MedicalCertificateModel>
+@{
+    ViewBag.Title = "MedicalCertificate";
+    Layout = "~/Views/Shared/_LayoutRPT.cshtml";
+}<div style="padding-left:20%; padding-right:20%;">
+    <div style=" width:100%; height:100px; text-align:center;margin:auto; background-color:dodgerblue;icon: !important ">
+        <h2>Medical Certificate</h2>
+        <img style="overflow:auto; margin-top:auto;margin-bottom:auto; height:auto;width:100px; float: right;" src="~/Images/SAVVY.png" />
+        <p>@ViewBag.DateGenerated</p>
+    </div>
+    <div align="right">
+
+        Suite 4a Faerie Glen Medical Centre <br />
+
+        Cnr Jacqueline & Atterbury Street,<br />
+
+        Pretoria, GP<br />
+
+    </div>
+
+    <p>
+        <strong>To whom it may concern</strong>
+    </p>
+
+    <p>
+        This services as a strong recommendation to notify you that unfortunately <strong>@ViewBag.PatientName</strong><br />
+        will not be able to partake in any demanding activities (work/school duties) that will have hinder his well-being. <br />
+        He/She is expcted to return to regular condition on <strong> @ViewBag.Expiry</strong> . He/She is suffering <br />
+        from: <br />
+
+        <ul>
+            @foreach (var item in ViewBag.Ailments)
+            {
+                <li><strong>g@item.Ailment_Name</strong></li>
+            }
+        </ul>
+
+    </p>
+    <br /><br /><br /><br /><br /><br /><br /><br />
+
+
+    <div>
+        <p>Regards,</p><br /><br />
+        <span style="margin: 20px 10px; border-top: 1px solid #000; width: 200px; text-align: center;"><strong>@ViewBag.UserName</strong></span>
+    </div>
+
+</div>
+
+

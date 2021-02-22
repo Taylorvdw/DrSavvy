@@ -1,0 +1,279 @@
+﻿@model  DrSavvy.Models.Product_TypeClass
+@{
+    ViewBag.Title = " ProductType";
+}
+
+<hr />
+
+<button type="button" class="btn" style="border-radius:20px;background-color:#1a6490;color:white;border-radius:20px"   onclick="AddEditProdType(0)">Add New Product Type</button>
+@*<a class="popup btn btn-primary" href="/Inventory/SaveProdType/0">Add New Product Type Test</a>*@
+<hr />
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend" style="color:dodgerblue;">
+        <span class="input-group-text" id="basic-text1" style="background-color:dodgerblue;">
+            <i class="fas fa-search text-white"
+               aria-hidden="true"></i>
+        </span>
+    </div>
+    <input type="text" class="form-control tablecontainer" style="background-color:black;border-radius:20px"  placeholder="Search here..." aria-label="Recipient's username" aria-describedby="button-addon2" id="Search">
+</div>
+<br />
+<div>
+    <table class="table-dark table-striped table table-hover" style="border-radius: 25px;">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Modify</th>
+                <th scope="col">Remove</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.ProdTypeList != null)
+            {
+
+                foreach (var item in ViewBag.ProdTypeList)
+                {
+                    <tr class="Search">
+                        <td>@item.Product_Type_ID</td>
+                        <td>@item.Product_Type_Description</td>
+
+                        <td><a href="#" class="btn btn-success"style="border-radius:20px"  onclick="AddEditProdType(@item.Product_Type_ID)"><i class="fas fa-user-edit fa-lg"></i> </a> </td>
+                        <td><a href="#" class="btn btn-danger" style="border-radius:20px" onclick="ConfirmDelete(@item.Product_Type_ID)"><i class="far fa-trash-alt fa-lg"></i> </a> </td>
+                    </tr>
+
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+<!-- Add New Product TYpe -->
+<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color:black;border-radius:20px" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="color:white !important;">Add New Product Type</h5>
+
+            </div>
+            <div class="modal-body" id="AddProductBody">
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content" style="border-radius:20px ; background-color:black" >
+            <div class="modal-header" >
+                <h3 class="modal-title">Delete Product Type</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to delete this record? </h4>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" style="border-radius:20px"  data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-success" style="border-radius:20px" onclick="DeleteEmployee()">Confirm</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+@*hidden field for storing current employeeId*@
+<input type="hidden" id="hiddenProductTypeId" />
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+
+
+
+    var AddEditProdType = function (ProductTypeId) {
+
+        var url = "/Inventory/AddEditProdType?ProductTypeId=" + ProductTypeId;
+
+        $("#AddProductBody").load(url, function () {
+            $("#addProduct").modal("show");
+
+        })
+
+    }
+
+    var ConfirmDelete = function (ProductTypeId) {
+
+        $("#hiddenProductTypeId").val(ProductTypeId);
+        $("#myModal").modal('show');
+
+    }
+
+    var DeleteEmployee = function () {
+
+        $("#loaderDiv").show();
+
+        var prodTypeID = $("#hiddenProductTypeId").val();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Inventory/DeleteProdType",
+            data: { ProductTypeId: prodTypeID },
+            success: function (result) {
+                $("#loaderDiv").hide();
+                $("#myModal").modal("hide");
+                location.reload();
+            }
+
+        })
+
+    }
+</script>
+
+
+<!--Confirm Delete Modal-->
+<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border-radius:20px;background-color:black" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Product Type?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to permanently delete this Product type?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" style="border-radius:20px"  data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" style="border-radius:20px" >Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Confirm Edit Modal-->
+
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Product Type?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to edit this Product Types details?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModProduct" data-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm New Product  -->
+<div class="modal fade" id="Confirm" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Add New Product</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+
+            <div class="modal-body">
+                Confirm to add Needles as a new product on the system
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary custom-close" data-toggle="modal" data-target="#Successful" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal New Product Added successfully -->
+<div class="modal fade" id="Successful" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:#28a745">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Successfully Added</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>-->
+            </div>
+
+            <div class="modal-body">
+                Needles have been successfully added to the system
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modify Product TYpe -->
+<div class="modal fade" id="ModProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Product Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <label>Product Type Name:</label>
+                    <input type="text" class="form-control" id="FirstName" placeholder="Stationery">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Confirm"><i class="fas fa-plus"></i>Add</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-user-slash"></i>Discard</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

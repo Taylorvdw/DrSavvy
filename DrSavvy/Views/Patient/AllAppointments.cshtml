@@ -1,0 +1,128 @@
+﻿@model IEnumerable<DrSavvy.Models.Appointment>
+
+@{
+    ViewBag.Title = "Appointments";
+}
+
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend" style="color:dodgerblue;">
+        <span class="input-group-text" id="basic-text" style="background-color:dodgerblue;">
+            <i class="fas fa-search text-white"
+               aria-hidden="true"></i>
+        </span>
+    </div>
+    <input type="text" class="form-control fa-search" style="background-color:rgba(255, 255, 255, 0.00); color:white ;" placeholder="Search here..." aria-label="Appointment" aria-describedby="button-addon2" id="Search">
+</div>
+<hr style="background-color:white; height:1px" />
+<script src="~/Scripts/jquery-3.4.1.min.js">
+
+</script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+</script>
+
+<table class="table table-striped table-dark" style="border-radius: 25px;" id="AppointmentTable">
+    <tr style="background-color:#499DF5 ;text-align:center">
+        <th>
+            Patient Name
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Color
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th >
+          Modify
+        </th>
+        <th>
+          Remove
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        string AppointmentID = item.Appointment_ID.ToString();
+        string generatedURL = "EditAppointment/" + AppointmentID;
+
+         <tr class="Search">
+    <td>
+        @Html.DisplayFor(modelItem => item.Patient.PatientName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AppointmentDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AppointmentDescription)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ThemeColor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Timeslot.StartTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Timeslot.EndTime)
+    </td>
+    <td>
+        <button type="button" style="border:none" class="btn btn-warning btn-sm" data-toggle="modal" onclick="DisplayModal('Edit/@item.Appointment_ID')">
+            <i class="fas fa-user-edit fa-lg" data-toggle="modal" data-target="#ConEdit" style="color:white"></i>
+            <span>
+                <strong style="color:white">Modify</strong>
+            </span>
+        </button>
+    </td>
+    <td>
+        <button type="button" style="border:none" class="btn btn-danger btn-sm " data-toggle="modal" onclick="DisplayModal('Delete/@item.Appointment_ID')">
+            <i class="far fa-trash-alt fa-lg"></i>
+            <span>
+                <strong>Delete</strong>
+            </span>
+        </button>
+    </td>
+</tr>
+    }
+</table>
+<iframe  class="modal modal-lg" id="editAppointment" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:90%; top:5%; left:35%">Your browser doesn't support iFrames.</iframe>
+<iframe class="modal modal-lg" id="deleteAppointment" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:80%; top:15%; left:35%">Your browser doesn't support iFrames.</iframe>
+<script>
+    function DisplayModal(test) {
+        document.getElementById('editAppointment').src = test;
+        $("#editAppointment").modal("show");
+
+    }
+
+    function DisplayModal(test) {
+        document.getElementById('deleteAppointment').src = test;
+        $("#deleteAppointment").modal("show");
+
+    }
+</script>
+
+

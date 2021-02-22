@@ -1,0 +1,95 @@
+﻿@model DrSavvy.Models.ProductClass
+<div>
+
+    <form id="myForm">
+        @Html.HiddenFor(m => m.ProductID)
+
+        @Html.TextBoxFor(Model => Model.ProductName, new { @class = "form-control", @placeholder = "Product Name", required = "required", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.ProductName, "", new { @style = "color:red" })
+        @Html.DropDownListFor(Model => Model.Product_Type_ID, ViewBag.ProdTypeList as SelectList, "--Product Type--", new { @class = "form-control", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Product_Type_ID, "", new { @style = "color:red" })
+        @Html.DropDownListFor(Model => Model.Supplier_ID, ViewBag.SupplierList as SelectList, "--Supplier Name--", new { @class = "form-control", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Supplier_ID, "", new { @style = "color:red" })
+        @Html.TextBoxFor(Model => Model.Price_Figure, new { @class = "form-control", @placeholder = "Product Price", required = "required", autocomplete = "off",@readonly="readonly" })
+        @Html.ValidationMessageFor(model => model.Price_Figure, "", new { @style = "color:red" })
+        <br />
+
+
+
+        <button id="btnSubmit" type="submit" class="btn btn-success btn-block">
+            @if (Model.Supplier_ID > 0)
+            {<span>Update</span> }
+            else
+            {<span>Save</span>}
+        </button>
+    </form>
+
+
+
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            debugger
+            var myformdata = $("#myForm").serialize();
+            var s1 = $("#ProductName").val();
+
+
+
+
+            if (s1 == "" || s1 == undefined) {
+
+                event.stopPropagation();
+            }
+            else {
+
+
+
+
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Inventory/SearchProduct",
+                    data: myformdata,
+                    success: function (data) {
+
+                        if (data.stat == true) {
+                            $("#loaderDiv").hide();
+                            $("#myModal").modal("hide");
+                            window.location.href = "/Inventory/SearchProduct";
+                            setTimeout(function () {
+                                $("#loaderDiv").hide();
+                                $("#myModal").modal("hide");
+                                window.location.href = "/Inventory/SearchProduct";
+                            }, 3000);
+                        }
+                        else {
+                            alert("Product Exists")
+                        }
+                        
+                    }
+
+                })
+
+
+
+
+            }
+        })
+
+    })
+
+
+</script>
+
+
+
+
+
+
+

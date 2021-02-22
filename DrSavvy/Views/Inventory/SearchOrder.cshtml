@@ -1,0 +1,519 @@
+﻿@model  DrSavvy.Models.OrderClass
+@{
+    ViewBag.Title = "Supplier Order";
+}
+
+<hr />
+
+<button type="button" class="btn" onclick="AddEditOrder()" style="border-radius:20px;background-color:#1a6490;color:white">Place Order</button>
+
+<hr />
+<div class="input-group">
+
+    <div class="form-group">
+
+        <!--Dropdown primary-->
+        <div class="">
+            <!--Trigger-->
+            <button class="btn btn-dark" style="border-radius:20px" type="button" id="dropdownMenu1-1"
+                    data-toggle="dropdown">
+                Supplier
+            </button>
+
+            <!--Menu-->
+            <div class="dropdown-menu dropdown-primary" id="your-custom-id" style="background-color:black">
+                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                <a class="dropdown-item mdb-dropdownLink-1">MDB</a>
+                <a class="dropdown-item mdb-dropdownLink-1">MDB react</a>
+                <a class="dropdown-item mdb-dropdownLink-1">MDB angular</a>
+                <a class="dropdown-item mdb-dropdownLink-1">MDB vue</a>
+                <a class="dropdown-item mdb-dropdownLink-1">BrandFlow</a>
+                <a class="dropdown-item mdb-dropdownLink-1">Test     </a>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <input type="text" class="form-control" placeholder="Ace Packaging" style="border-radius:20px;background-color:rgba(0,0,0,0.27);color:white" disabled />
+
+</div>
+<br />
+
+<br />
+<div>
+    <table class="table-dark table table-hover" style="border-radius: 25px;">
+        <thead>
+            <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Company Name</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Order Cost</th>
+                <th scope="col">Status</th>                
+                
+                <th scope="col">Supplier Payment</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (ViewBag.OrderList != null)
+            {
+
+                foreach (var item in ViewBag.OrderList)
+                {
+                    <tr class="Search">
+                        <td>@item.OrderID</td>
+                        <td>@item.SupplierName</td>
+                        <td>@item.Order_Date.ToShortDateString()</td>
+                        <td>R @item.Order_Cost</td>
+                        <td>
+                            @if (item.OS_ID == 1)
+                            {
+                                <a href="#" class="btn btn-success" style="border-radius:20px" onclick="disableProd(@item.OrderID)">Received </a>
+                            }
+                            else if (item.OS_ID == 2)
+                            {
+                                <a href="#" class="btn btn-danger" style="border-radius:20px"  onclick="receiveOrder(@item.OrderID)">Not Received </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="btn btn-warning" style="border-radius:20px"  onclick="disableProd(@item.OrderID)">BackOrder </a>
+                            }
+                        </td>
+                       
+                        <td>
+                            @if (@item.PaidStatus == false)
+                            {
+                                <a href="#" class="btn btn-warning" style="border-radius:20px"  onclick="Payment(@item.OrderID)">Capture Payment </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="btn btn-success"style="border-radius:20px"  onclick="Payment(@item.OrderID)">Paid </a>
+                            }
+                        </td>
+
+
+                    </tr>
+
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Place Order Div -->
+<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content modal-lg" style="background-color:black;border-radius:20px" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"> Place Order </h5>
+
+            </div>
+            <div class="modal-body" id="AddProductBody">
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:black">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Product Type</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to delete this record? </h4>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-success" onclick="DeleteEmployee()">Confirm</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Receive Order Div -->
+<div class="modal fade" id="ReceiveOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content modal-lg" style="background-color:black;border-radius:20px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"> Receive Order </h5>
+
+            </div>
+            <div class="modal-body" id="ReceiveOrderBody">
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PayOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content modal-lg" style="background-color:black;border-radius:20px">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Capture Payment </h3>
+
+            </div>
+            <div class="modal-body" id="PayOrderBody">
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*hidden field for storing current employeeId*@
+<input type="hidden" id="hiddenProductTypeId" />
+
+
+
+<script>
+    $(document).ready(function () {
+
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+
+
+
+    //Display Place order Div
+    var AddEditOrder = function () {
+
+        var url = "/Inventory/PlaceOrder";
+
+        $("#AddProductBody").load(url, function () {
+            $("#addProduct").modal("show");
+
+        })
+
+    }
+
+
+    //Display Receive Order Div
+    var receiveOrder = function (OrderID) {
+        debugger
+        var url = "/Inventory/ReceiveOrder?OrderID="+OrderID;
+
+        $("#ReceiveOrderBody").load(url, function () {
+            $("#ReceiveOrder").modal("show");
+
+        })
+    }
+
+
+     //Display Payment Div
+    var Payment = function (OrderID) {
+        debugger
+        var url = "/Inventory/PayOrder?OrderID="+OrderID;
+
+        $("#PayOrderBody").load(url, function () {
+            $("#PayOrder").modal("show");
+
+        })
+    }
+
+
+   
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Confirm order placement  -->
+<div class="modal fade" id="Confirm" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Confirm Order</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+
+            <div class="modal-body">
+                Confirm to place order.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary custom-close" data-toggle="modal" data-target="#oSuccessful" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal order placed successfully -->
+<div class="modal fade" id="oSuccessful" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:#28a745">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Successfully Ordered</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+
+            </div>
+
+            <div class="modal-body">
+                Order has been successfully placed.
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--Receive order-->
+<div class="modal fade" id="ConEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Receieve Order</h5>
+
+            </div>
+            <div class="modal-body">
+                <p>Recieve order 1001 from Ace Packagaig</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dEdit" data-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Order recieved -->
+<div class="modal fade" id="dEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Recorded Order recieved</h5>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-dark">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Product Name</th>
+                                <th>Quantity Ordered</th>
+                                <th>Quantity Received</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0217</td>
+                                <td>Gloves</td>
+                                <td>50</td>
+                                <td><input type="text" class="form-control" placeholder="0" /></td>
+
+                            </tr>
+                            <tr>
+                                <td>0220</td>
+                                <td>Syringe</td>
+                                <td>10</td>
+                                <td><input type="text" class="form-control" placeholder="0" /></td>
+                            </tr>
+                            <tr>
+                                <td>0111</td>
+                                <td>urine flask</td>
+                                <td>50</td>
+                                <td><input type="text" class="form-control" placeholder="0" /></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ConMod"><i class="fas fa-plus"></i>Record Order Recieved</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-user-slash"></i>Discard</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Capture Payment-->
+<div class="modal fade" id="ConPay" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Capture Payment</h5>
+
+            </div>
+            <div class="modal-body">
+                <p>Capture payment details for order 1001 from Ace Packagaig</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Edit" data-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Capture Payment Modal-->
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Capture order payment for order No. 1001</h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Payment Type:</label>
+                    <br />
+                    <select class="custom-select">
+                        <option selected="">Card</option>
+                        <option value="1">Doctor</option>
+                        <option value="2">Receptionist</option>
+                        <option value="3">Bookkeeper</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Amount:</label>
+                    <input type="text" class="form-control" id="FirstName" placeholder="R">
+                </div>
+                <div>
+                    <label>Transaction No.:</label>
+                    <input type="text" class="form-control" id="FirstName" placeholder="xxxxxxxxxxx">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#sConfirm">Capture Payment</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Confirm Payment  -->
+<div class="modal fade" id="sConfirm" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Capture Order Payment</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+
+            </div>
+
+            <div class="modal-body">
+                Confirm to capture order payment.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary Prodedit-close" data-toggle="modal" data-target="#Successful" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Successfully Saved payment -->
+<div class="modal fade" id="Successful" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:#28a745">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Successfully Captured Order Payment</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+
+            </div>
+
+            <div class="modal-body">
+                Successfully Captured Order Payment on the system.
+            </div>
+
+        </div>
+    </div>
+</div>
+

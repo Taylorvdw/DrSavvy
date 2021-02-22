@@ -1,0 +1,245 @@
+﻿
+@{
+    ViewBag.Title = "Referal Note";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+<nav class="navbar navbar-expand-lg navbar-light" style="border-radius:15px">
+    <div class="container-fluid">
+        <button type="submit" class="btn" style="color:white" onclick="window.close()">
+            <i class="fas fa-undo"></i>
+            <span>Return to Consultation</span>
+        </button>
+        <div style="margin-left:-70px;color:#00709e;font-size:24px;font-weight:600;">
+            @ViewBag.Patient
+        </div>
+        <div class="title" style="font-size:24px; font-weight:600; color:white">
+            @ViewBag.Title
+        </div>
+    </div>
+</nav>
+<!--Button-->
+<div style="margin-left:-10px" class="container-fluid btn btn-group">
+    <button id="BtnIssue" class="btn btn-outline-success btn-lg"><i class="fas fa-plus"></i> Issue Referal</button>
+    <button id="BtnIssue2" class="btn btn-outline-primary btn-lg"><i class="fas fa-clipboard"></i> View Personal Info</button>
+</div>
+<hr style="background-color:white" />
+<div id="idx1">
+    <div class="border-light" style="display:block;background-color:rgba(0, 0, 0, 0.84);border-radius:20px;width:800px; margin-left:300px;" id="Refferal">
+        <div class="justify-content-md-around" style="background-color:#00709e; border-top-left-radius:20px ; border-top-right-radius:20px">
+            <h4 style="color:white; margin-left:5px"><i class="fa fa-plus-circle" style="color:rgba(0, 0, 0, 0)"></i></h4>
+        </div>
+        @using (Html.BeginForm("NewRefferal", "Report", FormMethod.Post, new { target = "_blank" }))
+        {
+            <div id="details">
+                <div style="background-color:rgba(0, 0, 0, 0.84)">
+                    <br />
+                    <div style="float:right">
+                        <button class="btn btn-sm btn-outline-success" id="btnHide" type="button">Hide Info</button>
+                    </div>
+                    <div style="margin-left:140px" class="row">
+                        <div class="col-md-4" style="margin-left:10px">
+                            <div class="form-group">
+                                <label><span>Patient Name</span></label>
+                                <input placeholder="Enter Name.." style="border:1px solid #ff0000;color:black;border-radius:10px" class="form-control-sm" id="PatientName" name="PatientName" value="@ViewBag.Patient" />
+                            </div>
+                            <div class="form-group">
+                                <label><span>Patient Id Number</span></label>
+                                <input placeholder="Enter ID Number.." style="border:1px solid #ff0000;color:black;border-radius:10px" class="form-control-sm" id="IDNumber" name="IDNumber" value="@ViewBag.PatientIDNum" />
+                            </div>
+                            <div class="form-group">
+                                <label><span>Medical Aid</span></label>
+                                <input placeholder="Enter Medical Aid.." style="border:1px solid #ff0000;color:black;border-radius:10px" class="form-control-sm" id="MedicalAid" name="MedicalAid" value="@ViewBag.MedicalAid" />
+                            </div>
+                            <div class="form-group">
+                                <label><span>Medical Aid No</span></label>
+                                <input placeholder="Enter Medical Aid No.." style="border:1px solid #ff0000;color:black;border-radius:10px" class="form-control-sm" id="MedicalAidNo" name="MedicalAidNo" value="@ViewBag.MedicalAidNo" />
+                            </div>
+                        </div>
+                        <div style="margin-left:110px" class="col-md-4">
+                            <div class="form-group">
+                                <label><span>Date Issued</span></label>
+                                <input placeholder="Enter Date.." style="border:1px solid #ff0000;color:black;border-radius:10px" class="form-control-sm" id="txtDate" name="txtDate" value="@ViewBag.Date" />
+                            </div>
+                            <div class="form-group">
+                                <label><span>Cell No</span></label>
+                                <input placeholder="Enter Cell No.." style="border:1px solid #ff0000;color:black;border-radius:10px" class="form-control-sm" id="CellNo" name="CellNo" value="@ViewBag.Cell" />
+                            </div>
+                            <div class="form-group">
+                                <label><span>Work No</span></label>
+                                <input placeholder="Enter Work No.." style="border:1px solid #ff0000;color:black;border-radius:10px" class="form-control-sm" id="WorkNo" name="WorkNo" value="@ViewBag.Work" />
+                            </div>
+                            <div class="form-group">
+                                <label><span>Email Address</span></label>
+                                <input placeholder="Enter Email Address.." style="border:1px solid #ff0000;color:black;border-radius:10px" class="form-control-sm" id="Email" name="Email" value="@ViewBag.Email" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="background-color:white;height:2px" />
+                </div>
+            </div>
+            <h2 style="margin-left:230px">Reason For Refferal</h2>
+            <textarea id="txtReason" name="txtReason" style="margin-left:100px;width:600px;border-radius:10px" class="form-control" placeholder="Enter Reason Here...."></textarea>
+            <br />
+            <div id="idx2" class="col-md-12">
+                <h3 style="margin-left:250px">Refferal Institute</h3>
+                <div class="input-group">
+                    <div class="input-group-prepend" style="color:dodgerblue;">
+                        <span class="input-group-text" id="basic-text1" style="background-color:dodgerblue;">
+                            <i class="fas fa-search text-white" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input type="text" id="searchInstitute" class="form-control border-bottom" placeholder="Search Instutue" aria-label="Recipient's username" aria-describedby="button-addon2" style="background-color: #494c49; border-bottom: none !important;color:white">
+                    <input type="button" class="btn btn-success add-row" value="Add" id="btnAdd" />
+                </div>
+                <br />
+            </div>
+            <input id="ProCode" name="ProCode" style="display:none"/>
+            <input id="ProName" name="ProName" style="display:none"/>
+            <input id="ProName1" name="ProName1" style="display:none"/>
+            <input id="ProName2" name="ProName2" style="display:none"/>
+            <div id="idx3">
+                <!--Institute table -->
+                <h4 class="border rounded" style="background-color:  #1a6490;color: rgb(255,255,255);margin-top: 20px; border:none !important">
+                    Chosen Institution<i style="margin-left:20px" class="fas fa-home"></i>
+                </h4>
+                <div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-dark" id="tblAdded">
+                            <thead>
+                                <tr>
+                                    <th>Institute Name</th>
+                                    <th>Contact Name</th>
+                                    <th>Tel Number</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="Added" id="tablefadded">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+          <button type="submit" class="btn btn-sm btn-outline-success" style="float:left; margin-top:-260px">Print Refferal</button>
+        }
+    </div>
+</div>
+@section Scripts{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript">
+
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript">
+
+    </script>
+    <script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js">
+
+    </script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+    <!--Search Institute-->
+    <script type="text/javascript">
+        $(function () {
+            $("#searchInstitute").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Report/AutoComplete4/',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return item;
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("#ProCode").val(i.item.val);
+                    $("#ProName").val(i.item.label);
+                    $("#ProName1").val(i.item.val1);
+                    $("#ProName2").val(i.item.val2);
+                    document.getElementById('btnAdd').disabled = false;
+                    document.getElementById('searchInstitute').disabled = true;
+                    return i;
+                },
+                minLength: 1
+            });
+        });
+    </script>
+    <!--btnActions-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //hide Upload Div
+            Swal.fire({
+                position: 'top',
+                type: 'success',
+                title: '<span style="color:gray">Issue Medical Certificate',
+                showConfirmButton: false,
+                timer: 2000
+            });
+            $('#idx1').hide();
+            $('#details').hide();
+            $('#idx2').hide();
+            $('#idx3').hide();
+            document.getElementById("BtnIssue2").disabled = true;
+        });
+    </script>
+    <!--btn again-->
+    <script>
+        $("#BtnIssue").click(function () {
+            Swal.fire('<span style="color:limegreen" Refferal Ready', 'Please Add  Details', 'success');
+            document.getElementById('BtnIssue').disabled = true;
+            $('#idx1').show();
+            $('#idx2').show();
+            document.getElementById("BtnIssue2").disabled = false;
+        });
+        $("#BtnIssue2").click(function () {
+            Swal.fire('<span style="color:limegreen" Modify Refferal Info !!!', 'You Can Now Modify Personal Details', 'success');
+            document.getElementById('BtnIssue2').disabled = true;
+            $('#details').show();
+        });
+        $("#btnHide").click(function () {
+            document.getElementById('BtnIssue2').disabled = false;
+            $('#details').hide();
+        });
+        $("#btnAdd").click(function () {
+            var name1 = $("#ProName").val();
+            var name2 = $("#ProName1").val();
+            var name3 = $("#ProName2").val();
+            var markup = "<tr id='myTableRow'><td name='record'> " + name1 + "</td><td>" + name3 + "</td><td>" + name2 + "</td><td><button type='button' class='btn btn-outline-info' style='border-radius:15px' id='btnRemove'><i class='fas fa-times'></i> Change Institute</button></td></tr>";
+            $(".Added").append(markup);
+            $('#idx2').hide();
+            $('#idx3').show();
+        });
+        $('body').on('click', '#btnRemove', function () {
+            $(this).closest('tr').remove();
+            $("#btnAdd").prop("disabled", true);
+            document.getElementById('searchInstitute').disabled = false;
+            $('#searchInstitute').val('');
+            $("#idx3").hide();
+            $("#idx2").show();
+            $('#ProCode').val('');
+            $('#ProName').val('');
+            $('#ProName1').val('');
+            $('#ProName2').val('');
+        });
+    </script>
+
+    <script>
+        function printContent(el) {
+            var restorepage = $('body').html();
+            var printcontent = $('#' + el).clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+        }
+    </script>
+
+}
+

@@ -1,0 +1,359 @@
+﻿@model DrSavvy.Models.PatientClass
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript">
+
+</script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript">
+
+</script>
+<script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js">
+
+</script>
+<link href="~/Content/Chosen/chosen.min.css" rel="stylesheet" />
+<script src="~/Scripts/chosen.jquery.min.js"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        $("#Company_ID").change(function () {
+
+            var supplierId = $(this).val();
+
+
+            $.ajax({
+
+                type: "Post",
+                url: "/Patient/GetSchemes?CompId=" + supplierId,
+                contentType: "html",
+                success: function (response) {
+
+                    $("#Scheme_ID").empty();
+                    $("#Scheme_ID").append(response);
+                    var x = document.getElementById("Scheme_ID");
+                    x.style.display = "block";
+
+                }
+            })
+
+        });
+        $("#Scheme_ID").change(function () {
+
+            var x = document.getElementById("MedicalAidNo");
+            x.style.display = "block";
+
+
+
+
+        });
+        $("#DepName").change(function () {
+
+            var supplierId = $("#DepName").val();
+
+            debugger
+            $.ajax({
+
+                type: "Post",
+                url: "/Patient/GetsID?Name=" + supplierId,
+                contentType: "html",
+                success: function (response) {
+
+                    $("#DependentNo").empty();
+                    $("#DependentNo").append(response);
+                    var x = document.getElementById("DependentNo");
+                    x.style.display = "block";
+
+                }
+            });
+
+        });
+        $("#DepSurname").autocomplete({
+            source: function (request, response) {
+                debugger
+                $.ajax({
+                    url: '/Patient/AutoCompletess/',
+                    data: "{ 'prefix': '" + request.term + "'}",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        debugger
+                        response($.map(data, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                debugger
+                $("#PatID").val(i.item.val);
+                var x = document.getElementById("DepName");
+                x.style.display = "block";
+
+                var Surname = $("#DepSurname").val();
+
+
+                $.ajax({
+
+                    type: "Post",
+                    url: "/Patient/GetName?surname=" + Surname,
+                    contentType: "html",
+                    success: function (response) {
+
+                        $("#DepName").empty();
+                        $("#DepName").append(response);
+                        var x = document.getElementById("DepName");
+                        x.style.display = "block";
+
+                    }
+                })
+
+                return i;
+            },
+            minLength: 1
+        });
+    });
+    var Dependent = function () {
+        var x = document.getElementById("AddDep");
+        if (x.style.display == "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    };
+
+    var RemoveDependent = function () {
+        event.preventDefault();
+        var x = document.getElementById("disDep");
+         var y = document.getElementById("NewDep");
+         x.style.display = "none";
+         y.style.display = "block";
+    }
+
+     var RemoveMed = function () {
+        var x = document.getElementById("DisMed");
+         var y = document.getElementById("NewMed");
+         x.style.display = "none";
+         y.style.display = "block";
+         event.preventDefault();
+        
+    }
+
+    var Medical = function () {
+        var x = document.getElementById("AddMed");
+        if (x.style.display == "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<div>
+    <form id="myForm">
+        @Html.HiddenFor(m => m.Patient_ID)
+        @Html.DropDownListFor(m => m.Title_ID, ViewBag.Titles as SelectList, "--Title--", new { @class = "form-control", autocomplete = "off", @style = "border-radius:20px" })
+        @Html.ValidationMessageFor(model => model.Title_ID, "", new { @style = "color:Yellow" })
+        @Html.TextBoxFor(m => m.PatientName, new { @class = "form-control", @placeholder = "Patient Name", required = "required", autocomplete = "off", @style = "border-radius:20px", id = "txtName" })
+        @Html.ValidationMessageFor(model => model.PatientName, "", new { @style = "color:Yellow" })
+        @Html.TextBoxFor(m => m.PatientSurname, new { @class = "form-control", @placeholder = "Patient Surname", required = "required", autocomplete = "off", @style = "border-radius:20px", id = "txtSurname" })
+        @Html.ValidationMessageFor(model => model.PatientSurname, "", new { @style = "color:Yellow" })
+        @Html.TextBoxFor(m => m.PatientIDNum, new { @class = "form-control", @placeholder = "Patient ID No", required = "required", autocomplete = "off", @style = "border-radius:20px", id = "IDNum" })
+        @Html.ValidationMessageFor(model => model.PatientIDNum, "", new { @style = "color:Yellow" })
+        @Html.TextBoxFor(m => m.PatientCell, new { @class = "form-control", @placeholder = "Cellphone Number", required = "required", autocomplete = "off", @style = "border-radius:20px", id = "cell" })
+        @Html.ValidationMessageFor(model => model.PatientCell, "", new { @style = "color:Yellow" })
+        @Html.TextBoxFor(m => m.PatientWorkNum, new { @class = "form-control", @placeholder = "Work Number", autocomplete = "off", @style = "border-radius:20px" })
+        @Html.ValidationMessageFor(model => model.PatientWorkNum, "", new { @style = "color:Yellow" })
+        @Html.TextBoxFor(m => m.PatientTelNum, new { @class = "form-control", @placeholder = "Telephone Number", autocomplete = "off", @style = "border-radius:20px" })
+        @Html.ValidationMessageFor(model => model.PatientTelNum, "", new { @style = "color:Yellow" })
+        @Html.TextBoxFor(m => m.PatientEmail, new { @class = "form-control", @placeholder = "Email Address", required = "required", autocomplete = "off", @style = "border-radius:20px", id = "Email", type = "email" })
+        @Html.ValidationMessageFor(model => model.PatientEmail, "", new { @style = "color:Yellow" })
+        @Html.TextAreaFor(m => m.PatientHomeAddress, new { @class = "form-control", @placeholder = "Home Address", required = "required", autocomplete = "off", @style = "border-radius:20px" })
+        @Html.ValidationMessageFor(model => model.PatientHomeAddress, "", new { @style = "color:Yellow" })
+        @Html.TextAreaFor(m => m.PatientPoBox, new { @class = "form-control", @placeholder = "Postal Address", required = "required", autocomplete = "off", @style = "border-radius:20px" })
+        @Html.ValidationMessageFor(model => model.PatientPoBox, "", new { @style = "color:Yellow" })
+        @Html.ListBoxFor(m => m.Alergylist, new SelectList(Model.GetAlergyList, "Allergy_ID", "Allergy_Name"), new { @class = "form-control ", id = "mul", data_placeholder = "Patient Allergies", @style = "border-radius:20px" })
+        @Html.ValidationMessageFor(model => model.Alergylist, "", new { @style = "color:Yellow" })
+        <br />
+
+        @if (Model.MedicalAidNo != null)
+        {
+        <div id="DisMed">
+            <br />
+            <center><h5 style="color:#17a2b8 !important">Medical Aid Details</h5></center>
+            <label style="color:#17a2b8 !important">Company Name</label>
+            <input type="text" class="form-control border-bottom" value="@Model.Company_Name" style="border-radius:20px" placeholder="--Dependent Surname--" id="DepSurname" aria-describedby="button-addon2" disabled />
+            <br />
+            <label style="color:#17a2b8 !important">Scheme Name</label>
+            <input type="text" class="form-control border-bottom" value="@Model.Scheme_Name" style="border-radius:20px" placeholder="--Dependent Surname--" id="DepSurname" aria-describedby="button-addon2" disabled />
+            <br />
+            <label style="color:#17a2b8 !important">Medical Aid Number</label>
+            <input type="text" class="form-control border-bottom" value="@Model.MedicalAidNo" style="border-radius:20px" placeholder="--Dependent Surname--" id="DepSurname" aria-describedby="button-addon2" disabled />
+            <br />
+            <center><button type="submit" class="btn btn-outline-warning" onclick="RemoveMed()">Reset Medical Aid</button></center>
+        </div>
+        <div style="display:none" id="NewMed">
+            <br />
+            <center> <button type="button" class="btn btn-outline-info" onclick="Medical()">Add Medical Aid</button></center>
+            <br />
+            <div id="AddMed" style="display:none">
+                @Html.DropDownListFor(m => m.Company_ID, ViewBag.Comp as SelectList, "--Medical Aid Company--", new { @class = "form-control", autocomplete = "off", @style = "border-radius:20px" })
+                @Html.ValidationMessageFor(model => model.Title_ID, "", new { @style = "color:Yellow" })
+
+                @Html.DropDownListFor(m => m.Scheme_ID, new SelectList(""), "--Medical Aid Scheme--", new { @class = "form-control", @style = "border-radius:20px; display:none; display:none" })
+
+                @Html.ValidationMessageFor(model => model.Scheme_ID, "", new { @style = "color:Yellow" })
+                @Html.TextBoxFor(m => m.MedicalAidNo, new { @class = "form-control ", @placeholder = "Medical Aid Number", autocomplete = "off", @style = "border-radius:20px; display:none" })
+                @Html.ValidationMessageFor(model => model.MedicalAidNo, "", new { @style = "color:Yellow" })
+            </div>
+        </div>
+            
+
+        }
+        else
+        {
+            <br />
+            <center> <button type="button" class="btn btn-outline-info" onclick="Medical()">Add Medical Aid</button></center>
+            <br />
+            <div id="AddMed" style="display:none">
+                @Html.DropDownListFor(m => m.Company_ID, ViewBag.Comp as SelectList, "--Medical Aid Company--", new { @class = "form-control", autocomplete = "off", @style = "border-radius:20px" })
+                @Html.ValidationMessageFor(model => model.Title_ID, "", new { @style = "color:Yellow" })
+
+                @Html.DropDownListFor(m => m.Scheme_ID, new SelectList(""), "--Medical Aid Scheme--", new { @class = "form-control", @style = "border-radius:20px; display:none; display:none" })
+
+                @Html.ValidationMessageFor(model => model.Scheme_ID, "", new { @style = "color:Yellow" })
+                @Html.TextBoxFor(m => m.MedicalAidNo, new { @class = "form-control ", @placeholder = "Medical Aid Number", autocomplete = "off", @style = "border-radius:20px; display:none" })
+                @Html.ValidationMessageFor(model => model.MedicalAidNo, "", new { @style = "color:Yellow" })
+            </div>
+        }
+        @if (Model.DependentNo != null)
+        {
+    <div id="disDep">
+        <center><h5 style="color:#17a2b8 !important">Dependent Details</h5></center>
+        <label style="color:#17a2b8 !important">Surname</label>
+        <input type="text" class="form-control border-bottom" value="@Model.DepSurname" style="border-radius:20px" placeholder="--Dependent Surname--"  aria-describedby="button-addon2" disabled />
+        <br />
+        <label style="color:#17a2b8 !important">Name</label>
+        <input type="text" class="form-control border-bottom" value="@Model.DepName" style="border-radius:20px" placeholder="--Dependent Surname--"aria-describedby="button-addon2" disabled />
+        <br />
+        <label style="color:#17a2b8 !important">ID Number</label>
+        <input type="text" class="form-control border-bottom" value="@Model.depIDNum" style="border-radius:20px" placeholder="--Dependent Surname--"  aria-describedby="button-addon2" disabled />
+        <br />
+        <center><button type="submit" class="btn btn-outline-warning" onclick="RemoveDependent()">Remove Dependent</button></center>
+        <br />
+    </div>
+    <div style="display:none" id="NewDep">
+        <center> <button type="button" class="btn btn-outline-info" onclick="Dependent()">Add Dependent</button></center>
+        <br />
+        <div id="AddDep" style="display:none">
+            <input type="text" class="form-control border-bottom" style="border-radius:20px" placeholder="--Dependent Surname--" id="DepSurname" aria-describedby="button-addon2" />
+           
+            <br />
+            @Html.DropDownListFor(m => m.DepName, new SelectList(""), "--Dependent Name--", new { @class = "form-control ", @style = "border-radius:20px; display:none" })
+
+            @Html.DropDownListFor(m => m.DependentNo, new SelectList(""), "--Dependent ID Number--", new { @class = "form-control ", @style = "border-radius:20px; display:none" })
+            <input type="hidden" id="sur" />
+        </div>
+    </div>
+
+
+        }
+        else
+        {
+            @*Dependent DropDown*@
+            <center> <button type="button" class="btn btn-outline-info" onclick="Dependent()">Add Dependent</button></center>
+            <br />
+            <div id="AddDep" style="display:none">
+                <input type="text" class="form-control border-bottom" style="border-radius:20px" placeholder="--Dependent Surname--" id="DepSurname" aria-describedby="button-addon2" />
+               
+                <br />
+                @Html.DropDownListFor(m => m.DepName, new SelectList(""), "--Dependent Name--", new { @class = "form-control ", @style = "border-radius:20px; display:none" })
+
+                @Html.DropDownListFor(m => m.DependentNo, new SelectList(""), "--Dependent ID Number--", new { @class = "form-control ", @style = "border-radius:20px; display:none" })
+                <input type="hidden" id="sur" />
+            </div>
+        }
+
+
+
+
+        <button id="btnSubmit" type="submit" class="btn btn-block btn-success" ; style="border-radius:20px">
+            @if (Model.Patient_ID > 0)
+            {<span>Update</span> }
+            else
+            {<span>Save</span>}
+        </button>
+    </form>
+
+
+
+
+
+
+
+
+
+    <script>
+        $('#do').chosen({ width: "100%", disable_search_threshold: 7, search_contains: true, color: "grey" });
+        $('#mul').chosen({ width: "100%" });
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                debugger
+                var myformdata = $("#myForm").serialize();
+                var s1 = $('#IDNum').val().trim();
+                var filter = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+                var em = $('#Email').val().trim();
+                debugger
+                if ($('#txtName').val().trim() == "" || $('#txtSurname').val().trim() == "" || $('#IDNum').val().trim() == "" || $('#cell').val().trim() == "" || $('#Email').val().trim() == "" || filter.test(em) == false) {
+                    Swal.fire('<span style="color:#f0ad4e"> Hold on.... Please Enter All Requied Fields');
+                    return;
+                }
+                debugger
+                if (s1.length != 13) {
+                    Swal.fire('<span style="color:#f0ad4e"> Hold on.... Please Enter a Valid ID Number');
+                    return;
+                }
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Patient/AddEditPatients",
+                    data: myformdata,
+                    success: function () {
+
+
+                        //$("#loaderDiv").hide();
+                        //$("#myModal").modal("hide");
+                        //window.location.href = "/Inventory/SearchProduct";
+                        setTimeout(function () {
+                            $("#loaderDiv").hide();
+                            $("#myModal").modal("hide");
+
+                        }, 1500);
+                    }
+
+                })
+            })
+
+        })
+    </script>
+
+
+    <script type="text/javascript">
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }//,
+            //'.chosen-search': {disable_search: false}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    </script>
+</div>

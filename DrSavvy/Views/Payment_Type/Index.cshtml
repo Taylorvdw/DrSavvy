@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DrSavvy.Models.Payment_Type>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<button type="button" class="btn" data-toggle="modal" data-target="#addPaymentType" style="border-radius:20px;background-color:#1a6490;color:white" >Add Payment Type</button>
+<hr />
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend" style="color:dodgerblue;">
+        <span class="input-group-text" id="basic-text1" style="background-color:dodgerblue;">
+            <i class="fas fa-search text-white"
+               aria-hidden="true"></i>
+        </span>
+    </div>
+    <input type="text" style="background-color:rgba(0,0,0,0.27);color:white;border-top-right-radius:20px;border-bottom-right-radius:20px" class="form-control" placeholder="Search here..." aria-label="Recipient's username" aria-describedby="button-addon2"id="Search">
+</div>
+<br />
+
+<script src="~/Scripts/jquery-3.4.1.min.js">
+
+</script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+</script>
+
+<table class="table-dark table-striped table table-hover" style="border-radius: 25px;" id="tblProcedures">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment_Type_Description)
+        </th>
+        <th scope="col">
+            Modify
+        </th>
+        <th scope="col">
+            Remove
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment_Type_Description)
+            </td>
+            <td>
+                <button type="button" style="border-radius:20px" class="btn btn-warning" data-toggle="modal" onclick="DisplayModal('Edit/@item.Payment_Type_ID')">
+                    <i class="fas fa-user-edit fa-lg" data-toggle="modal" data-target="#ConEdit"></i>
+                    <span>
+                        <strong>Modify</strong>
+                    </span>
+                </button>
+
+            </td>
+            <td>
+
+                <button type="button" class="btn btn-danger" style="border-radius:20px" data-toggle="modal" onclick="DisplayModal('Delete/@item.Payment_Type_ID')">
+                    <i class="far fa-trash-alt fa-lg"></i>
+                    <span>
+                        <strong>Delete</strong>
+                    </span>
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
+<iframe src="Create/" class="modal modal-lg" id="addPaymentType" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35%;background-color:black;border-radius:20px">Your browser doesn't support iFrames.</iframe>
+<iframe class="modal modal-lg" id="editPaymentType" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35%;background-color:black;border-radius:20px">Your browser doesn't support iFrames.</iframe>
+<iframe class="modal modal-lg" id="DeletePaymentType" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35%;background-color:black;border-radius:20px">Your browser doesn't support iFrames.</iframe>
+<script>
+    var call;
+    function DisplayModal(test) {
+        document.getElementById('editPaymentType').src = test;
+        $("#editPaymentType").modal("show");
+
+    }
+
+    function DisplayModal(test) {
+        document.getElementById('DeletePaymentType').src = test;
+        $("#DeletePaymentType").modal("show");
+
+    }
+</script>

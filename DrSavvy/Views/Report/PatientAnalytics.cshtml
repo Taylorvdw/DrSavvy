@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = " Patient Analytics Report";
+}
+<h1>Patients Report</h1>
+<hr style="background-color:dodgerblue" />
+<br />
+<div class="table-responsive border rounded border-dark" style="margin-left: 29px;height: 255px;margin-top: -4px;width: auto; position : center">
+    @using (Html.BeginForm("PatientAnalyticsView", "Report", FormMethod.Post))
+    {
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="background-color: #1E90FF;color: #ffffff">Gender</th>
+                <th style="background-color: #1E90FF;color: #ffffff">Ailment</th>
+                <th style="background-color: #1E90FF;color: #ffffff;">Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="btn-group">
+                        <select required name="gender"  title="Gender">
+                            <option disabled value="" href="#">--Please Select Gender--</option>
+                            <option value="Male" href="#">Male</option>
+                            <option value="Female" href="#">Female</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                        <div>
+                            <select required name="ailment" title="Ailment">
+                                <option disabled value="" href="#">--Please Select Ailment--</option>
+                                @foreach (var items in ViewBag.Ailments)
+                                {
+                                    <option value="@items.Ailment.Ailment_Name" href="#">@items.Ailment.Ailment_Name</option>
+                                }
+                            </select>
+                        </div>
+</td>
+                <td>
+                    <div>
+                        <select required name="age" title="Age">
+                            <option disabled value="" href="#">--Please Select Age Group--</option>
+                            <option value="5-15"  href="#">1-15</option>
+                            <option value="16-35" href="#">16-35</option>
+                            <option value="36-44" href="#">36-44</option>
+                            <option value="45+" href="#">45+</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="position:center ; margin-left: 240px" role="group" class="btn-group">
+        <button class="btn btn-primary bg-success border-success" type="submit">View</button>
+        <button class="btn btn-primary bg-danger border-danger" type="button">Print</button>
+    </div>
+    <div>
+        <p style="color:orangered; font-size:medium;">@ViewBag.Errormessage</p>
+    </div>
+    }
+</div>
+    <br />
+

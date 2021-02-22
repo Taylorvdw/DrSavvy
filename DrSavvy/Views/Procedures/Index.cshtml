@@ -1,0 +1,120 @@
+﻿@model IEnumerable<DrSavvy.Models.Procedure>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="modal fade" id="ImportProcedure" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content " style="background-color:black">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Import Allergies</h5>
+
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("ImportProcedure", "Procedures", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="file" name="xmlfile" required />
+                    <input type="submit" value="Import" class="btn-info" onclick="location.href='@Url.Action("ImportProcedure", "Procedures")'" />
+
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn" data-toggle="modal" data-target="#addProcedure" style="border-radius:20px;background-color:#1a6490;color:white">Add Procedure</button>
+<button type="button" class="btn btn-dark" onclick="location.href='@Url.Action("exportProcedure", "Procedures" )'"  style="border-radius:20px">Export Procedure List(XML)</button>
+<button type="button" class="btn" data-toggle="modal" data-target="#ImportProcedure" data-dismiss="modal" style="background-color:#1a6490;border-radius:20px;color:white">Bulk Import Procedures </button>
+<hr />
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend" style="color:dodgerblue;">
+        <span class="input-group-text" id="basic-text1" style="background-color:dodgerblue;">
+            <i class="fas fa-search text-white"
+               aria-hidden="true"></i>
+        </span>
+    </div>
+    <input type="text" style="background-color:rgba(0,0,0,0.37);color:white;border-radius:20px" class="form-control fa-search " placeholder="Search here..." aria-label="Recipient's username" aria-describedby="button-addon2" id="Search">
+</div>
+<br />
+
+<script src="~/Scripts/jquery-3.4.1.min.js">
+
+</script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+</script>
+
+<table class="table table-striped table-dark" style="border-radius:20px;" id="tblProcedures">
+    <tr style="background-color:dodgerblue">
+        <th>
+            @Html.DisplayName("Description")
+        </th>
+        <th scope="col">
+            Modify
+        </th>
+        <th scope="col">
+            Remove
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr class="Search">
+            <td>
+                @Html.DisplayFor(modelItem => item.Procedure_Description)
+            </td>
+            <td>
+                <button type="button" class="btn btn-warning" data-toggle="modal" onclick="DisplayModal('Edit/@item.Procedure_ID')">
+                    <i class="fas fa-user-edit fa-lg" data-toggle="modal" data-target="#ConEdit"></i>
+
+                </button>
+
+            </td>
+            <td>
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" onclick="DisplayModal('Delete/@item.Procedure_ID')">
+                    <i class="far fa-trash-alt fa-lg"></i>
+
+                </button>
+            </td>
+        </tr>
+    }
+</table>
+<iframe class="modal modal-lg" id="addProcedure" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35%;border-radius:20px;background-color:black"  src="Create/">Your browser doesn't support iFrames.</iframe>
+<iframe class="modal modal-lg" id="editProcedure" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35% ; border-radius:20px;background-color:black">Your browser doesn't support iFrames.</iframe>
+<iframe class="modal modal-lg" id="DeleteProcedure" tabindex="-1" role="none" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width:36%; height:70%; top:15%; left:35%;border-radius:20px;background-color:black">Your browser doesn't support iFrames.</iframe>
+<script>
+    var call;
+    function DisplayModal(test) {
+        document.getElementById('editProcedure').src = test;
+        $("#editProcedure").modal("show");
+
+    }
+
+    function DisplayModal(test) {
+        document.getElementById('DeleteProcedure').src = test;
+        $("#DeleteProcedure").modal("show");
+
+    }
+</script>

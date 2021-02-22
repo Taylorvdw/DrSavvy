@@ -1,0 +1,482 @@
+﻿@model  DrSavvy.Models.ProductClass
+@{
+    ViewBag.Title = "Products";
+}
+
+
+
+
+<hr />
+
+<button type="button" class="btn" onclick="AddEditProd(0)" style="background-color:#1a6490;color:white;border-radius:20px">Add New Product</button>
+<a href="~/Inventory/SearchProductType" class="btn" style="float:right;background-color:#1a6490;color:white;border-radius:20px">View Product Type List</a>
+
+<hr />
+<div class="input-group md-form form-sm form-1 pl-0">
+    <div class="input-group-prepend" style="color:dodgerblue;">
+        <span class="input-group-text" id="basic-text1" style="background-color:dodgerblue;">
+            <i class="fas fa-search text-white"
+               aria-hidden="true"></i>
+        </span>
+    </div>
+    <input type="text" class="form-control "  style="background-color:rgba(0,0,0,0.27);color:white;border-top-right-radius:20px;border-bottom-right-radius:20px" placeholder="Search here..." aria-label="Recipient's username" aria-describedby="button-addon2"id="Search">
+</div>
+<br />
+<div>
+    <table class="table-dark table-striped table table-hover" style="border-radius: 25px;" id="refresh">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Supplier Name</th>
+                <th scope="col">Modify</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (ViewBag.ProdList != null)
+            {
+
+                foreach (var item in ViewBag.ProdList)
+                {
+                    <tr class="Search">
+                        <td>@item.ProductID</td>
+                        <td>@item.ProductName</td>
+                        <td>@item.Product_Type_Description</td>
+                        <td>
+                            @if (item.Product_Disable == false)
+                            {
+                                <a href="#" class="btn btn-success" style="border-radius:20px" onclick="disableProd(@item.ProductID)" >Enabled </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="btn btn-warning" style="border-radius:20px"  onclick="disableProd(@item.ProductID)">Disabled </a>
+                            }
+                                            </td>
+                        <td>
+                            R @if (@item.Price_Figure == null)
+                            {
+                                <p>0.00</p>
+                            }
+                            else
+                            {
+                                @item.Price_Figure
+                            }
+                        </td>
+                        <td>@item.Product_Qty</td>
+                        <td>@item.SupplierName</td>
+
+                        <td><a href="#" class="btn btn-success" style="border-radius:20px"  onclick="AddEditProd(@item.ProductID)"><i class="fas fa-user-edit fa-lg"></i> </a> </td>
+
+                    </tr>
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- Add New Product TYpe -->
+<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color:black;border-radius:20px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="color:white !important;">Product Details </h5>
+
+            </div>
+            <div class="modal-body" id="AddProductBody">
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:black;border-radius:20px">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Product Type</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure you want to delete this record? </h4>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal" style="border-radius:20px" >Cancel</a>
+                <a href="#" class="btn btn-success" onclick="DeleteEmployee()" style="border-radius:20px" >Confirm</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+@*hidden field for storing current employeeId*@
+<input type="hidden" id="hiddenProductTypeId" />
+
+
+
+<script>
+    $(document).ready(function () {
+
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+
+
+
+    var disableProd = function (ProductId) {
+
+        $.ajax({
+            //base address/controller/Action
+            url: '/Inventory/Disablefunc',
+            type: 'GET',
+            data: {
+                //Passing Input parameter
+                ProductId
+            },
+            success: function () {
+                //write something
+                var table = document.getElementById("refresh")
+        setTimeout(function () { window.location.reload()}, 600);
+            }
+        })
+        var table = document.getElementById("refresh")
+        setTimeout(function () { window.location.reload()}, 600);
+
+    }
+
+    var AddEditProd = function (ProductId) {
+
+        var url = "/Inventory/AddEditProduct?ProductId=" + ProductId;
+
+        $("#AddProductBody").load(url, function () {
+            $("#addProduct").modal("show");
+
+        })
+
+    }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Confirm Delete Modal-->
+<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Product?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to permanently delete this product?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add New Product -->
+<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Product</h5>
+
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <label>Product Name:</label>
+                    <input type="text" class="form-control" style="border-radius:20px"  id="FirstName" placeholder="Name..">
+                </div>
+                <div>
+                    <label>Product Price:</label>
+                    <input type="text" class="form-control" style="border-radius:20px"  id="FirstName" placeholder="R">
+                </div>
+                <div class="form-group">
+                    <label>Product Type:</label>
+                    <select class="custom-select" style="border-radius:20px;background-color:black;color:white" >
+                        <option selected="">Select</option>
+                        <option value="1">Discovery</option>
+                        <option value="2">Receptionist</option>
+                        <option value="3">Bookkeeper</option>
+                    </select>
+                </div>
+
+
+                <div class="input-group">
+                    <div>
+                        <div class="form-group">
+
+                            <!--Dropdown primary-->
+                            <div class="">
+                                <!--Trigger-->
+                                <button class="btn btn-primary" type="button" id="dropdownMenu1-1"
+                                        data-toggle="dropdown" style="border-radius:20px" >
+                                    Supplier
+                                </button>
+
+                                <!--Menu-->
+                                <div class="dropdown-menu dropdown-primary" id="your-custom-id">
+                                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                                    <a class="dropdown-item mdb-dropdownLink-1">MDB</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">MDB react</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">MDB angular</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">MDB vue</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">BrandFlow</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">Test     </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <input type="text" class="form-control" placeholder="hi" disabled />
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Confirm"><i class="fas fa-plus"></i>Add</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-user-slash"></i>Discard</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Confirm New Product  -->
+<div class="modal fade" id="Confirm" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Add New Product</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+
+            <div class="modal-body">
+                Confirm to add Needles as a new product on the system
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary custom-close" data-toggle="modal" data-target="#Successful" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal New Product Added successfully -->
+<div class="modal fade" id="Successful" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:#28a745">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Successfully Added</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>-->
+            </div>
+
+            <div class="modal-body">
+                Needles have been successfully added to the system
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Edit a Product -->
+<div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modify Product</h5>
+
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <label>Product Name:</label>
+                    <input type="text" class="form-control" id="FirstName" placeholder="Cotton Swobs">
+                </div>
+                <div>
+                    <label>Product Price:</label>
+                    <input type="text" class="form-control" id="FirstName" placeholder="R 6.00">
+                </div>
+                <div class="form-group">
+                    <label>Product Type:</label>
+                    <select class="custom-select">
+                        <option selected="">Disposables</option>
+                        <option value="1">Discovery</option>
+                        <option value="2">Receptionist</option>
+                        <option value="3">Bookkeeper</option>
+                    </select>
+                </div>
+
+
+                <div class="input-group">
+                    <div>
+                        <div class="form-group">
+
+                            <!--Dropdown primary-->
+                            <div class="">
+                                <!--Trigger-->
+                                <button class="btn btn-primary" type="button" id="dropdownMenu1-1"
+                                        data-toggle="dropdown">
+                                    Supplier
+                                </button>
+
+                                <!--Menu-->
+                                <div class="dropdown-menu dropdown-primary" id="your-custom-id">
+                                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                                    <a class="dropdown-item mdb-dropdownLink-1">MDB</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">MDB react</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">MDB angular</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">MDB vue</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">BrandFlow</a>
+                                    <a class="dropdown-item mdb-dropdownLink-1">Test     </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <input type="text" class="form-control" placeholder="Gauze & Coton" disabled />
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ConMod"><i class="fas fa-plus"></i>Add</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-user-slash"></i>Discard</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Confirm Modified Product  -->
+<div class="modal fade" id="ConMod" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Confirm Modification</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>-->
+            </div>
+
+            <div class="modal-body">
+                Confirm modification to Cotton Swobs on the system.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary Prodedit-close" data-toggle="modal" data-target="#SuccessfulMod" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal New Product Added successfully -->
+<div class="modal fade" id="SuccessfulMod" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:#28a745">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Successfully Added</h4>
+
+                <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>-->
+            </div>
+
+            <div class="modal-body">
+                Cotton Swobs has been successfully modified on the system.
+            </div>
+
+        </div>
+    </div>
+</div>

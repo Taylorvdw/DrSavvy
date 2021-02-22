@@ -1,0 +1,54 @@
+﻿@model DrSavvy.Models.Procedure
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Procedure</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Procedure ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Procedure_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Procedure_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Procedure Description", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Procedure_Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Procedure_Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" onclick="CloseIframe()" />
+            </div>
+        </div>
+    </div>
+    <script>
+        function CloseIframe() {
+            setTimeout(function () { window.top.location.href = "/Procedures/Index" }, 650)
+
+        }
+    </script>
+}
+
+
+<button class="btn btn-danger" onclick="CloseIframe()" style="float:right; margin-top:-35px;">Discard</button>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

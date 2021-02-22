@@ -1,0 +1,64 @@
+﻿@model DrSavvy.Models.Xray
+
+@{
+    ViewBag.Title = "Upload Xray";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+
+<nav class="navbar navbar-expand-lg navbar-light" style="border-radius:15px">
+    <div class="container-fluid">
+        <button type="submit" id="sidebarCollapse" class="btn" style="color:white" onclick="window.history.back(-1)" >
+            <i class="fas fa-undo"></i>
+            <span>Return to Xrays</span>
+        </button>
+        <div style="margin-left:-70px;color:#00709e;font-size:24px;font-weight:600;">
+            New Xray Upload
+        </div>
+        <div class="title" style="font-size:24px; font-weight:600; color:white">
+            @ViewBag.Title
+        </div>
+    </div>
+</nav>
+
+<hr style="background-color:dodgerblue" />
+@using (Html.BeginForm("Add", "Xrays", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="position:absolute ; margin:auto ; width: 700px ; height : 400px ; margin-left:500px ; background-color:#282828 ; border-radius:20px">   
+        <div class="form-group">
+           <h1 style="color:black ; margin-left: 10px">Title</h1>
+            <div class="col-md-10 form-control">
+            </div>
+        </div>
+        <div class="form-group" style="display:none">
+            <h1 style="color:black ; margin-left: 10px">Patient_ID</h1>
+            <div class="col-md-10">
+                <p class="form-control">  @ViewBag.Patient_ID </p>
+            </div>
+        </div>
+        <div class="form-group" style="display:none">
+            <h1 style="color:black ; margin-left: 10px">Consultation_ID</h1>
+            <div class="col-md-10">
+                @ViewBag.Consultation_ID
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h1 style="color:black ; margin-left: 10px">Select Image Location</h1>
+            <div class="col-md-10">
+                <input type="file" style="color:green" name="XrayFile" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-outline-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,71 @@
+﻿@model DrSavvy.Models.Product_TypeClass
+
+
+<div>
+
+    <form id="myForm">
+        @Html.HiddenFor(m => m.Product_Type_ID)
+
+        @Html.TextBoxFor(model => model.Product_Type_Description, new { @class = "form-control", @placeholder = "Name", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Product_Type_Description, "",new { @style = "color:red" })
+        <br />
+
+        <button id="btnSubmit" type="submit" class="btn btn-success btn-block">
+            @if (Model.Product_Type_ID > 0)
+            {<span>Update</span> }
+            else
+            {<span>Save</span>}
+        </button>
+    </form>
+
+
+
+</div>
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+            debugger
+
+            var s1 = $("#Product_Type_Description").val();
+            var myformdata = $("#myForm").serialize();
+
+             if (s1 == "" || s1 == undefined) {
+
+                event.stopPropagation();
+            }
+
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Inventory/SearchProductType",
+                data: myformdata,
+                success: function (data) {
+                    if (data.status == false) { } else {
+                        $("#loaderDiv").hide();
+                        $("#myModal").modal("hide");
+                        window.location.href = "/Inventory/SearchProductType";
+                    }
+
+
+
+                }
+
+            })
+
+
+
+
+
+        })
+
+    })
+
+
+</script>

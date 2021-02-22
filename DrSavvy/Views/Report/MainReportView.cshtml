@@ -1,0 +1,409 @@
+﻿@model IEnumerable<DrSavvy.Models.Patient>
+@{
+   // Layout = null;
+}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reports</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <ul class="nav nav-pills">
+            <li class="active"><a data-toggle="tab" href="#home">General</a></li>
+            <li><a data-toggle="tab" href="#menu1" class="nav-item">Patient</a></li>
+            <li><a data-toggle="tab" href="#menu2" class="nav-item">Payment</a></li>
+            <li><a data-toggle="tab" href="#menu3" class="nav-item">Inventory</a></li>
+        </ul>
+        <hr />
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h3> Report Dashboard</h3>
+                <div id="dashboard">
+                    <div class="container-fluid" style="width:auto;">
+                        <div class="jumbotron btn" style="width:auto;height:300px;background-color:rgb(37,37,38 ); margin-left: 450px;float:left">
+                            <i class="fa fa-user-md" style="font-size: 80px;color: green;">
+
+                            </i>
+                            <br />
+                            <br />
+                            <button type="submit" class="btn btn-dark" onclick="window.location.href='@Url.Action("Index","Report")'" style="border-radius:15px; margin-left:-3px">
+                                Employees
+                            </button>
+                            <br />
+                            <p></p>
+                            <button class="btn btn-outline-success btn-lg" type="button" style="border-radius:20px ; margin-left:-3px">
+                                @ViewBag.Employees
+                            </button>
+                        </div>
+                        <div class="jumbotron btn" style="width:auto;height:300px;background-color:rgb(37,37,38 ); margin-left: 5px; float:left">
+                            <i class="fa fa-ambulance" style="font-size: 80px;color: white;">
+
+                            </i>
+                            <br />
+                            <br />
+                            <button type="submit" class="btn btn-dark" onclick="window.location.href = '@Url.Action("SupplierReport","Report")'" style="border-radius:15px; margin-left:-3px">
+                                Suppliers
+                            </button>
+                            <br />
+                            <p></p>
+                            <button class="btn btn-outline-light btn-lg" type="button" style="border-radius:20px">
+                                @ViewBag.Suppliers
+                            </button>
+                        </div>
+                        <div class="jumbotron btn" style="width:auto;height:300px;background-color:rgb(37,37,38 ); margin-left: 5px;float:left">
+                            <i class="fa fa-shopping-basket" style="font-size: 80px;color:darkturquoise">
+
+                            </i>
+                            <br />
+                            <br />
+                            <button type="submit" class="btn btn-dark" onclick="window.location.href = '@Url.Action("Orderslist","Report")'" style="border-radius:15px; margin-left:-3px">
+                                Orders
+                            </button>
+                            <br />
+                            <p></p>
+                            <button class="btn btn-outline-info btn-lg" type="button" style="border-radius:20px">
+                                @ViewBag.Orders
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+                @*<div class="border-info" style="min-width: 310px; max-width: 800px; height: 200px; margin: 0 auto">
+                    <h3 style="text-align:center">System Comment</h3>
+                    <p style="color:white">
+                        You are on Holiday You are on Holiday You are on Holiday You are on Holiday You are on Holiday You are on Holiday
+                        You are on HolidayYou are on Holiday You are on HolidayYou are on HolidayYou are on HolidayYou are on Holiday
+                        You are on HolidayYou are on Holiday You are on HolidayYou are on Holiday <br />You are on HolidayYou are on Holiday
+                        You are on Holiday <br />You are on HolidayYou are on HolidayYou are on HolidayYou are on Holiday You are on Holiday
+                    </p>
+                </div>*@
+
+                <script>
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Appointment Period for the week'
+                        },
+                        subtitle: {
+                            text: 'Property of MCE Mc Donald</a>'
+                        },
+                        xAxis: {
+                            categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                            title: {
+                                text: null
+                            }
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Number of Appointments booked',
+                                align: 'high'
+                            },
+                            labels: {
+                                overflow: 'justify'
+                            }
+                        },
+                        //tooltip: {
+                        //    valueSuffix: ' millions'
+                        //},
+                        plotOptions: {
+                            bar: {
+                                dataLabels: {
+                                    enabled: true
+                                }
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: -40,
+                            y: 80,
+                            floating: true,
+                            borderWidth: 1,
+                            backgroundColor:
+                                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                            shadow: true
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'Early Morning 9AM - 11AM',
+                            data: [@ViewBag.CountMondayEarlyMorning, @ViewBag.CountTuesdayEarlyMorning, @ViewBag.CountWednesdayEarlyMorning,@ViewBag.CountThursdayEarlyMorning,@ViewBag.CountFridayEarlyMorning]
+                        }, {
+                            name: 'Early Afternoon 11AM - 2PM',
+                            data: [@ViewBag.CountMondayAfternoon, @ViewBag.CountTuesdayAfternoon, @ViewBag.CountWednesdayAfternoon,@ViewBag.CountThursdayAfternoon,@ViewBag.CountFridayAfternoon]
+                        }, {
+                            name: 'Late Afternoon 2PM - 5PM',
+                            data: [@ViewBag.CountMondayLateAfternoon, @ViewBag.CountTuesdayLateAfternoon, @ViewBag.CountWednesdayLateAfternoon,@ViewBag.CountThursdayLateAfternoon,@ViewBag.CountFridayLateAfternoon]
+                        }]
+                    });
+                </script>
+
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <h3>Patient Analytics</h3>
+                <hr style="background-color:dodgerblue" />
+                <br />
+                <div style="margin-left: 29px;height: 255px;margin-top: -4px;width: auto; position : center">
+                    @using (Html.BeginForm("PatientAnalyticsView", "Report", FormMethod.Post))
+                    {
+                        <table class="table table-dark">
+                            <thead>
+                                <tr>
+                                    <th>Gender</th>
+                                    <th>Ailment</th>
+                                    <th>Age</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select required name="gender" title="Gender">
+                                                <option selected disabled value="" href="#">--Please Select Gender--</option>
+                                                <option value="Male" href="#">Male</option>
+                                                <option value="Female" href="#">Female</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <select required name="ailment" title="Ailment">
+                                                <option selected disabled value="" href="#">--Please Select Ailment--</option>
+
+                                                @if (ViewBag.Ailments != null)
+                                                {
+                                                    foreach (var items in ViewBag.Ailments)
+                                                    {
+                                                        if (items.Ailment.Ailment_Name != null)
+                                                        {
+                                                            <option value="@items.Ailment.Ailment_Name" href="#">@items.Ailment.Ailment_Name</option>
+                                                        }
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <select required name="age" title="Age">
+                                                <option disabled selected value="" href="#">--Please Select Age Group--</option>
+                                                <option value="5-15" href="#">1-15</option>
+                                                <option value="16-35" href="#">16-35</option>
+                                                <option value="36-44" href="#">36-44</option>
+                                                <option value="45+" href="#">45+</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td><button class="btn btn-primary bg-success border-success" type="submit">Generate Patient Analitics</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <p style="color:orangered; font-size:medium;">@ViewBag.Errormessage</p>
+                        </div>
+                    }
+                </div>
+                <br />
+                @*<h3>Patients</h3>
+                <hr style="background-color:dodgerblue" />
+                @foreach (var gender in Model)
+                {
+                    if (gender.Gender.ToString() == "Male")
+                    {<button class="btn btn-primary btn" onclick="myFunctn()" width="60">@gender.Gender.ToString()</button>
+                    <div id="gender" style="display: none">
+                        @foreach (var patientname in Model.Where(t => t.Gender.Equals("Male")))
+                        {<button onclick="myFunction2()" class="btn btn-primary btn" width="40">@patientname.PatientName</button>
+                        <div id="patientnames" style="display: none">
+                            @foreach (var pat in Model.Where(t => t.Patient_ID.Equals(patientname.Patient_ID)))
+                            {
+                                <div id="patientdetials" style="border:solid; width:60%; background-color:lightgray; display:none;">
+                                    <table class="table-borderless">
+                                        <tr>
+                                            <td>Full Name</td>
+                                            <td>@pat.PatientName @pat.PatientSurname</td>
+                                            <td>ID Number</td>
+                                            <td>@pat.PatientIDNum</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>@pat.PatientName @pat.PatientSurname</td>
+                                            <td>Cell Number</td>
+                                            <td>@pat.PatientCell</td>
+                                        </tr>
+                                        @if (pat.Scheme_ID != null && pat.MedicalAidNo != null)
+                                        {
+                                            <tr>
+                                                <td>Medical Aid Provider</td>
+                                                <td>@pat.Medical_Aid_Scheme.Medical_Aid_Company.Company_Name</td>
+                                                <td>Medical Aid Number</td>
+                                                <td>
+                                                    @pat.MedicalAidNo @if (pat.DependentNo != null)
+                                                    {@pat.DependentNo}
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                        }
+                    </div>
+                    }
+                    if (gender.Gender.ToString() == "Female")
+                    {<button class="btn btn-primary btn" onclick="myFunction()" width="60&">@gender.Gender.ToString()</button>
+                     <div id="gender" style="display: none">
+                         @foreach (var patientname in Model.Where(t => t.Gender.Equals("Male")))
+                         {<button onclick="myFunction2()" class="btn btn-primary btn" width="40%">@patientname.PatientName</button>
+                         <div id="patientnames" style="display: none">
+                             @foreach (var pat in Model.Where(t => t.Patient_ID.Equals(patientname.Patient_ID)))
+                             {
+                                 <div id="patientdetials" style="border:solid; width:60%; background-color:lightgray; display: none;">
+                                     <table class="table-borderless">
+                                         <tr>
+                                             <td>Full Name</td>
+                                             <td>@pat.PatientName @pat.PatientSurname</td>
+                                             <td>ID Number</td>
+                                             <td>@pat.PatientIDNum</td>
+                                         </tr>
+                                         <tr>
+                                             <td>Email</td>
+                                             <td>@pat.PatientName @pat.PatientSurname</td>
+                                             <td>Cell Number</td>
+                                             <td>@pat.PatientCell</td>
+                                         </tr>
+                                         @if (pat.Scheme_ID != null && pat.MedicalAidNo != null)
+                                         {
+                                             <tr>
+                                                 <td>Medical Aid Provider</td>
+                                                 <td>@pat.Medical_Aid_Scheme.Medical_Aid_Company.Company_Name</td>
+                                                 <td>Medical Aid Number</td>
+                                                 <td>
+                                                     @pat.MedicalAidNo @if (pat.DependentNo != null)
+                                                     {@pat.DependentNo}
+                                                 </td>
+                                             </tr>
+                                         }
+                                     </table>
+                                 </div>
+                             }
+                         </div>
+                     }
+                     </div>
+                        }
+                        }*@
+                    </div>
+                    @*<script>
+                        function myFunction() {
+                            var x = document.getElementById("patientnames");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+                        function myFunction2() {
+                            var x = document.getElementById("patientdetials");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+                    </script>*@
+                    <div id="menu2" class="tab-pane fade">
+                        <h2>Rejected Medical Aid Claims Report</h2>
+                        <hr style="background-color:dodgerblue" />
+                        <br />
+                        <div style="margin-left: 29px;height: 223px;margin-top: -4px;width: 700px;">
+                            @using (Html.BeginForm("RejectClaimView", "Report", FormMethod.Post))
+                            {
+                                <table class="table table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th>Date From</th>
+                                            <th>Date To</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input style="color:black" name="datefrom" class="border rounded border-primary" type="date" /></td>
+                                            <td><input style="color:black" name="dateto" class="border rounded border-primary" type="date" /></td>
+                                            <td><button class="btn btn-primary bg-success border-success" type="submit">View Reject Claims</button></td>
+                                        </tr>
+                                        <tr></tr>
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <h3>Inventory</h3>
+                        <div style="margin-left: 29px;height: 223px;margin-top: -4px;width: 700px;">
+                            @using (Html.BeginForm("InventoryReport", "Report", FormMethod.Post))
+                            {
+                                <table class="table table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th>State Your Critical Quantity Amount</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input style="color:black" name="qtylvl" class="border rounded border-primary" type="number" /></td>
+                                            <td><button class="btn btn-primary bg-success border-success" type="submit">Critical Level Inventory</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+
+                        <h2>Inventory Backlog Report</h2>
+                        <hr style="background-color:dodgerblue" />
+                        <br />
+                        <div style="margin-left: 29px;height: 223px;margin-top: -4px;width: 700px;">
+                            @using (Html.BeginForm("BacklogReport", "Report", FormMethod.Post))
+                            {
+                                <table class="table table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th>Date From</th>
+                                            <th>Date To</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input style="color:black" name="datestart" class="border rounded border-primary" type="date" /></td>
+                                            <td><input style="color:black" name="dateend" class="border rounded border-primary" type="date" /></td>
+                                            <td><button class="btn btn-primary bg-success border-success" type="submit">View Reject Claims</button></td>
+                                        </tr>
+                                        <tr></tr>
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+        </div>
+</body>
+</html>

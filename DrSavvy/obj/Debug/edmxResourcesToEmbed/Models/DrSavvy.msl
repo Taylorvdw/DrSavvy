@@ -1,0 +1,579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DrSavvyModelStoreContainer" CdmEntityContainer="DrSavvyEntities">
+    <EntitySetMapping Name="Access_Control">
+      <EntityTypeMapping TypeName="DrSavvyModel.Access_Control">
+        <MappingFragment StoreEntitySet="Access_Control">
+          <ScalarProperty Name="AccessID" ColumnName="AccessID" />
+          <ScalarProperty Name="AC_Name" ColumnName="AC_Name" />
+          <ScalarProperty Name="AC_Description" ColumnName="AC_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ailments">
+      <EntityTypeMapping TypeName="DrSavvyModel.Ailment">
+        <MappingFragment StoreEntitySet="Ailments">
+          <ScalarProperty Name="Ailment_ID" ColumnName="Ailment_ID" />
+          <ScalarProperty Name="ICD10" ColumnName="ICD10" />
+          <ScalarProperty Name="Ailment_Name" ColumnName="Ailment_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Allergies">
+      <EntityTypeMapping TypeName="DrSavvyModel.Allergy">
+        <MappingFragment StoreEntitySet="Allergies">
+          <ScalarProperty Name="Allergy_ID" ColumnName="Allergy_ID" />
+          <ScalarProperty Name="Allergy_Name" ColumnName="Allergy_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="DrSavvyModel.Appointment">
+        <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="Appointment_ID" ColumnName="Appointment_ID" />
+          <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+          <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+          <ScalarProperty Name="Timeslot_ID" ColumnName="Timeslot_ID" />
+          <ScalarProperty Name="AppointmentDescription" ColumnName="AppointmentDescription" />
+          <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+          <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
+          <ScalarProperty Name="AppointmentStatus" ColumnName="AppointmentStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="DrSavvyModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="DrSavvyModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="DrSavvyModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="DrSavvyModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Backlogs">
+      <EntityTypeMapping TypeName="DrSavvyModel.Backlog">
+        <MappingFragment StoreEntitySet="Backlogs">
+          <ScalarProperty Name="BacklogID" ColumnName="BacklogID" />
+          <ScalarProperty Name="Backlog_Description" ColumnName="Backlog_Description" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="OrderLineID" ColumnName="OrderLineID" />
+          <ScalarProperty Name="BacklogQty" ColumnName="BacklogQty" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="DrSavvyModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="C__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Consultation_Ailment">
+      <EntityTypeMapping TypeName="DrSavvyModel.Consultation_Ailment">
+        <MappingFragment StoreEntitySet="Consultation_Ailment">
+          <ScalarProperty Name="Consultation_ID" ColumnName="Consultation_ID" />
+          <ScalarProperty Name="Ailment_ID" ColumnName="Ailment_ID" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Consultation_Procedure">
+      <EntityTypeMapping TypeName="DrSavvyModel.Consultation_Procedure">
+        <MappingFragment StoreEntitySet="Consultation_Procedure">
+          <ScalarProperty Name="Consultation_ProcedureID" ColumnName="Consultation_ProcedureID" />
+          <ScalarProperty Name="Consultation_ID" ColumnName="Consultation_ID" />
+          <ScalarProperty Name="Procedure_ID" ColumnName="Procedure_ID" />
+          <ScalarProperty Name="ProcedureNotes" ColumnName="ProcedureNotes" />
+          <ScalarProperty Name="Appointment_ID" ColumnName="Appointment_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Consultations">
+      <EntityTypeMapping TypeName="DrSavvyModel.Consultation">
+        <MappingFragment StoreEntitySet="Consultations">
+          <ScalarProperty Name="Consultation_ID" ColumnName="Consultation_ID" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+          <ScalarProperty Name="Appointment_ID" ColumnName="Appointment_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="database_firewall_rules">
+      <EntityTypeMapping TypeName="DrSavvyModel.database_firewall_rules">
+        <MappingFragment StoreEntitySet="database_firewall_rules">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+          <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+          <ScalarProperty Name="create_date" ColumnName="create_date" />
+          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee_Role">
+      <EntityTypeMapping TypeName="DrSavvyModel.Employee_Role">
+        <MappingFragment StoreEntitySet="Employee_Role">
+          <ScalarProperty Name="EMP_Role_ID" ColumnName="EMP_Role_ID" />
+          <ScalarProperty Name="Emp_Role_Description" ColumnName="Emp_Role_Description" />
+          <ScalarProperty Name="AccessID" ColumnName="AccessID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="DrSavvyModel.Employee">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+          <ScalarProperty Name="EMPName" ColumnName="EMPName" />
+          <ScalarProperty Name="EMPSurname" ColumnName="EMPSurname" />
+          <ScalarProperty Name="EMP_CellphoneNum" ColumnName="EMP_CellphoneNum" />
+          <ScalarProperty Name="EMP_Email" ColumnName="EMP_Email" />
+          <ScalarProperty Name="Emp_IDNum" ColumnName="Emp_IDNum" />
+          <ScalarProperty Name="EMP_Role_ID" ColumnName="EMP_Role_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Institute_Type">
+      <EntityTypeMapping TypeName="DrSavvyModel.Institute_Type">
+        <MappingFragment StoreEntitySet="Institute_Type">
+          <ScalarProperty Name="Institute_Type_ID" ColumnName="Institute_Type_ID" />
+          <ScalarProperty Name="Institute_Type_Name" ColumnName="Institute_Type_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Institutes">
+      <EntityTypeMapping TypeName="DrSavvyModel.Institute">
+        <MappingFragment StoreEntitySet="Institutes">
+          <ScalarProperty Name="Institute_ID" ColumnName="Institute_ID" />
+          <ScalarProperty Name="Institute_Name" ColumnName="Institute_Name" />
+          <ScalarProperty Name="Institute_Type_ID" ColumnName="Institute_Type_ID" />
+          <ScalarProperty Name="Institute_ContactPerson" ColumnName="Institute_ContactPerson" />
+          <ScalarProperty Name="Instsitute_ContactNumber" ColumnName="Instsitute_ContactNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medical_Aid_Claim">
+      <EntityTypeMapping TypeName="DrSavvyModel.Medical_Aid_Claim">
+        <MappingFragment StoreEntitySet="Medical_Aid_Claim">
+          <ScalarProperty Name="Medical_Aid_Claim_ID" ColumnName="Medical_Aid_Claim_ID" />
+          <ScalarProperty Name="Claim_Amount" ColumnName="Claim_Amount" />
+          <ScalarProperty Name="Claim_Date" ColumnName="Claim_Date" />
+          <ScalarProperty Name="Claim_Description" ColumnName="Claim_Description" />
+          <ScalarProperty Name="Payment_ID" ColumnName="Payment_ID" />
+          <ScalarProperty Name="Consultation_ID" ColumnName="Consultation_ID" />
+          <ScalarProperty Name="ClaimStatus" ColumnName="ClaimStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medical_Aid_Company">
+      <EntityTypeMapping TypeName="DrSavvyModel.Medical_Aid_Company">
+        <MappingFragment StoreEntitySet="Medical_Aid_Company">
+          <ScalarProperty Name="Company_ID" ColumnName="Company_ID" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+          <ScalarProperty Name="Contact_Number" ColumnName="Contact_Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medical_Aid_Scheme">
+      <EntityTypeMapping TypeName="DrSavvyModel.Medical_Aid_Scheme">
+        <MappingFragment StoreEntitySet="Medical_Aid_Scheme">
+          <ScalarProperty Name="Scheme_ID" ColumnName="Scheme_ID" />
+          <ScalarProperty Name="Scheme_Name" ColumnName="Scheme_Name" />
+          <ScalarProperty Name="Company_ID" ColumnName="Company_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medications">
+      <EntityTypeMapping TypeName="DrSavvyModel.Medication">
+        <MappingFragment StoreEntitySet="Medications">
+          <ScalarProperty Name="Medication_ID" ColumnName="Medication_ID" />
+          <ScalarProperty Name="Mediction_Description" ColumnName="Mediction_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MobileApps">
+      <EntityTypeMapping TypeName="DrSavvyModel.MobileApp">
+        <MappingFragment StoreEntitySet="MobileApps">
+          <ScalarProperty Name="MobileAppID" ColumnName="MobileAppID" />
+          <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+          <ScalarProperty Name="AppDate" ColumnName="AppDate" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+          <ScalarProperty Name="PatientSurname" ColumnName="PatientSurname" />
+          <ScalarProperty Name="AppDescr" ColumnName="AppDescr" />
+          <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+          <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order_Line">
+      <EntityTypeMapping TypeName="DrSavvyModel.Order_Line">
+        <MappingFragment StoreEntitySet="Order_Line">
+          <ScalarProperty Name="OrderLineID" ColumnName="OrderLineID" />
+          <ScalarProperty Name="Prod_Qty" ColumnName="Prod_Qty" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ReceivedQty" ColumnName="ReceivedQty" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order_Payment">
+      <EntityTypeMapping TypeName="DrSavvyModel.Order_Payment">
+        <MappingFragment StoreEntitySet="Order_Payment">
+          <ScalarProperty Name="Order_Payment_ID" ColumnName="Order_Payment_ID" />
+          <ScalarProperty Name="Order_Payment_Date" ColumnName="Order_Payment_Date" />
+          <ScalarProperty Name="Order_Payment_Amount" ColumnName="Order_Payment_Amount" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="Payment_Type_ID" ColumnName="Payment_Type_ID" />
+          <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+          <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order_Status">
+      <EntityTypeMapping TypeName="DrSavvyModel.Order_Status">
+        <MappingFragment StoreEntitySet="Order_Status">
+          <ScalarProperty Name="OS_ID" ColumnName="OS_ID" />
+          <ScalarProperty Name="OS_Description" ColumnName="OS_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="DrSavvyModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="Order_Cost" ColumnName="Order_Cost" />
+          <ScalarProperty Name="OS_ID" ColumnName="OS_ID" />
+          <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+          <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+          <ScalarProperty Name="PaidStatus" ColumnName="PaidStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patient_Allergy_List">
+      <EntityTypeMapping TypeName="DrSavvyModel.Patient_Allergy_List">
+        <MappingFragment StoreEntitySet="Patient_Allergy_List">
+          <ScalarProperty Name="PatientAllergyID" ColumnName="PatientAllergyID" />
+          <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+          <ScalarProperty Name="Allergy_ID" ColumnName="Allergy_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patients">
+      <EntityTypeMapping TypeName="DrSavvyModel.Patient">
+        <MappingFragment StoreEntitySet="Patients">
+          <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+          <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+          <ScalarProperty Name="PatientSurname" ColumnName="PatientSurname" />
+          <ScalarProperty Name="PatientCell" ColumnName="PatientCell" />
+          <ScalarProperty Name="PatientWorkNum" ColumnName="PatientWorkNum" />
+          <ScalarProperty Name="PatientTelNum" ColumnName="PatientTelNum" />
+          <ScalarProperty Name="PatientEmail" ColumnName="PatientEmail" />
+          <ScalarProperty Name="PatientPoBox" ColumnName="PatientPoBox" />
+          <ScalarProperty Name="PatientHomeAddress" ColumnName="PatientHomeAddress" />
+          <ScalarProperty Name="PatientIDNum" ColumnName="PatientIDNum" />
+          <ScalarProperty Name="PatientPassportNum" ColumnName="PatientPassportNum" />
+          <ScalarProperty Name="MedicalAidNo" ColumnName="MedicalAidNo" />
+          <ScalarProperty Name="DependentNo" ColumnName="DependentNo" />
+          <ScalarProperty Name="Scheme_ID" ColumnName="Scheme_ID" />
+          <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payment_Type">
+      <EntityTypeMapping TypeName="DrSavvyModel.Payment_Type">
+        <MappingFragment StoreEntitySet="Payment_Type">
+          <ScalarProperty Name="Payment_Type_ID" ColumnName="Payment_Type_ID" />
+          <ScalarProperty Name="Payment_Type_Description" ColumnName="Payment_Type_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="DrSavvyModel.Payment">
+        <MappingFragment StoreEntitySet="Payments">
+          <ScalarProperty Name="Payment_ID" ColumnName="Payment_ID" />
+          <ScalarProperty Name="Payment_Amount" ColumnName="Payment_Amount" />
+          <ScalarProperty Name="Consultation_ID" ColumnName="Consultation_ID" />
+          <ScalarProperty Name="Payment_Type_ID" ColumnName="Payment_Type_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prescription_Line">
+      <EntityTypeMapping TypeName="DrSavvyModel.Prescription_Line">
+        <MappingFragment StoreEntitySet="Prescription_Line">
+          <ScalarProperty Name="PrescriptionLineID" ColumnName="PrescriptionLineID" />
+          <ScalarProperty Name="Perscription_Date" ColumnName="Perscription_Date" />
+          <ScalarProperty Name="Intake" ColumnName="Intake" />
+          <ScalarProperty Name="ValidUntil" ColumnName="ValidUntil" />
+          <ScalarProperty Name="Consultation_ID" ColumnName="Consultation_ID" />
+          <ScalarProperty Name="Medication_ID" ColumnName="Medication_ID" />
+          <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prices">
+      <EntityTypeMapping TypeName="DrSavvyModel.Price">
+        <MappingFragment StoreEntitySet="Prices">
+          <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+          <ScalarProperty Name="Price_Figure" ColumnName="Price_Figure" />
+          <ScalarProperty Name="Date_Initiated" ColumnName="Date_Initiated" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Procedures">
+      <EntityTypeMapping TypeName="DrSavvyModel.Procedure">
+        <MappingFragment StoreEntitySet="Procedures">
+          <ScalarProperty Name="Procedure_ID" ColumnName="Procedure_ID" />
+          <ScalarProperty Name="Procedure_Description" ColumnName="Procedure_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product_Procedure">
+      <EntityTypeMapping TypeName="DrSavvyModel.Product_Procedure">
+        <MappingFragment StoreEntitySet="Product_Procedure">
+          <ScalarProperty Name="ProductProcedureID" ColumnName="ProductProcedureID" />
+          <ScalarProperty Name="Procedure_ID" ColumnName="Procedure_ID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product_Type">
+      <EntityTypeMapping TypeName="DrSavvyModel.Product_Type">
+        <MappingFragment StoreEntitySet="Product_Type">
+          <ScalarProperty Name="Product_Type_ID" ColumnName="Product_Type_ID" />
+          <ScalarProperty Name="Product_Type_Description" ColumnName="Product_Type_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="DrSavvyModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Product_Qty" ColumnName="Product_Qty" />
+          <ScalarProperty Name="Product_Type_ID" ColumnName="Product_Type_ID" />
+          <ScalarProperty Name="Product_Disable" ColumnName="Product_Disable" />
+          <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reconcilliations">
+      <EntityTypeMapping TypeName="DrSavvyModel.Reconcilliation">
+        <MappingFragment StoreEntitySet="Reconcilliations">
+          <ScalarProperty Name="ReconID" ColumnName="ReconID" />
+          <ScalarProperty Name="RealisedQty" ColumnName="RealisedQty" />
+          <ScalarProperty Name="ReasonDescription" ColumnName="ReasonDescription" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Referral_Test">
+      <EntityTypeMapping TypeName="DrSavvyModel.Referral_Test">
+        <MappingFragment StoreEntitySet="Referral_Test">
+          <ScalarProperty Name="ReferralTestID" ColumnName="ReferralTestID" />
+          <ScalarProperty Name="Ref_ID" ColumnName="Ref_ID" />
+          <ScalarProperty Name="TestRemarks" ColumnName="TestRemarks" />
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="Institute_ID" ColumnName="Institute_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Referrals">
+      <EntityTypeMapping TypeName="DrSavvyModel.Referral">
+        <MappingFragment StoreEntitySet="Referrals">
+          <ScalarProperty Name="Ref_ID" ColumnName="Ref_ID" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Consultation_ID" ColumnName="Consultation_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sick_Note">
+      <EntityTypeMapping TypeName="DrSavvyModel.Sick_Note">
+        <MappingFragment StoreEntitySet="Sick_Note">
+          <ScalarProperty Name="SN__ID" ColumnName="SN__ID" />
+          <ScalarProperty Name="SN__Description" ColumnName="SN__Description" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="DateGenerated" ColumnName="DateGenerated" />
+          <ScalarProperty Name="Consultation_ID" ColumnName="Consultation_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stock_Take">
+      <EntityTypeMapping TypeName="DrSavvyModel.Stock_Take">
+        <MappingFragment StoreEntitySet="Stock_Take">
+          <ScalarProperty Name="StockTake_ID" ColumnName="StockTake_ID" />
+          <ScalarProperty Name="ST_Date" ColumnName="ST_Date" />
+          <ScalarProperty Name="ST_Quantity" ColumnName="ST_Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stock_take_Line">
+      <EntityTypeMapping TypeName="DrSavvyModel.Stock_take_Line">
+        <MappingFragment StoreEntitySet="Stock_take_Line">
+          <ScalarProperty Name="Stock_Take_Line_ID" ColumnName="Stock_Take_Line_ID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="StockTake_ID" ColumnName="StockTake_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="DrSavvyModel.Supplier">
+        <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="SupplierEmail" ColumnName="SupplierEmail" />
+          <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
+          <ScalarProperty Name="SupplierContactPerson" ColumnName="SupplierContactPerson" />
+          <ScalarProperty Name="SupplierCellNumber" ColumnName="SupplierCellNumber" />
+          <ScalarProperty Name="SupplierWorkNumber" ColumnName="SupplierWorkNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="DrSavvyModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Test_Type">
+      <EntityTypeMapping TypeName="DrSavvyModel.Test_Type">
+        <MappingFragment StoreEntitySet="Test_Type">
+          <ScalarProperty Name="Test_Type_ID" ColumnName="Test_Type_ID" />
+          <ScalarProperty Name="Test_Type_Name" ColumnName="Test_Type_Name" />
+          <ScalarProperty Name="Test_Type_Description" ColumnName="Test_Type_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tests">
+      <EntityTypeMapping TypeName="DrSavvyModel.Test">
+        <MappingFragment StoreEntitySet="Tests">
+          <ScalarProperty Name="TestID" ColumnName="TestID" />
+          <ScalarProperty Name="TestName" ColumnName="TestName" />
+          <ScalarProperty Name="TestDescription" ColumnName="TestDescription" />
+          <ScalarProperty Name="Test_Type_ID" ColumnName="Test_Type_ID" />
+          <ScalarProperty Name="test_Disable" ColumnName="test_Disable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timeslots">
+      <EntityTypeMapping TypeName="DrSavvyModel.Timeslot">
+        <MappingFragment StoreEntitySet="Timeslots">
+          <ScalarProperty Name="Timeslot_ID" ColumnName="Timeslot_ID" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Titles">
+      <EntityTypeMapping TypeName="DrSavvyModel.Title">
+        <MappingFragment StoreEntitySet="Titles">
+          <ScalarProperty Name="Title_ID" ColumnName="Title_ID" />
+          <ScalarProperty Name="Title_Description" ColumnName="Title_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="DrSavvyModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Xrays">
+      <EntityTypeMapping TypeName="DrSavvyModel.Xray">
+        <MappingFragment StoreEntitySet="Xrays">
+          <ScalarProperty Name="XrayID" ColumnName="XrayID" />
+          <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+          <ScalarProperty Name="Consultation_ID" ColumnName="Consultation_ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="DrSavvyModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="AspNetRoles_Id" />
+      </EndProperty>
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="AspNetUsers_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DrSavvyModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DrSavvyModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DrSavvyModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DrSavvyModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DrSavvyModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DrSavvyModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DrSavvyModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DrSavvyModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DrSavvyModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

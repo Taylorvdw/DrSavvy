@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "New System User Registration";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+<nav class="navbar navbar-expand-lg navbar-light" style="border-radius:15px">
+    <div class="container-fluid">
+        <button type="button" style="background-color:#1a6490 ; color:white; border-radius:15px" class="btn">
+            <i class="fas fa-user"></i>
+            - Admin -
+        </button>
+        <div class="title" style="font-size:24px; font-weight:600; color:white">@ViewBag.Title</div>
+
+    </div>
+</nav>
+
+<h2 class="text-success">
+    -- DR Savvy Authentication System --
+</h2>
+<p>
+    <span style="color:green"> New User Has Been Created Successfully!!!</span><br />
+    <span style="color:white">For Security Reasons Please Log off and Allow New User to Login From Email to Perfom Network Handshake ....</span>
+</p>
+<br />
+@using (Html.BeginForm("LogOffRegister", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-Left" }))
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" style="margin-left:37px ; width:100px ; border-radius:15px" class="btn btn-danger btn-lg">
+        Logout
+    </button>
+}

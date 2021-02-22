@@ -1,0 +1,87 @@
+﻿@model DrSavvy.Models.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Content/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+    <div class="container-login100" >
+        <div class="wrap-login100" style="background-color:rgba(0,0,0,0.50)">
+            <span class="login100-form-title p-b-26" style="color:white">
+                Welcome
+            </span>
+            <span class="login100-form-title p-b-48">
+                <img style="height:200px ; width:300px ; border-radius:15px ; margin-left:-20px " src="~/Content/images/Logos/Savvy dark.jpg" />
+            </span>
+            <div id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group" style="margin-left:40px">
+                    <span style="color:white"> @Html.Label("UserName ", new { @class = "col-md-2 control-label" })</span>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @style ="border-radius:20px"  })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:40px">
+                    <span style="color:white">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })</span>
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" , @style ="border-radius:20px"  })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                </div>
+                    <div class="form-group" style="margin-left:80px">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                <span style="color:white">     @Html.LabelFor(m => m.RememberMe)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input style="width:200px; margin-left:80px; background-color:black; color:white ;border-radius:20px"  type="submit" value="Log in" class="btn btn-lg" />
+                        </div>
+                    </div>
+                    <div style="margin-left:100px;">
+                        <p style="color:white" onclick="window.location.href= '@Url.Action("ForgotPassword","Account")'" class="btn btn-outline-dark btn-sm" > 
+                           Forgot your Password ? 
+                        </p>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

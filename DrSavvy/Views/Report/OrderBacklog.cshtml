@@ -1,0 +1,122 @@
+﻿@model DrSavvy.Models.OrderClass
+@{
+    ViewBag.Title = "Order Backlog Report";
+}
+<h1>Generate Report for Order Backlog</h1>
+<hr style="background-color:dodgerblue" />
+<br />
+<div class="table-responsive border rounded border-dark" style="margin-left: 29px;height: 223px;margin-top: -4px;width: 1200px;">
+    @using (Html.BeginForm("BacklogReport", "Report", FormMethod.Post))
+    {
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th style="background-color: #1E90FF;color: #ffffff;">Date From</th>
+                    <th style="background-color: #1E90FF;color: #ffffff;">Date To</th>
+                    <th style="background-color: #1E90FF;color: #ffffff;">Supplier Name</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><input class="border rounded border-primary" name="datestart" style="background-color: rgba(255,255,255,0);color: rgb(255,255,255);" type="date" /></td>
+                    <td><input class="border rounded border-primary" name="dateend" style="background-color: rgba(255,255,255,0);color: rgb(255,255,255);" type="date" /></td>
+                    @if (ViewBag.OrderList != null)
+                    {
+                        <td>@Html.DropDownListFor(m => m.Supplier_ID, ViewBag.OrderList as SelectList, "--Select Supplier--", new { @class = "form-control", required = "required", @id = "suppliername", name = "suppliername"})</td>
+                    }
+                </tr>
+
+                <tr></tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary bg-success border-success" type="submit" style="height: 32px;padding: 4px;">Generate</button>
+    }
+</div>
+            
+            <div class="btn-group" role="group" style="margin-left: 500px">
+                <button class="btn btn-primary bg-success border-success" type="button" style="height: 32px;padding: 4px;width: 71px;" data-toggle="modal" data-target="#View">View</button>
+
+                <button class="btn btn-primary bg-danger border-danger" type="button" style="height: 32px;margin-left: 2px;padding: 5px;width: 74px;" data-toggle="modal" data-target="#Print">Print</button><span style='color:red;margin-right:1.25em; display:inline-block;'>&nbsp;</span>
+                @using (Html.BeginForm("AllBacklogReport", "Report", FormMethod.Post))
+                {
+                    <button class="btn btn-warning bg-success border-success" onclick="window." type="button" style="height: 32px;padding: 4px;">All BackLog</button>
+                }
+        </div>
+
+
+
+        <!--Confirm Print Modal-->
+        <div class="modal fade" id="Print" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Print Report </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to Print a Report</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Confirm View Modal-->
+        <div class="modal fade" id="View" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">View Report</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Report has been Generated and Stored in The Recent Reports folder on Desktop</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            //jQuery(document).ready(function () {
+            //    $("#Supplier_ID").change(function () {
+            //        var id = $(this).find(":selected").val()
+            //        var selectid = { "suppliername": id }
+            //        $.ajax({
+            //            url: "/Report/BacklogReport",
+            //            data: JSON.stringify(selectid),
+            //            type: 'POST',
+            //            contentType: 'application/json; charset=utf-8',
+            //            success: function (data) {
+            //                // Variable data contains the data you get from the action method
+            //            }
+            //        });
+            //    });
+            //});
+
+                jQuery(document).ready(function () {
+                $("#Supplier_ID").change(function () {
+                    var id = $(this).find(":selected").val()
+                    var selectid = { "suppliername": id }
+                    $.ajax({
+                        url: "/Report/BacklogReport",
+                        data: JSON.stringify(selectid),
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            // Variable data contains the data you get from the action method
+                        }
+                    });
+                });
+            });
+        </script>

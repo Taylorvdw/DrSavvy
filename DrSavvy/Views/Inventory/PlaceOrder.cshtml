@@ -1,0 +1,160 @@
+﻿@model DrSavvy.Models.OrderClass
+<div>
+
+
+    <div class="row">
+        <div class="col-6">
+            @if (ViewBag.SupplierList != null)
+            {
+                @Html.DropDownListFor(m => m.Supplier_ID, ViewBag.SupplierList as SelectList, "-- Select Supplier --", new { @class = "form-control", required = "required" , @style="border-radius:20px;background-color:black;color:white" })
+
+            }
+            @Html.ValidationMessageFor(model => model.Supplier_ID, "", new { @style = "color:red" })
+        </div>
+        <div class="col-6">
+            @Html.DropDownListFor(m => m.ProductID, new SelectList(""), "--Select Product--", new { @class = "form-control", required = "required", @style="border-radius:20px;background-color:black;color:white" })
+            @Html.ValidationMessageFor(model => model.ProductID, "", new { @style = "color:red" })
+        </div>
+    </div>
+
+
+    <a></a>
+
+    <button id="btnSubmit" type="submit" class="btn btn-success btn-block add-row" style="border-radius:20px" >
+        <span>Add Product</span>
+    </button>
+
+</div>
+<form>
+    <br />
+    <div>
+        <table class="table table-striped table-dark" id="myTable">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Remove</th>
+
+                </tr>
+            </thead>
+            <tbody id="Row">
+            </tbody>
+        </table>
+    </div>
+    <button id="btnSave" type="submit" class="btn btn-success btn-block " style="border-radius:20px;" >
+        <span>Place Order</span>
+    </button>
+</form>
+<script>
+    var supID = 0;
+    $(document).ready(function () {
+        debugger
+        $("#Supplier_ID").change(function () {
+
+            var supplierId = $(this).val();
+            supID = supplierId;
+            
+            $.ajax({
+
+                type: "Post",
+                url: "/Inventory/GetProducts?supplierId=" + supplierId,
+                contentType: "html",
+                success: function (response) {
+                    
+                    $("#ProductID").empty();
+                    $("#ProductID").append(response);
+
+                }
+
+            })
+
+        })
+
+        $(".add-row").click(function () {
+            
+            var id = $("#ProductID").val();
+            var url = "/Inventory/GetProduct?ID=" + id;
+
+
+            $.ajax({
+                type: "POST",
+                datatype: "json",
+                url: url,
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $("#Supplier_ID").prop("disabled", true);
+                    $("#ProductID option[value='" + id + "']").remove();
+
+                    var markup = "<tr><td>" + data.ProductID + "</td><td>" + data.ProductName + "</td><td><input class='form-control' type='number' name='" + data.ProductID + "' /></td><td><input type='button' class='btn btn-warning' value='Delete' /></td></tr>";
+                    $("#Row").append(markup);
+
+
+                },
+                error: function (response) {
+                    alert("error!");
+                }
+            });
+
+
+
+
+
+
+        });
+
+
+
+    })
+
+    //Delete Table Row
+    $('#myTable').on('click', 'input[type="button"]', function () {
+        $(this).closest('tr').remove();
+    })
+    // Save Order Details
+    $('#btnSave').click(() => {
+        var rowCount = $('#Row >tr').length;
+        let arr = Array();
+        let ID = Array();
+        var i = 0;
+        debugger
+        while (i < rowCount) {
+            i++;
+            arr.push($("#Row > tr:nth-child(" + i + ")")[0].childNodes[2].children[0].value);
+            ID.push($("#Row > tr:nth-child(" + i + ")")[0].childNodes[0].innerHTML);
+        }
+        console.log(arr);
+        console.log(ID);
+
+        debugger
+         $.ajax({
+                    url: "/Inventory/SaveOrder",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ "procid": ID, "procQuantity": arr, "supId": supID }),
+                    success: function (Data) {
+                        if ("success") {
+                            $('#AddingProcedure').hide();
+                        $('#ErrorProcedure').show();
+                        }
+                    },                 
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        
+                        
+                    }
+         })
+
+
+        
+
+        
+    });
+     // Find and remove selected table rows
+        //var del = function (id) {
+        //    debugger
+        //    $(this).parent().parents("tr").remove();
+
+        //}
+
+</script>

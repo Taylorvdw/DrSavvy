@@ -1,0 +1,75 @@
+﻿@model DrSavvy.Models.Appointment
+
+@{
+    ViewBag.Title = "DeleteAppointment";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Patient Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.PatientName)
+        </dd>
+
+        <dt>
+            Appointment Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppointmentDate)
+        </dd>
+
+        <dt>
+            Appointment Description
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppointmentDescription)
+        </dd>
+
+        <dt>
+            Urgency Level
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThemeColor)
+        </dd>
+
+        <dt>
+            Appointment Start Time
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Timeslot.StartTime)
+        </dd>
+        <dt>
+            Appointment End Time
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Timeslot.EndTime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger " onclick="CloseIframe()" />
+            <button type="reset" class="btn btn-dark has-spinner" style="float:right" onclick="CloseIframe()">Cancel</button>
+        </div>
+    }
+</div>
+
+<script>
+    function CloseIframe() {
+        window.top.location.href = "/Patient/AllAppointments"
+    }
+
+</script>

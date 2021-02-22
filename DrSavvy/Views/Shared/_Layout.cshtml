@@ -1,0 +1,182 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/Scripts/bootstrap.js")
+<link href="~/Content/Chosen/chosen.min.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="style4.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/589a125b28.js"></script>
+    @*<script src="~/Scripts/jquery-3.4.1.js"></script>*@
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <!--SweetAlert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+</head>
+
+<body style=" padding-top:unset; padding-bottom:unset;">
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header" style="margin-left:-15px">
+                <h3><img width="200" height="142" src="~/Images/SAVVY.png" style="position:relative;top:-10px" class="img-responsive"></h3>
+                <strong><img width="50" height="34" src="~/Images/mini-logo.png" style="position:relative;top:-10px" class="img-responsive"></strong>
+            </div>
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-user"></i>
+                        <h7>  Patient</h7>
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="/Patient/PatientsView">PATIENTS</a>
+                        </li>
+                        <li>
+                            <a href="/Patient/BookAppointment">APPOINTMENTS</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#consultationSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-copy"></i>
+                        <h7> Consultation</h7>
+                    </a>
+                    <ul class="collapse list-unstyled" id="consultationSubmenu">
+                        <li>
+                            <a href="/Patient/UpcomingAppointments">NEW CONSULTATION</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#inventorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-copy"></i>
+                        <h7>Inventory </h7>
+                    </a>
+                    <ul class="collapse list-unstyled" id="inventorySubmenu">
+                        <li>
+                            <a href="/Inventory/SearchProduct">PRODUCTS</a>
+                        </li>
+                        <li>
+                            <a href="/Inventory/SearchSupplier">Suppliers</a>
+                        </li>
+                        <li>
+                            <a href="/Inventory/SearchOrder">Supplier Orders</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#FinanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-copy"></i>
+                        <h7> Finance </h7>
+                    </a>
+                    <ul class="collapse list-unstyled" id="FinanceSubmenu">
+                        <li>
+                            <a href="/Finance/CapturePayment">PAYMENTS</a>
+                        </li>
+                        <li>
+                            <a href="/Finance/MedicalAClaim">MEDICAL AID CLAIMS</a>
+                        </li>
+                        <li>
+                            <a href="/Finance/Invoices">INVOICES</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#reportingSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-copy"></i>
+                        <h7>Reports</h7>
+                    </a>
+                    <ul class="collapse list-unstyled" id="reportingSubmenu">
+                        <li>
+                            <h7> <a href="/Report/MainReportView">View All Reports</a>
+
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-copy"> </i>
+                        Admin
+                    </a>
+                    <ul class="collapse list-unstyled" id="adminSubmenu">
+                        <li>
+                            <a href="/Admin/Index">Home</a>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul> <!--End of Menu Items-->
+            <ul class="list-unstyled CTAs" style="margin-left:-20px">
+                @Html.Partial("_LoginPartial")
+            </ul>
+            <ul>
+                <a class="btn btn-danger" target="_blank" href="http://is-dev.co.za";">Help</a>
+            </ul>
+            
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content" style=" background-color:#0e0d0d">
+
+
+            <nav class="navbar navbar-expand-lg navbar-light" style="border-radius:15px">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn" style="color:white">
+                        <i class="fas fa-align-left"></i>
+                        <span>Menu</span>
+                    </button>
+                    <button type="button" style="margin-left:30px ; background-color:#1a6490 ; color:white" class="btn btn-sm" onclick="window.location.href= '@Url.Action("Index","Manage")'">
+                        <i class="fas fa-user"></i>
+                        Hello @User.Identity.GetUserName()
+                    </button>
+                    <div class="title" style="font-size:24px; font-weight:600; color:white">@ViewBag.Title</div>
+
+                </div>
+            </nav>
+
+            @RenderBody()
+            <footer>
+                <p style="text-align:center">&copy; @DateTime.Now.Year - Dr. Savvy By IS DEV</p>
+            </footer>
+        </div>
+    </div>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    @*@Scripts.Render("~/Scripts/jquery-3.4.1.js")*@
+    @Scripts.Render("~/Scripts/bootstrap.js")
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

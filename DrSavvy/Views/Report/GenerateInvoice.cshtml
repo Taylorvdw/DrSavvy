@@ -1,0 +1,133 @@
+@model IEnumerable<DrSavvy.ClassModels.invoicemodel>
+@{
+    Layout = null;
+}
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/Invoice.css" rel="stylesheet" />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<!------ Include the above in your HEAD tag ---------->
+<div id="invoice">
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <button id="printInvoice" onclick="window.print()" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+            <button onclick="window.location.href='@Url.Action("ExportInvoice","Report")'" class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <table class="table-borderless !important" style="background-color:none !important;">
+                    <tr>
+                        <td>
+                            <div class="col">
+                                <a target="_blank" href="https://lobianijs.com">
+                                    <img width="150" height="200" class="card-img" src="~/Content/SAVVY.png" data-holder-rendered="true" />
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col company-details">
+                                <h2 class="name">
+                                    <a target="_blank" href="https://lobianijs.com">
+                                        Arboshiki
+                                    </a>
+                                </h2>
+                                <div>455 Foggy Heights, AZ 85004, US</div>
+                                <div>(123) 456-789</div>
+                                <div>company@example.com</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </header>
+            <main>
+                <div class="row contacts">
+                    <div class="col invoice-to">
+                        <div class="text-gray-light">INVOICE TO:</div>
+                        <h2 class="to">@ViewBag.Name @ViewBag.Surname</h2>
+                        <div>@ViewBag.Num</div>
+                        <div class="email"><a href="mailto:@ViewBag.Email">@ViewBag.Email</a></div>
+                    </div>
+                    <div class="col invoice-details">
+                        <h1 class="invoice-id">INVOICE @ViewBag.ConID</h1>
+                        <div class="date">Date of Invoice: @ViewBag.DateMade</div>
+                        <div class="date">Due Date: @ViewBag.DateDue</div>
+                    </div>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-left">DESCRIPTION</th>
+                            <th class="text-right">Price per Procedure</th>
+                            <th class="text-right">Qty</th>
+                            <th class="text-right">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Select(tt => new
+                        {
+                            prices = tt.price.Price_Figure,
+                            proID = tt.procedure.Procedure_ID,
+                            product = tt.product.ProductName,
+                            prodesc = tt.procedure.Procedure_Description}).ToList())
+                        {
+
+                            <tr>
+                                <td class="no">@item.proID</td>
+                                <td class="text-left"><h3>@item.prodesc</h3>@item.product</td>
+                                <td class="unit"> R @item.prices</td>
+                                <td contenteditable="true" class="qty">1</td>
+                                <td class="total">R @(1 * item.prices)</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">SUBTOTAL</td>
+                            <td>R @Model.Sum(tt=>tt.price.Price_Figure)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">TAX 14%</td>
+                            <td>R @(Math.Round((decimal)0.14 * (Model.Sum(tt => tt.price.Price_Figure)),2))</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">GRAND TOTAL</td>
+                            <td>R @(Math.Round((decimal)1.14 * (Model.Sum(tt => tt.price.Price_Figure)),2))</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="thanks">Thank you!</div>
+                <div class="notices">
+                    <div>NOTICE:</div>
+                    <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+                </div>
+                @*<table>
+                    @foreach (var a in ViewBag.counter)
+                    {
+                        <tr>
+                            @a;
+                        </tr>
+
+                    }
+                </table>*@
+
+
+            </main>
+            <footer>
+                Invoice was created on a computer and is valid without the signature and seal.
+            </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+﻿
+@model IEnumerable<DrSavvy.ClassModels.EmployeeList>
+@{
+    Layout = "";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jszip.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/Invoice.css" rel="stylesheet" />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+</head>
+
+<!------ Include the above in your HEAD tag ---------->
+<div id="invoice">
+    <div>
+        <h1 style="text-align:center" class="invoice-id">Product Report</h1>
+        <p style="text-align:center">with critical levels</p>
+    </div>
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <button id="printInvoice" onclick="window.print()" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+            <button onclick="window.location.href='@Url.Action("ExportEmployee","Report")'" class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <table class="table-borderless !important" style="background-color:none !important;">
+                    <tr>
+                        <td>
+                            <div class="col">
+                                <a target="_blank" href="https://lobianijs.com">
+                                    <img height="200" class="card-img" src="~/Content/SAVVY.png" data-holder-rendered="true" />
+
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col company-details">
+                                <h2 class="name">
+                                    <a target="_blank" href="https://lobianijs.com">
+                                        DR MCE MC DONALD
+                                    </a>
+                                </h2>
+                                <div>Suite 4a Faerie Glen Medical Centre,<br /> Cnr Jacqueline & Atterbury Street,<br /> Pretoria, GP</div>
+                                <div>012 348 1185</div>
+                                <div>mce@drsavvy.co.za</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </header>
+            <main>
+
+                <hr />
+
+                @foreach (var item in Model.Select(z => z.employeerole).Distinct())
+                {
+
+
+                    <h1 style="color:black !important"> @item.Emp_Role_Description</h1>
+
+                    <table border="0" cellspacing="0" cellpadding="0">
+
+                        <tr>
+                            <th>Full Name</th>
+
+                            <th>Email</th>
+
+                            <th>ID Number</th>
+                        </tr>
+
+
+                        @foreach (var emp in Model.Where(z => z.employee.Employee_Role.Emp_Role_Description.Equals(item.Emp_Role_Description)))
+                        {
+                            <tr>
+                                <td>@emp.employee.EMPName @emp.employee.EMPSurname</td>
+                                <td>@emp.employee.EMP_Email</td>
+                                <td>@emp.employee.Emp_IDNum.</td>
+                            </tr>
+                        }
+
+
+
+                    </table>
+
+                }
+
+                <script>
+                    function hidebutton() {
+                        var x = document.getElementById("downloadbtn");
+                        if (x.style.display === "none") {
+                            x.style.display = "block";
+                        } else {
+                            x.style.display = "none";
+                        }
+
+
+                    }
+
+                    function refreshpage() {
+                        location.reload();
+                    }
+                </script>
+
+                <div class="notices">
+                    <div>NOTICE:</div>
+                    <div class="notice"><strong>Please review form to ensure all details are correct</strong></div>
+                </div>
+            </main>
+            <footer>
+                Form was created on a computer and is valid without the signature and seal.
+            </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
+    </div>
+</div>

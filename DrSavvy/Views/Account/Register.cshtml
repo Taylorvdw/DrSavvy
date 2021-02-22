@@ -1,0 +1,111 @@
+﻿@model DrSavvy.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Content/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
+    <!--===============================================================================================-->
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="border-radius:15px">
+    <div class="container-fluid">
+        <button type="submit" class="btn" style="color:white" onclick="window.history.back(-1)">
+            <i class="fas fa-undo"></i>
+            <span>Return</span>
+        </button>
+        <div style="margin-left:-70px;color:#00709e;font-size:24px;font-weight:600;">
+            @ViewBag.Patient
+        </div>
+        <div class="title" style="font-size:24px; font-weight:600; color:white">
+            @ViewBag.Title
+        </div>
+    </div>
+</nav>
+    <div class="container-login100" style="margin-top:-45px;">
+        <div class="wrap-login100" style="background-color:rgba(0,0,0,0.35);border-radius:15px;height:80%;overflow:no-display">
+            <span class="login100-form-title p-b-48" style="margin-top:-50px" >
+                <img style="height:150px ; width:250px ; border-radius:15px ; margin-left:-20px " src="~/Content/images/Logos/Savvy dark.jpg" />
+            </span>
+            <div id="loginForm">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group" style="margin-left:40px">
+                        <label>User Name</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @style = "border-radius:20px", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-left:40px">
+                        @Html.LabelFor(m => m.Email, new { @class = " control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @style = "border-radius:20px", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-left:40px">
+                        @Html.LabelFor(m => m.Password, new { @class = " control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "border-radius:20px", autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-left:40px">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = " control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @style = "border-radius:20px" , autocomplete = "off"})
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                  @*  <div class="form-group" style="margin-left:40px">
+                        @Html.Label("User Role ? ", new { @class = "control-label" })
+                        <div class="col-md-10">
+
+                            @Html.DropDownListFor(m => m._roles, ViewBag.Name as IEnumerable<SelectListItem>, new { @class = "btn-dark", @style = "border-radius:20px;margin-left:80px" })
+                            @Html.ValidationMessageFor(model => model._roles, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input style="width:200px; margin-left:80px; background-color:#00709e; color:white ; border-radius:20px" type="submit" value="Register" class="btn btn-sm" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

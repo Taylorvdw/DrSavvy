@@ -1,0 +1,333 @@
+﻿@model IEnumerable<DrSavvy.Models.Xray>
+
+@{
+    ViewBag.Title = "Xrays";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+@section Scripts{
+    <link src="~/Scripts/jquery-3.4.1.js" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //hide Upload Div
+            $("#idx1").hide();
+            //button upload click
+            $('#btnUpload').click(function () {
+                $("#uploadTable").hide();
+                $("#idx1").toggle();
+            });
+
+
+            $('#btnRequest').click(function () {
+                $("#uploadTable").hide();
+                $("#idx1").hide();
+                $("#ReqXray").show();
+            });
+
+            $('#btnUploadFile').on('click', function () {
+                 event.preventDefault();
+                var data = new FormData();
+                  
+                var files = $("#fileUpload").get(0).files;
+                var PatID = $("#Patient_ID").val();
+                var Tit = $("#Title").val();
+                var con = $("#Consultation_ID").val();
+                // Add the uploaded image content to the form data collection
+                if (files.length > 0) {
+                    data.append("UploadedImage", files[0]);
+                }
+                debugger
+                // Make Ajax request with the contentType = false, and procesDate = false
+                $.ajax({
+                    type: "POST",
+                    url: "/Xrays/Upload?Title="+Tit+"&Patient_ID="+PatID+"&Consultation_ID="+con,
+                    contentType: false,
+                    processData: false,
+                    data: data
+                }).done(function (xhr, textStatus) {
+                    Swal.fire({
+                        position: 'top',
+                        type: 'success',
+                        title: '<span style="color:gray">Files Have Been Uploaded',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    $('#Title').val('');
+                    $('#fileInput').val('');
+                    $("#idx1").hide();
+                    $("#uploadTable").show();
+                    $("#uploader").hide();
+                    setTimeout(function () {
+                        location.reload();
+                    });
+                });
+            });
+
+        });
+    </script>
+}
+<style>
+    .imageContainer > img:hover {
+  width: 500px;
+  height: 500px;
+}
+</style>
+<nav class="navbar navbar-expand-lg navbar-light" style="border-radius:15px">
+    <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn" style="color:white" onclick="window.close()">
+            <i class="fas fa-undo"></i>
+            <span>Return to Consultation</span>
+        </button>
+        <div style="margin-left:-70px;color:#00709e;font-size:24px;font-weight:600;">
+            @ViewBag.Patient
+        </div>
+        <div class="title" style="font-size:24px; font-weight:600; color:white">
+            @ViewBag.Title
+        </div>
+    </div>
+</nav>
+<div class="container-fluid btn btn-group">
+    <button class="btn btn-outline-warning btn-lg" data-toggle="modal" data-target="#ReqXray">Request Xray</button>
+    <button class="btn btn-outline-primary btn-lg" id="btnUpload">Upload Xray</button>
+</div>
+<div id="uploadTable">
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayName("Consultation")
+            </th>
+            <th>
+                @Html.DisplayName("Image")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Skull Check
+            </td>
+            <td>
+                243
+            </td>
+            <td class="imageContainer">
+                <img src="~/Content/File Uploaded/x-ray-skull-from-right-side.jpg" height="100" width="100" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Hand Upload
+            </td>
+            <td>
+                245
+            </td>
+            <td class="imageContainer">
+                <img src="~/Content/File Uploaded/hand-x-ray-768x923.jpg" height="100" width="100" />
+            </td>
+        </tr>
+        <tr>
+            <td class="imageContainer">
+                Weird Xray
+            </td>
+            <td>
+                247
+            </td>
+            <td>
+                <img src="~/Content/File Uploaded/weird-x-rays-nail-in-face.jpg" height="100" width="100" />
+            </td>
+        </tr>
+        <tr>
+            <td class="imageContainer">
+               MRI-Brain Check
+            </td>
+            <td>
+                247
+            </td>
+            <td>
+                    <video controls="controls">
+                        <source src="~/Content/File%20Uploaded/MRI%20Data%20Visualization.mp4" height="100" width="100" type="video/mp4" />
+                    </video>
+            </td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Consultation_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImagePath)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.ImagePath)" height="100" width="100" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+<hr style="background-color:white" />
+<div id="idx1" style="margin-left:300px">
+    <div class="border-light" style="display:block;background-color:rgba(0, 0, 0, 0.84);border-radius:20px;width:500px; margin-left:160px;" id="uploadtier">
+        <div class="justify-content-md-around" style="background-color:#00709e; border-top-left-radius:20px ; border-top-right-radius:20px">
+            <h4 style="color:white; margin-left:5px"><i class="fa fa-plus-circle" style="color:rgba(0, 0, 0, 0)"></i></h4>
+        </div>
+        <form id="upload" >
+            <div class="form-horizontal" style="position:absolute">
+                <div class="form-group">
+                    <h3 style="margin-left: 10px">File Title</h3>
+                    <input class="col-md-10 form-control" placeholder="Enter Title" id="Title"style="width:200px;margin-left:50px;border-radius:20px;color:black;" name="Title" />
+                </div>
+                <div class="form-group" style="display:none">
+                    <h1 style="color:black ; margin-left: 10px">Patient_ID</h1>
+                    <div class="col-md-10">
+                        <input type="number" class="form-control" value="@ViewBag.PatID" id="Patient_ID" name="Patient_ID" />
+                    </div>
+                </div>
+                <div class="form-group" style="display:none">
+                    <h1 style="color:black ; margin-left: 10px">Consultation_ID</h1>
+                    <div class="col-md-10">
+                        <input class="form-control" value="@ViewBag.ConsID" id="Consultation_ID" name="Consultation_ID" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h3 style="color:black ; margin-left: 10px">Select Image Location</h3>
+                        <input type="file" class="btn btn-dark" id="fileUpload" required />
+                        <button style="border-radius:15px" class="btn btn btn-outline-primary" id="btnUploadFile">
+                            Upload File
+                        </button>
+                    <br />
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+    @using (Html.BeginForm("XRayForm", "Report", FormMethod.Post))
+    {
+        <div class="modal fade" id="ReqXray" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="background-color:black">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalLabelSmall" style="text-align:center">Radiologists Request</h4>
+
+                        <div><center><i class="fas fa-check-circle fa-2x" style="text-align:center"></i></center></div>
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>-->
+                    </div>
+
+                    <div class="modal-body">
+                        <input type="number" class="form-control" style="display:none" value="@ViewBag.PatID" id="Patient_ID2" name="Patient_ID2" />
+
+                        <div class="[ form-group ]">
+                            <input onclick="EnabledTextArea()" type="checkbox" name="Xra" id="Xra" autocomplete="off" value="Xra" />
+                            <div class="[ btn-group ]">
+                                <label for="Xra" class="[ btn btn-primary ]">
+                                    <span class="[ glyphicon glyphicon-ok ]"><i class="fas fa-check" style="color:white"></i></span>
+                                    <span> </span>
+                                </label>
+                                <label for="Xra" class="[ btn btn-default table-active ]">
+                                    X-Rays
+                                </label>
+                            </div>
+                        </div>
+                        <textarea disabled id="XraTA" name="XraTA" class="form-control" rows="1" placeholder="Enter X-Ray comment."></textarea>
+                        <hr style="background-color:slategrey" />
+
+                        <div class="[ form-group ]">
+                            <input onclick="EnabledTextArea()" type="checkbox" name="Sonar" id="Sonar" autocomplete="off" value="Sonar" />
+                            <div class="[ btn-group ]">
+                                <label for="Sonar" class="[ btn btn-primary ]">
+                                    <span class="[ glyphicon glyphicon-ok ]"><i class="fas fa-check" style="color:white"></i></span>
+                                    <span> </span>
+                                </label>
+                                <label for="Sonar" class="[ btn btn-default table-active ]">
+                                    Sonar / Ultrasound
+                                </label>
+                            </div>
+                        </div>
+                        <textarea disabled id="SonarTA" name="SonarTA" class="form-control" rows="1" placeholder="Enter Sonar comment."></textarea>
+                        <hr style="background-color:slategrey" />
+
+                        <div class="[ form-group ]">
+                            <input onclick="EnabledTextArea()" type="checkbox" name="CT" id="CT" autocomplete="off" value="CT" />
+                            <div class="[ btn-group ]">
+                                <label for="CT" class="[ btn btn-primary ]">
+                                    <span class="[ glyphicon glyphicon-ok ]"><i class="fas fa-check" style="color:white"></i></span>
+                                    <span> </span>
+                                </label>
+                                <label for="CT" class="[ btn btn-default table-active ]">
+                                    CT Scan
+                                </label>
+                            </div>
+                        </div>
+                        <textarea disabled id="CTTA" name="CTTA" class="form-control" rows="1" placeholder="Enter CT Scan Comment."></textarea>
+                        <hr style="background-color:slategrey" />
+                        <div class="[ form-group ]">
+                            <input onclick="EnabledTextArea()" type="checkbox" name="MR" id="MR" autocomplete="off" value="MR" />
+                            <div class="[ btn-group ]">
+                                <label for="MR" class="[ btn btn-primary ]">
+                                    <span class="[ glyphicon glyphicon-ok ]"><i class="fas fa-check" style="color:white"></i></span>
+                                    <span> </span>
+                                </label>
+                                <label for="MR" class="[ btn btn-default table-active ]">
+                                    M.R. Scan
+                                </label>
+                            </div>
+                        </div>
+                        <textarea disabled id="MRTA" name="MRTA" class="form-control" rows="1" placeholder="Enter M.R Scan comment."></textarea>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" formtarget="_blank" data-toggle="modal" data-target="#"><i class="fas fa-plus"></i>  Save & Print </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+    <script>
+        function EnabledTextArea() {
+            if (document.getElementById("Xra").checked == true) {
+                document.getElementById("XraTA").removeAttribute("disabled");
+            }
+            else {
+                document.getElementById("XraTA").setAttribute("disabled", "true");
+            }
+
+
+            if (document.getElementById("Sonar").checked == true) {
+                document.getElementById("SonarTA").removeAttribute("disabled");
+            }
+            else {
+                document.getElementById("SonarTA").setAttribute("disabled", "true");
+            }
+
+
+            if (document.getElementById("CT").checked == true) {
+                document.getElementById("CTTA").removeAttribute("disabled");
+            }
+            else {
+                document.getElementById("CTTA").setAttribute("disabled", "true");
+            }
+
+
+            if (document.getElementById("MR").checked == true) {
+                document.getElementById("MRTA").removeAttribute("disabled");
+            }
+            else {
+                document.getElementById("MRTA").setAttribute("disabled", "true");
+            }
+        }
+    </script>

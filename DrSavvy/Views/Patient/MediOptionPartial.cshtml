@@ -1,0 +1,12 @@
+﻿<option value="">--Medical Aid Scheme--</option>
+@if (ViewBag.ProductList != null)
+{
+
+    foreach (var item in ViewBag.ProductList)
+    {
+
+        <option value="@item.Value">@item.Text </option>
+
+    }
+
+}

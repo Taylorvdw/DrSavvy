@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f183b51d7e7f4d30b308d34a66cca341" Name="Diagram1">
+        <EntityTypeShape EntityType="DrSavvyModel.Access_Control" Width="1.5" PointX="7.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Ailment" Width="1.5" PointX="12.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Allergy" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Appointment" Width="1.5" PointX="7.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.AspNetUser" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Backlog" Width="1.5" PointX="25.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Consultation_Ailment" Width="1.5" PointX="15" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Consultation_Procedure" Width="1.5" PointX="15" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Consultation" Width="1.5" PointX="12.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.database_firewall_rules" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Employee_Role" Width="1.5" PointX="10" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Employee" Width="1.5" PointX="12.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Institute_Type" Width="1.5" PointX="12.75" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Institute" Width="1.5" PointX="15" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Medical_Aid_Claim" Width="1.5" PointX="18" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Medical_Aid_Company" Width="1.5" PointX="0.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Medical_Aid_Scheme" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Medication" Width="1.5" PointX="15.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.MobileApp" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Order_Line" Width="1.5" PointX="31.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Order_Payment" Width="1.5" PointX="25.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Order_Status" Width="1.5" PointX="20.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Order" Width="1.5" PointX="23" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Patient_Allergy_List" Width="1.5" PointX="10.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Patient" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Payment_Type" Width="1.5" PointX="12.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Payment" Width="1.5" PointX="15" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Prescription_Line" Width="1.5" PointX="18" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Price" Width="1.5" PointX="28.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Procedure" Width="1.5" PointX="12.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Product_Procedure" Width="1.5" PointX="31.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Product_Type" Width="1.5" PointX="23.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Product" Width="1.5" PointX="26" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Reconcilliation" Width="1.5" PointX="28.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Referral_Test" Width="1.5" PointX="17.25" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Referral" Width="1.5" PointX="15" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Sick_Note" Width="1.5" PointX="15" PointY="32.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Stock_Take" Width="1.5" PointX="29" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Stock_take_Line" Width="1.5" PointX="31.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Supplier" Width="1.5" PointX="20.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.sysdiagram" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Test_Type" Width="1.5" PointX="12.75" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Test" Width="1.5" PointX="15" PointY="36.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Timeslot" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Title" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.User" Width="1.5" PointX="14.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrSavvyModel.Xray" Width="1.5" PointX="18" PointY="19" IsExpanded="true" />
+        <AssociationConnector Association="DrSavvyModel.FK__Employee___Acces__3D2915A8" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Consultat__Ailme__3864608B" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Patient_A__Aller__4B7734FF" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Appointme__Times__2DE6D218" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Consultat__Appoi__3587F3E0" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Consultat__Appoi__395884C4" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Appointment_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Backlog__OrderID__339FAB6E" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Backlog_Order_Line" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Consultat__Consu__37703C52" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Consultat__Consu__3A4CA8FD" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Consultat__Proce__3B40CD36" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Medical_A__Consu__40058253" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Payment__Consult__4E53A1AA" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Prescript__Consu__503BEA1C" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Referral__Consul__57DD0BE4" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Sick_Note__Consu__5BAD9CC8" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Xrays__Consultat__607251E5" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Consultation_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Employee__EMP_Ro__3C34F16F" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__User__EMP_ID__5F7E2DAC" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Institute__Insti__3E1D39E1" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Referral_Test_Institute" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Medical_A__Payme__3F115E1A" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Medical_A__Compa__40F9A68C" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Patient__Scheme___489AC854" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Prescript__Medic__4F47C5E3" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Order_Lin__Order__43D61337" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Order_Line_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Order_Pay__Order__45BE5BA9" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Order_Pay__Payme__31B762FC" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Order__OS_ID__41EDCAC5" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Order__Supplier___42E1EEFE" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Patient_Allergy_List_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Patient__Depende__47A6A41B" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Patient__Title_I__498EEC8D" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Patient_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Prescription_Line_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Xrays_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Payment__Payment__4D5F7D71" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Price_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Product_P__Proce__55009F39" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Product_Procedure_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Product__Product__531856C7" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Stock_tak__Produ__5CA1C101" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Product_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK_Reconcilliation_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Referral___Ref_I__59C55456" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Referral___TestI__58D1301D" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Stock_tak__Stock__5D95E53A" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.FK__Test__Test_Type___5E8A0973" ManuallyRouted="false" />
+        <AssociationConnector Association="DrSavvyModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

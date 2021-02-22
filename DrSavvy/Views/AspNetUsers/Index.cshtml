@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DrSavvy.Models.AspNetUser>
+
+@{
+    ViewBag.Title = "System Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <button type="button" class="btn btn-outline-success btn-sm" onclick="window.location.href='@Url.Action("Create","AspNetUsers")'">Register New System User</button>
+    <button type="button" class="btn btn-outline-secondary btn-sm" style="float:right" onclick="window.location.href='@Url.Action("Create","AspNetRoles")'">Manage System Roles</button>
+</div>
+<table class="table table-striped table-dark" style="border-radius: 25px;">
+    <tr style="background-color:#499df5">
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailConfirmed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecurityStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailConfirmed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SecurityStamp)
+        </td>
+ 
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

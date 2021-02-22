@@ -1,0 +1,64 @@
+﻿@model DrSavvy.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+}
+<h2><span style="color:dodgerblue">System User Details</span></h2>
+<div>
+    <hr style="background-color:white" />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Roles)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Roles)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailConfirmed)
+        </dt>
+        <dt>
+            @Html.DisplayFor(model => model.EmailConfirmed)
+        </dt>
+    </dl>
+</div>
+<hr style="background-color:white" />
+
+<h4><span style="color:dodgerblue">List of roles for this user</span></h4>
+<hr style="background-color:white" />
+
+@if (ViewBag.RoleNames.Count == 0)
+{
+    <hr />
+    <p>No roles found for this user.</p>
+}
+
+<table class="table">
+
+    @foreach (var item in ViewBag.RoleNames)
+    {
+        <tr>
+            <td style="color: crimson">
+                @item
+            </td>
+        </tr>
+    }
+</table>
+<p>
+ |
+    <button class="btn btn-dark"> @Html.ActionLink("Back to List", "Index") </button>
+</p>
+
+
+

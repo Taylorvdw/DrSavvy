@@ -1,0 +1,733 @@
+﻿
+@{
+    ViewBag.Title = "Appointments";
+}
+
+@section Scripts {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href='~/Content/fullcalender/core/main.css' rel='stylesheet' />
+    <link href='~/Content/fullcalendar/list/main.css' rel='stylesheet' />
+    <link href='~/Content/fullcalendar/daygrid/main.css' rel='stylesheet' />
+    <link href='~/Content/fullcalendar/timegrid/main.css' rel='stylesheet' />
+    <link href='~/Content/fullcalendar/bootstrap/main.css' rel='stylesheet' />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js">
+
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js">
+
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
+
+    </script>
+    <script src='~/Content/fullcalendar/core/main.js'>
+
+    </script>
+    <script src='~/Content/fullcalendar/bootstrap/main.js'>
+
+    </script>
+    <script src='~/Content/fullcalendar/daygrid/main.js'>
+
+    </script>
+    <script src='~/Content/fullcalendar/timegrid/main.js'>
+
+    </script>
+    <script src='~/Content/fullcalendar/list/main.js'>
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*Get Data From Appointments Table in The Database*/
+            var appointments = [];
+            var selectedAppointment = null;
+            FetchAppointmentAndRenderCalendar();
+            //Checked
+            function FetchAppointmentAndRenderCalendar() {
+                appointments = [];
+                $.ajax
+                    ({
+                        type: "GET", //define type to retrive data
+                        url: "/Patient/GetAppointments", // provide url to get data from appointments
+
+                        /*/If Success Fetch /*/
+                        success: function (data) {
+                            $.each(data, function (i, v) { // create Jquery For Loop
+                                    appointments.push({ //link appointment Data create object
+                                    appointmentID: v.AppointmentID,
+                                    title: v.Subject,
+                                    description: v.Description,
+                                    start: moment(v.Start),
+                                    end: v.End != null ? moment(v.End) : null,
+                                    color: v.Color,
+                                    allDay: v.IsFullDay,
+                                    patient: v.patient,
+                                    time: v.Timeslot_ID,
+                                    date: v.Date,
+                                    patIDNumber: v.PatientIDNumber
+                                });debugger
+                            })
+                            //generate calander after linking
+                            GenerateCalender(appointments);
+                        },
+                        //Validation error handling
+                        error: function (error) {
+                            alert('failed');
+                        }
+                    })
+            }
+            /*-Below is the Formatting of the Calnder using JQuery and setting out the overal display of the calander -*/
+            function GenerateCalender(appointments) {
+                $('#calender').fullCalendar('destroy'); //if calander exits Then Clear Calander
+                $('#calender').fullCalendar({ //if calander doesnt Exist then create callander
+                    contentHeight: 500, //set Calander height
+                    defaultDate: new Date(), // set current Date For Calander
+                    eventTimeFormat: 'h(:mm)a', //set Time format
+                    plugins: ['timeGrid'],
+                    header:
+                    {
+                        left: 'prev,next',  // buttons on navigation for calander
+                        center: 'title', //center display for months
+                        right: 'month,listWeek' // select buttons
+                    },
+                    buttonText: {
+                        prev: '<',
+                        next: '>'
+                    },
+                    businessHours:
+                    {
+                        daysOfWeek: [1, 2, 3, 4, 5]
+                    },
+                    nowIndicator: true,
+                    now: true,
+                    weekNumbersWithinDays: true,
+                    weekends: false,
+                    views: {
+                        week: {
+                            minTime: '09:00:00',
+                            maxTime: '17:00:00',
+                        },
+                        day: {
+                            minTime: '09:00:00',
+                            maxTime: '17:00:00',
+                        }
+                    },
+                    firstDay: 1,
+                    allDaySlot: false,
+                    slotEventOverlap: false,
+                    slotDuration: '00:15:00',
+                    slotLabelInterval: 15,              
+                    slotMinutes: 15,
+                    eventBackgroundColor: 'rgba(76, 91, 106, 0.5)',
+                    eventBorderColor: '#08c',
+                    eventTextColor: 'white',
+                    defaultView: 'month',
+                    eventLimit: 4,
+                    //agendaEventMinHeight: 2,
+                    eventColor: '#378006',
+                    events: appointments,
+                    eventClick: function (calEvent, jsEvent, view) {// funtion is called when appointment is clicked
+                        selectedAppointment = calEvent;
+                        $('#myModal #appointmentTitle').text(calEvent.title);
+                        $('#modifyAppointment #modhdaappointmentID').val(calEvent.appointmentID);
+                        $('#modifyAppointment #txtDateAp').val(calEvent.date);
+                        $('#modifyAppointment #txtPatIdAp').val(calEvent.patIDNumber);
+                        $('#modifyAppointment #txtStartAp').val(calEvent.start.format("HH:mm:ss"));
+                        $('#modifyAppointment #txtEndAp').val(calEvent.end.format("HH:mm:ss"));
+                        $('#modifyAppointment #txtReasonAp').val(calEvent.description);
+                        $('#modifyAppointment #txtColorAp').val(calEvent.color);
+                        var $description = $('<div />');
+                        $description.append($('<br />').html('<br />'));
+                        $description.append($('<h3/>').html('<b> Date :</b>' + " " + calEvent.date));
+                        $description.append($('<h3 />').html('<b>From:</b>' + " " + calEvent.start.format("HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<h3/>').html('<b>To :</b>' + " " + calEvent.end.format("HH:mm a")));
+                        }
+                        $description.append($('<h4/>').html('<b>Reason:</b>' + " " + calEvent.description));
+                        $('#myModal #pDetails').html($description);
+                        $('#myModal').modal();
+                    },
+                    noEventsMessage: "No Appointments to Display",
+                    selectable: true,
+                    dayClick: function (date, jsEvent, view) { 
+                        $('#txtDate').val(Date.now());
+                        openAddEditForm();
+
+                     },
+                    //select: function (start, end) {
+                    //    selectedAppointment = {
+                    //        appointmentID: 0,
+                    //        patient: 0,
+                    //        title: '',
+                    //        description: '',
+                    //        start: start,
+                    //        end: end,
+                    //        allDay: false,
+                    //        color: ''
+                    //    };
+                      
+                    //    $('#calendar').fullCalendar('unselect');
+                    //},
+                    editable: false
+                })
+            }
+            ///////////////////////////////////////////////////////////////
+            /*BtnMmodify*/
+            $('#btnModify').click(function () {
+                //Open modal dialog for edit event
+                $('#myModal').modal('hide');
+                $('#modifyAppointment').modal('show');
+
+            })
+            /*-Button Edit Appointment*/
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+            /*-Button Delete Appointment*/
+            $('#btnDelete').click(function () {
+                if (selectedAppointment != null) {
+                    Swal.fire({
+                        title: '<span style="color:black">Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            $.ajax({
+                                type: "POST",
+                                url: '/Patient/Deleteppointment',
+                                data: { 'appointmentID': selectedAppointment.appointmentID },
+                                success: function (data) {
+                                    if (data.status) {
+                                        Swal.fire(
+                                            'Deleted!',
+                                            'Appointmment has been deleted.',
+                                            'success'
+                                        );
+                                        $('#myModal').modal('hide');
+                                        //Refresh the calender
+                                        location.reload();
+                                    }
+                                },
+                                error: function () {
+                                    Swal.fire({
+                                        type: 'error',
+                                        title: '<span style="color:black">Oops...',
+                                        text: 'Something went wrong!',
+                                        footer: '<a href><span style="color:dodgerblue">Why do I have this issue?</a>'
+                                    });
+                                }
+                            })
+                        }
+                    });
+
+                }
+            })
+            /*Button Save Patient */
+            $('#btnSave').click(function () {
+                //Validation
+                if ($('#txtName').val().trim() == "") {
+                    Swal.fire('<span style="color:#f0ad4e"> Hold on.... Patient Name is Required');
+                    return;
+                }
+                if ($('#txtSurname').val().trim() == "") {
+                    Swal.fire('<span style="color:#f0ad4e"> Hold on.... Surname is Required');
+                    return;
+                }
+                if ($('#txtIDnum').val().trim() == "") {
+                    Swal.fire('<span style="color:#f0ad4e"> Hold on.... ID Number is Required');
+                    return;
+                }
+                Swal.fire({
+                    title: '<span style="color:grey">Are you sure?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Add Patient!'
+                }).then((result) => {
+                    if (result.value) {
+                        SavePatient();
+                    }
+                });
+                // call function for submit data to the server
+            })
+            /*Btn Close add Patient*/
+            $('#btnCloseAdd').click(function () {
+                $('#txtName').val('');
+                $('#txtSurname').val('');
+                $('#txtIDnum').val('');
+                $('#txtCell').val('');
+                $('#myModalAdd').modal('hide');
+
+
+            })
+            /*Btn Save Appointment*/
+            $('#btnSaveAppointment').click(function () {
+                //Validation
+                if (TDate()) {
+                    if ($('#txtDate').val().trim() == "") {
+                        Swal.fire('<span style="color:#f0ad4e"> Hold on.... You Havent Selected a Date');
+                        return;
+                    }
+                    if ($('#txtReason').val().trim() == "") {
+                        Swal.fire('<span style="color:#f0ad4e"> Please Enter a Reason For the Appointment');
+                        return;
+                    }
+                    if ($('#txtStart').val() > $('#txtEnd').val() || $('#txtStart').val() == $('#txtEnd').val()) {
+                        Swal.fire('<span style="color:#f0ad4e">Hmm Somethings Up', 'The Appointment End time cannot Be the same as/earlier than the Start time ', 'warning');
+                        return;
+                    }
+                    var datep = $('#txtDate').val();
+                    var PatId = $('#txtPatId option:selected').text();
+                    var Start = $('#txtStart').val();
+                    var End = $('#txtEnd').val();
+                    var Reason = $('#txtReason').val();
+                    var Color = $('#txtColor').val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/Patient/AddAppointment',
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({
+                            "Date": datep,
+                            "PatId": PatId,
+                            "Start": Start,
+                            "End": End,
+                            "Reason": Reason,
+                            "Color": Color
+                        }),
+                        success: function (data) {
+                            if (data.status) {
+                                Swal.fire(
+                                    '<span style="color:#32CD32">Appointment Booked Successfully',
+                                    '',
+                                    'success'
+                                );
+                                $('#txtDate').val('');
+                                $('#txtReason').val('');
+                                $('#addAppointment').modal('hide');
+                                //Refresh the calender
+                                FetchAppointmentAndRenderCalendar();
+                            }
+                        },
+                        error: function () {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href><span style="color:dodgerblue">Why do I have this issue?</a>'
+                            });
+                            $('#txtDate').val('');
+                            $('#txtReason').val('');
+                        }
+                    })
+                }
+            })
+            /*Btn CloseAddAppointment*/
+            $('#btnCloseApp').click(function () {
+                $('#txtDate').val('');
+                $('#txtReason').val('');
+                $('#addAppointment').modal('hide');
+            })
+            /*Btn Update Appointment*/
+            $('#btnUpdateAppointment').click(function () {
+                if (TDate1()) {
+                    //Validation
+                    if ($('#txtDateAp').val().trim() == "") {
+                        Swal.fire('<span style="color:#f0ad4e"> Hold on.... You Havent Selected a Date');
+                        return;
+                    }
+                    if ($('#txtReasonAp').val().trim() == "") {
+                        Swal.fire('<span style="color:#f0ad4e"> Please Enter a Reason For the Appointment');
+                        return;
+                    }
+                    if ($('#txtStartAp').val() > $('#txtEndAp').val() || $('#txtStartAp').val() == $('#txtEndAp').val()) {
+                        Swal.fire('<span style="color:#f0ad4e">Hmm Somethings Up', 'The Appointment End time cannot Be the same as/earlier than the Start time ', 'warning');
+                        return;
+                    }
+                    var Id = $('#modhdaappointmentID').val();
+                    var dateAp = $('#txtDateAp').val();
+                    var PatId = $('#txtPatIdAp option:selected').text();
+                    var Start = $('#txtStartAp').val();
+                    var End = $('#txtEndAp').val();
+                    var Reason = $('#txtReasonAp').val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/Patient/ModifyAppointment',
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({
+                            "id": Id,
+                            "Date": dateAp,
+                            "PatId": PatId,
+                            "Start": Start,
+                            "End": End,
+                            "Reason": Reason
+                        }),
+                        success: function (data) {
+                            if (data.status) {
+                                Swal.fire(
+                                    '<span style="color:#32CD32">Appointment Updated Successfully',
+                                    '',
+                                    'success'
+                                );
+                                $('#txtDateAp').val('');
+                                $('#txtReasonAp').val('');
+                                $('#modifyAppointment').modal('hide');
+                                //Refresh the calender
+                                FetchAppointmentAndRenderCalendar();
+                            }
+
+                        },
+                        error: function () {
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href><span style="color:dodgerblue">Why do I have this issue?</a>'
+                            });
+                            $('#txtDateAp').val('');
+                            $('#txtReasonAp').val('');
+                        }
+                    })
+                }
+            })
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            function openAddEditForm() {
+                $('#myModal').modal('hide');
+                $('#addAppointment').modal('show');
+            }
+
+            /////////////////////////////////////////////////////////////////////////////////////////
+
+            function SavePatient() {
+                var name = $('#txtName').val();
+                var Surname = $('#txtSurname').val();
+                var IdNum = $('#txtIDnum').val();
+                var Cell = $('#txtCell').val();
+                var PassP = $('#txtPassport').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Patient/AddP',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        "Name": name,
+                        "Surname": Surname,
+                        "IDNum": IdNum,
+                        "CellPhone": Cell,
+                        "Passport": PassP
+                    }),
+                    success: function (data) {
+                        if (data.status) {
+                            Swal.fire(
+                                'Patient Added Successfully',
+                                'You can now Book an Appointment',
+                                'success'
+                            );
+                            $('#txtName').val('');
+                            $('#txtSurname').val('');
+                            $('#txtIDnum').val('');
+                            $('#txtCell').val('');
+                            $('#myModalAdd').modal('hide');
+                            //Refresh the calender
+                            FetchAppointmentAndRenderCalendar();
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href><span style="color:dodgerblue">Why do I have this issue?</a>'
+                        });
+                        $('#txtName').val('');
+                        $('#txtSurname').val('');
+                        $('#txtIDnum').val('');
+                        $('#txtCell').val('');
+                    }
+                })
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            $.ajax({
+                type: "GET",
+                url: "/Patient/getId",
+                data: "{}",
+                success: function (data) {
+                    var s;
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].PatientID + '">' + data[i].PatientID + '</option>';
+                    }
+                    $("#txtPatId").html(s);
+                    $("#txtPatIdAp").html(s);
+                }
+
+            });
+            $.ajax({
+                type: "GET",
+                url: "/Patient/getStart",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: "{}",
+                success: function (data) {
+                    var s;
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].StartTim + '">' + data[i].StartTim + '</option>';
+                    }
+                    $("#txtStart").html(s);
+                    $("#txtStartAp").html(s);
+                }
+
+            });
+            $.ajax({
+                type: "GET",
+                url: "/Patient/getEnd",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: "{}",
+                success: function (data) {
+                    var s;
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].EndTim + '">' + data[i].EndTim + '</option>';
+                    }
+                    $("#txtEnd").html(s);
+                    $("#txtEndAp").html(s);
+                }
+
+            });
+
+            ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////
+        })
+        function TDate() {
+            var UserDate = document.getElementById("txtDate").value;
+            var ToDate = new Date();
+            ToDate.setHours(0, 0, 0, 0);
+
+            if (new Date(UserDate).getTime() <= ToDate.getTime()) {
+                Swal.fire('<span style="color:#f0ad4e"> Time Travel...', 'Unfortunately The date you selected is Stuck in The Past', 'question');
+                return false;
+            }
+            return true;
+        }
+        function TDate1() {
+            var UserDate = document.getElementById("txtDateAp").value;
+            var ToDate = new Date();
+            ToDate.setHours(0, 0, 0, 0);
+
+            if (new Date(UserDate).getTime() <= ToDate.getTime()) {
+                Swal.fire('<span style="color:#f0ad4e"> Time Travel...', 'Unfortunately The date you selected is Stuck in The Past', 'question');
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+
+}
+<div class="btn btn-group btn-outline-dark" style="margin-top:-30px">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModalAdd" id="btntest">Add New Patient</button>
+    @using (Html.BeginForm("UpcomingAppointments", "Patient"))
+    {
+        <button type="submit" class="btn btn-dark">Upcoming Appointments</button>
+    }
+</div>
+
+<hr style="background-color:white" />
+
+<!--Display Renderd Calander within div using Jquery-->
+<div id="calender" style="Background-color:black; max-width:1300px; margin: 40px auto; color:white; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 14px;"></div>
+
+<!-- Modal Code for Calander Onclick-->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:black">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span id="appointmentTitle" style="color:white"></span></h4>
+                    <input type="hidden" id="hdaappointmentID" />
+
+                </div>
+                <div class="modal-body">
+                    <button type="button" id="btnDelete" class="btn btn-info btn-sm pull-right">
+                        <span class="fas fa-trash"></span> Remove Appointment
+                    </button>
+                    <button type="button" id="btnModify" class="btn btn-primary btn-sm pull-right" style="margin-left:90px;">
+                        <span class="fas fa-edit"></span> Modify Appointment
+                    </button>
+                    <span style="color:white" id="pDetails"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal for Adding New Appointment -->
+<div id="addAppointment" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:black;border-radius:15px">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Appointment</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Date </label>
+                    <input type="date" id="txtDate" class="form-control" required style="border-radius:20px" />
+                </div>
+
+                <div class="form-group">
+                    <label>Patient ID Number</label>
+                    <select id="txtPatId" name="txtPatId" class="form-control" style="border-radius:20px" ></select>
+                </div>
+
+                <div class="form-group">
+                    <label>Start Time</label>
+                    <select id="txtStart" name="txtStart" class="form-control" style="border-radius:20px" ></select>
+                </div>
+
+                <div class="form-group">
+                    <label>End Time</label>
+                    <select id="txtEnd" name="txtEnd" class="form-control" style="border-radius:20px" ></select>
+                </div>
+
+                <div class="form-group">
+                    <label>Reason For Appointment</label>
+                    <input type="text" placeholder="Enter Reason..." id="txtReason" class="form-control" style="border-radius:20px"  />
+                </div>
+
+                <div class="form-group" style="display:none">
+                    <label>Urgency Color?</label>
+                    <select id="txtColor" class="form-control">
+                        <option value="dodgerblue">Blue</option>
+                        <option value="red">Red</option>
+                        <option value="green">Green</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button type="button" id="btnSaveAppointment" class="btn btn-success" style="border-radius:20px" >Save </button>
+                    <button type="button" class="btn btn-dark pull-right" style="margin-left:320px;border-radius:20px" data-dismiss="modal" id="btnCloseApp" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal for Modify Appointment -->
+<div id="modifyAppointment" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:black">
+            <div class="modal-header">
+                <h4 class="modal-title">Modify Appointment</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" style="display:none" id="modhdaappointmentID" />
+
+                <div class="form-group">
+                    <label>Date </label>
+                    <input type="date" id="txtDateAp" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Patient ID Number</label>
+                    <select id="txtPatIdAp" name="txtPatIdAp" class="form-control"></select>
+                </div>
+
+                <div class="form-group">
+                    <label>Start Time</label>
+                    <select id="txtStartAp" name="txtStartAp" class="form-control"></select>
+                </div>
+
+                <div class="form-group">
+                    <label>End Time</label>
+                    <select id="txtEndAp" name="txtEndAp" class="form-control"></select>
+                </div>
+
+                <div class="form-group">
+                    <label>Reason For Appointment</label>
+                    <input type="text" placeholder="Enter Reason..." id="txtReasonAp" class="form-control" />
+                </div>
+
+                <div class="form-group" style="display:none">
+                    <label>Urgency Color?</label>
+                    <select id="txtColorAp" class="form-control">
+                        <option value="red">Red</option>
+                        <option value="dodgerblue">Blue</option>
+                        <option value="green">Green</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button type="button" id="btnUpdateAppointment" class="btn btn-success">Save </button>
+                    <button type="button" class="btn btn-dark pull-right" style="margin-left:320px" data-dismiss="modal" id="btnCloseApp">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal for Adding New Patient Details -->
+<div id="myModalAdd" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:black">
+            <div class="modal-header">
+                <h4 class="modal-title">Capture New Patient</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Patient Name</label>
+                    <input type="text" id="txtName" class="form-control" placeholder="Enter Name" />
+                </div>
+
+                <div class="form-group">
+                    <label>Surname</label>
+                    <input type="text" id="txtSurname" class="form-control" placeholder="Enter Surname" />
+                </div>
+
+                <div class="form-group">
+                    <label>ID Number</label>
+                    <input type="text" id="txtIDnum" class="form-control" placeholder="Patient ID" />
+                </div>
+
+                <div class="form-group">
+                    <label>Passport Number</label>
+                    <input type="text" id="txtPassport" class="form-control" placeholder="Patient Passport" />
+                </div>
+
+
+                <div class="form-group">
+                    <label>Cell Number</label>
+                    <input type="text" id="txtCell" class="form-control" placeholder="Enter Contact" />
+                </div>
+
+                <div>
+                    <button type="button" id="btnSave" class="btn btn-success">Save </button>
+                    <button type="button" class="btn btn-dark pull-right" style="margin-left:320px" data-dismiss="modal" id="btnCloseAdd">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Medical Certificate";
+    Layout = "~/Views/Shared/_LayoutCRUD.cshtml";
+}
+
+<nav class="navbar navbar-expand-lg navbar-light" style="border-radius:15px">
+    <div class="container-fluid">
+        <button type="submit" class="btn" style="color:white" onclick="window.close()">
+            <i class="fas fa-undo"></i>
+            <span>Back</span>
+        </button>
+        <div style="margin-left:-70px;color:#00709e;font-size:24px;font-weight:600;">
+            @ViewBag.Patient
+        </div>
+        <div>
+            <button class="btn btn-outline-primary" onclick="printContent('Prescription');">Print</button>
+        </div>
+    </div>
+</nav>
+<div class="border-light" style="display:block;background-color:white;border-radius:20px;width:800px; margin-left:300px;" id="Prescription">
+    <h1 style="margin-left:170px"><span style="color:black"><b>Dr Eddy McDonald</b></span><span style="color:black;font-size:20px"> (Inc/Ingelyf)</span></h1>
+    <p style="margin-left:260px;color:black">MB chB M Med(Pharm) FCFP (SA)<br /><span style="margin-left:80px">Pr:1518887</span><br /><span style="margin-left:80px">MP0151599</span></p>
+    <p style="color:black">
+        Suite 4A Faerie Glen Medical Centre<br />c/o Trevor Gething & Jacqueline Drive <span style="margin-left:330px">Tel:012 348 1185/6</span>
+        <br />Faerie Glen<span style="margin-left:500px">Res/Won: 012 361 2148</span><br /><span style="margin-left:590px">Fax/Faks: 012 348 4986</span>
+        <br />P.O Box/Posbus 915-1506<span style="margin-left:350px">Emerge/Nood 012 361 2148</span><br />Faerie Glen 0043<span style="margin-left:554px">08/09/2019</span>
+    </p>
+    <hr style="background-color:black" />
+    <h2 style="margin-left:270px"><span style="color:black">Medical Certificate</span></h2>
+    <p style="color:black">Undersigned hereby certifies that</p>
+    <h4><span style="color:black;margin-left:290px">@ViewBag.PatientName</span></h4>
+    <p style="margin-top:-20px; color:black;margin-left:20px">..........................................................................................................................................................</p>
+    <h5><span style="color:black;margin-left:300px">@ViewBag.ExaminedDate</span></h5>
+    <p style="color:black;margin-top:-20px">Was Examined by me on ...........................................................................(date of Examination)</p>
+    <p style="color:black;margin-left:100px"><b>According to My Knowledge/as i was informed,he or she was unfit to work since</b></p>
+    <h5><span style="color:black;margin-left:200px">@ViewBag.From</span><span style="color:black;margin-left:300px">@ViewBag.To</span> </h5>
+    <p style="color:black;margin-top:-20px;margin-left:80px">.....................................................up to and Including.................................................</p>
+    <p style="color:black;"><b>Due to ILLNESS</b></p>
+    @foreach(var item in ViewBag.List)
+    {
+        <p style="color:black">@item</p>
+    }
+    <h5><span style="color:black;margin-left:290px">@ViewBag.Resume</span></h5>
+    <p style="color:black;margin-top:-20px">He/She will Resume duty on...................................</p>
+    <br />
+    <hr style="background-color:black" />
+    <p style="margin-left:580px;color:black"><b><i>OFFTEK: 012 660 3009</i></b></p>
+    <br />
+</div>
+
+@section Scripts{
+    <script>
+        function printContent(el) {
+            var restorepage = $('body').html();
+            var printcontent = $('#' + el).clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+        }
+    </script>
+}
+
+
